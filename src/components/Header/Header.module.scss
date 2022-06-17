@@ -1,0 +1,57 @@
+@import './src/global';
+.header {
+  grid-area: h;
+  background: white;
+  box-shadow: 1px 1px 2px gray;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__logo {
+
+  }
+  &__search {
+    display: flex;
+    align-items: center;
+
+  }
+  &__status {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+}
+.logo{
+  display: flex;
+  align-items: center;
+  img{
+    width: 50px;
+  }
+  div{
+    color: $app-color;
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+.search {
+  min-width: 550px;
+  height: 44px;
+  background: #f0f2f5;
+  border-radius: 2rem;
+  padding: 3px 10px;
+  input{
+    color: #808080;
+    font-size: 15px;
+    @extend %font;
+    font-weight: 400;
+    border: transparent;
+    background: #f0f2f5;
+    width: 100%;
+    &:focus,
+    &:focus,
+    &:focus,
+    &:focus {
+      outline: none;
+    }
+  }
+}
