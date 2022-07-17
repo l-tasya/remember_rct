@@ -30,7 +30,7 @@ export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     font-size: 23px;
     }
     :hover{
-    background: #b986fc;
+    background: #c9a3fc;
     color: white;
     svg{
     color: white
@@ -107,8 +107,8 @@ border: 1px solid #f1f3f4;
             }
         }
     }
-    return <MenuContainer ref={wrapperRef}>
+    return <MenuContainer  ref={wrapperRef}>
         <Badge onClick={() => setOpen(!open)}>{iconEl()}</Badge>
-        {open ? <MenuContent>{children}</MenuContent> : ''}
+        {open ? <MenuContent onClick={()=>setOpen(false)}>{children}</MenuContent> : ''}
     </MenuContainer>
 }

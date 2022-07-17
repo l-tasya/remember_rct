@@ -48,7 +48,7 @@ export const Header: React.FC<HeaderPropsType> = ({title}) => {
       
 `
     const Profile = styled(PersonIcon)`
-    color: #b986fc;
+    color: #c9a3fc;
     font-size: 10px;
 `
     const Settings = styled(SettingsIcon)`

@@ -38,14 +38,12 @@ function App() {
         grid-column-start: 2;
         grid-column-end: 3;
         //------------
-        height: 100%;
-        background: #f5f5f5;
-        
+        height: 100%;        
     `
     const ContentItem = styled.div`
     grid-column-start: 2;
     //------------------//
-    background: #303846;
+    padding: 15px;
     border-radius: 12px;
     margin-top: 5px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
