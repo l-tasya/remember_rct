@@ -1,30 +1,38 @@
 import React from 'react';
-import s from './Header.module.scss'
-import logo from '../../common/img/Purple_Fox.png'
-import {Item1} from './Item1/Item1';
-import { Item2 } from './Item2/Item2';
-import { Item3 } from './Item3/Item3';
-import {Search} from "react-feather";
+import styled from 'styled-components';
+import {Logo} from "./Logo/Logo";
+import {Bridges} from "./Bridges/Bridges";
+
 
 type HeaderPropsType = {
     title: string
 }
-
 export const Header: React.FC<HeaderPropsType> = ({title}) => {
+    const ContainerGrid = styled.div`
+            grid-column-start: 1;
+            grid-column-end: 3;
+           
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: 1fr;
+    `
+    const Container = styled(ContainerGrid)`
+    background: white;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    position: fixed; 
+    top: 0; 
+    width: 100%;
+    height: 60px;
+    `
     return (
-        <div className={s.header}>
-            <div className={s.header__logo + " " + s.logo}>
-                <img className={s.header__img} src={logo} alt="logo doest exist"/>
-                <div className={s.header__title}>{title}</div>
-            </div>
-            <div className={s.header__search + " " + s.search}>
-                <Search color={'#808080'}/><input className={s.input} placeholder={'Search for Friends, Videos and more..'}/>
-            </div>
-            <div className={s.header__status}>
-                <Item1 />
-                <Item2 />
-                <Item3 />
-            </div>
-        </div>
+        <Container>
+            <Logo title={title}/>
+            <SearchEl/>
+            <Bridges/>
+        </Container>
     )
 }
+// <Grid container direction='row' alignItems='center'>
+//
+// </Grid>

@@ -3,7 +3,7 @@
 $app-color: #7c5ba1;
 $app-color-dark: #b986fc;
 %font {
-  font-family: 'Inter', sans-serif;
+
 }
 %block{
   background-color: white;
@@ -11,4 +11,12 @@ $app-color-dark: #b986fc;
   overflow: hidden;
   padding: 16px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);;
+}
+%block1{
+  border-radius: 1rem;
+  background: white;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.06);;
+  text-align: center;
+  height: 400px;
 }

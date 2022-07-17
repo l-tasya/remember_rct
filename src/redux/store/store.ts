@@ -1,4 +1,11 @@
+import {combineReducers, createStore} from "redux"
+import {profileReducer} from "../reducers/profileReducer"
 
-let sayHi = () => console.log('hi')
-sayHi()
-export {}
+export type AppStateType = ReturnType<typeof reducers>
+
+const reducers = combineReducers({
+    profile: profileReducer,
+    // settings: settingsReducer
+})
+
+export const store = createStore(reducers)
