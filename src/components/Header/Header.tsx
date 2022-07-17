@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Logo} from "./Logo/Logo";
 import {Bridges} from "./Bridges/Bridges";
+import {Search} from "../../common/components/Search/Search";
 
 
 type HeaderPropsType = {
@@ -28,7 +29,7 @@ export const Header: React.FC<HeaderPropsType> = ({title}) => {
     return (
         <Container>
             <Logo title={title}/>
-            <SearchEl/>
+            <Search/>
             <Bridges/>
         </Container>
     )
