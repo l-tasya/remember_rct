@@ -2,15 +2,19 @@ import React from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import {InputBase, styled} from "@mui/material";
 
-type SearchPropsType = {}
+type SearchPropsType = {
+    hoverColor: string
+    background: string
+}
 
-export const Search: React.FC<SearchPropsType> = ({}) => {
+export const Search: React.FC<SearchPropsType> = ({hoverColor, background}) => {
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
-        background: '#3b8ad9',
+        background: background,
         '&:hover': {
-            backgroundColor: '#5398dd',
+            backgroundColor: hoverColor,
+            color: 'white',
         },
         marginLeft: 0,
         width: '100%',
@@ -18,9 +22,11 @@ export const Search: React.FC<SearchPropsType> = ({}) => {
             marginLeft: theme.spacing(1),
             width: 'auto',
         },
+        color: 'gray'
+
     }));
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
+        color: 'gray',
         '& .MuiInputBase-input': {
             padding: theme.spacing(1, 1, 1, 0),
             // vertical padding + font size from searchIcon
@@ -30,9 +36,12 @@ export const Search: React.FC<SearchPropsType> = ({}) => {
             [theme.breakpoints.up('sm')]: {
                 width: '12ch',
                 '&:focus': {
-                    width: '20ch',
+                    width: '30ch',
                 },
             },
+        },
+        '&:hover': {
+            color: 'white',
         },
     }));
     const SearchIconWrapper = styled('div')(({ theme }) => ({

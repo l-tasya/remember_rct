@@ -25,11 +25,17 @@ export const Header: React.FC<HeaderPropsType> = ({title}) => {
     top: 0; 
     width: 100%;
     height: 60px;
+    align-items: center;
     `
+    const SearchContainer = styled.div`
+    grid-column-start: 4;
+    position: absolute;
+`
     return (
         <Container>
             <Logo title={title}/>
-            <Search/>
+            <SearchContainer><Search background={'#d4ddea'} hoverColor={'#c9a3fc'}/></SearchContainer>
+
             <Bridges/>
         </Container>
     )

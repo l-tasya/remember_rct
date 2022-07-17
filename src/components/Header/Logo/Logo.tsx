@@ -7,13 +7,13 @@ type LogoPropsType = {
 export const Logo: React.FC<LogoPropsType> = ({title}) => {
     const Container = styled.div`
     grid-column-start: 1;
-    grid-column-end: 2;
+    grid-column-end: 3;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     `
     const AppLogo = styled.img`
-    width: 50px;
+    width: 60px;
     `
     const AppTitle = styled.div`
     font-weight: 900;

@@ -27,7 +27,7 @@ export const NavBar: React.FC<NavbarPropsType> = () => {
     height: 100%;
     `
     let style = (props: { isActive: boolean }) => props.isActive ? {
-        color: "#b986fc",
+        color: "#c9a3fc",
     } : {
         color: 'black'
     }
@@ -37,13 +37,13 @@ export const NavBar: React.FC<NavbarPropsType> = () => {
     `
     return (
         <Container>
-            <NavLink style={style} to={'/Home'}><Home size={27}/></NavLink>
-            <NavLink style={style} to={'/Store'}><ShoppingBag size={27}/></NavLink>
-            <NavLink style={style} to={'/Videos'}><Film size={27}/></NavLink>
-            <NavLink style={style} to={'/Groups'}><Users size={27}/></NavLink>
-            <NavLink style={style} to={'/Messages'}><MessageSquare size={27}/></NavLink>
-            <NavLink style={style} to={'/Music'}><Headphones size={27}/></NavLink>
-            <LastChild><NavLink style={style} to={'/Settings'}><Settings size={27}/></NavLink></LastChild>
+            <NavLink style={style} to={'/Home'}><Home size={30}/></NavLink>
+            <NavLink style={style} to={'/Store'}><ShoppingBag size={30}/></NavLink>
+            <NavLink style={style} to={'/Videos'}><Film size={30}/></NavLink>
+            <NavLink style={style} to={'/Groups'}><Users size={30}/></NavLink>
+            <NavLink style={style} to={'/Messages'}><MessageSquare size={30}/></NavLink>
+            <NavLink style={style} to={'/Music'}><Headphones size={30}/></NavLink>
+            <LastChild><NavLink style={style} to={'/Settings'}><Settings size={30}/></NavLink></LastChild>
         </Container>
     )
 }
