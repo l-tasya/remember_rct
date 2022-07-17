@@ -38,7 +38,8 @@ function App() {
         grid-column-start: 2;
         grid-column-end: 3;
         //------------
-        height: 100%;        
+        height: 100%;      
+        background: #f5f5f5;  
     `
     const ContentItem = styled.div`
     grid-column-start: 2;
