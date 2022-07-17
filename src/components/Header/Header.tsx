@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Logo} from "./Logo/Logo";
-import {Bridges} from "./Bridges/Bridges";
+import {Badges} from "./Badges/Badges";
 import {Search} from "../../common/components/Search/Search";
 
 
@@ -36,7 +36,7 @@ export const Header: React.FC<HeaderPropsType> = ({title}) => {
             <Logo title={title}/>
             <SearchContainer><Search background={'#d4ddea'} hoverColor={'#c9a3fc'}/></SearchContainer>
 
-            <Bridges/>
+            <Badges/>
         </Container>
     )
 }
