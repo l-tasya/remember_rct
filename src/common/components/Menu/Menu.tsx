@@ -1,23 +1,68 @@
 import React, {useEffect, useRef, useState} from "react";
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import styled from "styled-components";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/store/store";
+import ChatIcon from '@mui/icons-material/Chat';
 
-type ItemType = 'profile' | 'hangouts' | 'store' | 'chat'
+type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
-    icon: ItemType
-    items: Array<string>
+    icon: BadgeType
+    children: any
 }
-export const Menu: React.FC<MenuPropsType> = ({items, icon}) => {
-    let [collapsed, setCollapsed] = useState<boolean>(true)
+export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
+    let [open, setOpen] = useState(false)
+    let profileIMG = useSelector<AppStateType, string>(t => t.profile.userInfo.photo)
+
+    //styles
     const Badge = styled.div`
+    background: #d4ddea;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg{
+    color: #3f424b;
+    font-size: 23px;
+    }
+    :hover{
+    background: #b986fc;
+    color: white;
+    svg{
+    color: white
+    }
+    
+    }
+    `
+    const MenuContent = styled.div`
+    position: absolute;
+    padding: 8px;
+border: 1px solid #f1f3f4;
+    border-radius: 4px;
+    background: white;
+    width: 250px;
+    top: 40px;
+    left: -50%;
+    font-size: 14px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 10px 25px -5px, rgba(0, 0, 0, 0.04) 0px 13px 10px -5px;
+    transition:3s ease
+   
     
 `
-    const Menu = styled.div`
-    position: absolute;
-    background: white;
-    border-radius: 4px;
-    padding: 4px;
-    border: 0.4px solid gray;
- `
+    const MenuContainer = styled.div`
+    position: relative;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+`
+    const ProfileBadge = styled.img`
+    border-radius: 50%;
+    width: 40px;
+`
 
     //handlers
     function useOutsideAlerter(ref: any) {
@@ -27,7 +72,7 @@ export const Menu: React.FC<MenuPropsType> = ({items, icon}) => {
              */
             function handleClickOutside(event: any) {
                 if (ref.current && !ref.current.contains(event.target)) {
-                    setCollapsed(true)
+                    setOpen(false)
                 }
             }
 
@@ -43,12 +88,27 @@ export const Menu: React.FC<MenuPropsType> = ({items, icon}) => {
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
 
-    return <div ref={wrapperRef}>
-        <Badge onClick={() => setCollapsed(false)}>{icon}</Badge>
-        {
-            collapsed ? '' : <Menu>
-                {items.map(t => <div>{t}</div>)}
-            </Menu>
+    let iconEl = () => {
+        switch (icon) {
+            case 'profile': {
+                return <ProfileBadge src={profileIMG}/>
+            }
+            case 'notifications': {
+                return <NotificationsIcon/>
+            }
+            case 'store': {
+                return <LocalGroceryStoreIcon/>
+            }
+            case 'messages': {
+                return <ChatIcon/>
+            }
+            default: {
+                throw new Error(`dont understand icon${icon}`)
+            }
         }
-    </div>
+    }
+    return <MenuContainer ref={wrapperRef}>
+        <Badge onClick={() => setOpen(!open)}>{iconEl()}</Badge>
+        {open ? <MenuContent>{children}</MenuContent> : ''}
+    </MenuContainer>
 }
