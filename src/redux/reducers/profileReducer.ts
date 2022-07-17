@@ -1,13 +1,18 @@
 import { v1 } from 'uuid'
-import { PostType } from '../../components/Profile/Posts/Post/Post'
 import ava from '../../common/img/eral.jpg';
 type ActionsType = ReturnType<typeof addPostAC>
+| ReturnType<typeof removePostAC>
 
 export type UserType = {
     name: string
     surname: string
     eMail: string
     photo: string
+}
+export type PostType = {
+    id: string
+    message: string
+    time: string
 }
 export type ProfileStateType = {
     userInfo: UserType,
@@ -38,6 +43,11 @@ export const profileReducer = (state: StateType = initialState, action: ActionsT
             stateCopy.posts = [...stateCopy.posts, newItem]
             return stateCopy
         }
+        case "REMOVE-POST":{
+            const stateCopy = {...state}
+            stateCopy.posts = stateCopy.posts.filter(t=>t.id !== action.postID)
+            return stateCopy
+        }
         default:{
             return state
         }
@@ -47,5 +57,11 @@ export const addPostAC = (newValue: string) =>{
     return {
         type: 'ADD-POST',
         newValue,
+    } as const
+}
+export const removePostAC = (postID: string) =>{
+    return {
+        type: 'REMOVE-POST',
+        postID,
     } as const
 }
