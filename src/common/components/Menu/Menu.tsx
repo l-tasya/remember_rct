@@ -9,7 +9,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
     icon: BadgeType
-    children: any
+    children: React.ReactNode
 }
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     let [open, setOpen] = useState(false)
