@@ -13,7 +13,7 @@ export const AppWrapper = styled.div`
 export const StyledBlock = styled.div`
     min-width: 40%;
     background: white;
-    padding: 15px;
+    padding: 10px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
     overflow: hidden;
     border-radius: 12px;

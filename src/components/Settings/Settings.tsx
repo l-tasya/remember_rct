@@ -1,8 +1,11 @@
+import Button from "@mui/material/Button/Button";
 import React, {useState} from "react";
 import styled from "styled-components";
-import {v1} from "uuid";
 import {RadioButton} from "../../common/components/Radio/Radio";
 import {StyledBlock} from "../../common/styles/styles";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store/store";
+import {setColorAC, ThemesArrayType} from "../../redux/reducers/settingsReducer";
 
 export type ColorValueType =
     | 'purple'
@@ -17,35 +20,42 @@ export type StateType = {
     second: string
 }[]
 export const Settings = () => {
+    let themes = useSelector<AppStateType, ThemesArrayType>(t=>t.settings.themes)
+    let dispatch = useDispatch()
     const SettingContainer = styled(StyledBlock)`
-    grid-template-columns: repeat(3,1fr);
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    
 `
     const Title = styled.div`
+    grid-column-start: 1;
+    grid-row-start: 1;
+    font-size: 17px;
 `
     const ColorSelectContainer = styled.div`
+    grid-column-start: 1;
+    grid-row-start: 2;
     display: flex;
-    width: 30%;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
+    margin-bottom: 5px;
 `
-
-    let themesArray: StateType = [
-        {id: v1(), value: 'purple', first: '#7c5ba1', second: '#c9a3fc'},
-        {id: v1(), value: 'green', first: '#01d201', second: '#98ff98'},
-        {id: v1(), value: 'blue', first: '#1a74ed', second: '#84bbff'},
-        {id: v1(), value: 'red', first: '#dc2121', second: '#e38585'},
-        {id: v1(), value: 'pink', first: '#ff0084', second: '#ff8bc0'},
-    ];
-    // TODO: lvl up to redux
-
+    const ApplyButton = styled(Button)`
+       grid-column-start: 1;
+       grid-row-start: 3;
+       width: 30px;
+       justify-self: flex-end;
+`
     let [value, setValue] = useState<ColorValueType>('pink')
     return <SettingContainer>
         <Title>Select app theme</Title>
         <ColorSelectContainer>
-            {themesArray.map(t => <RadioButton title={t.second} c1={() => setValue(t.value)}
+            {themes.map(t => <RadioButton title={t.second} c1={() => setValue(t.value)}
                                                checked={t.value === value}/>)}
         </ColorSelectContainer>
-        {/*{TODO: create submit button and setting}*/}
+        <ApplyButton onClick={()=>dispatch(setColorAC(value))} variant={'contained'} size={'small'}>Apply</ApplyButton>
     </SettingContainer>
 }
