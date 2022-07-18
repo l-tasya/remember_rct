@@ -11,6 +11,7 @@ export const AppWrapper = styled.div`
  width: 100%;
 `
 export const StyledBlock = styled.div`
+    min-width: 40%;
     background: white;
     padding: 15px;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
