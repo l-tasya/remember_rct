@@ -1,19 +1,22 @@
 import React from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import {InputBase, styled} from "@mui/material";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/store/store";
+import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 
 type SearchPropsType = {
-    hoverColor: string
     background: string
 }
 
-export const Search: React.FC<SearchPropsType> = ({hoverColor, background}) => {
+export const Search: React.FC<SearchPropsType> = ({background}) => {
+    const color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
         background: background,
         '&:hover': {
-            backgroundColor: hoverColor,
+            backgroundColor: color.second,
             color: 'white',
         },
         marginLeft: 0,

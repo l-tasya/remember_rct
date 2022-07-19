@@ -21,14 +21,6 @@ function App() {
     grid-template-rows: repeat(1, 60px 1fr);
     height: 100vh;
     `
-
-
-    const HeaderEl = styled(Header)`
-
-    `
-    const NavBarEl = styled(NavBar)`
- 
-    `
     const ContentContainer = styled.div`
         display: grid;
         grid-template-columns: 1fr 4fr 1fr;
@@ -54,8 +46,8 @@ function App() {
     return (
         <GridContainer>
 
-            <HeaderEl title={'FOX NETWORK'}/>
-            <NavBarEl/>
+            <Header title={'FOX NETWORK'}/>
+            <NavBar/>
             <ContentContainer>
                 <ContentItem>
                     <Routes>

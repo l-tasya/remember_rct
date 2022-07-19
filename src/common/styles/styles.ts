@@ -1,4 +1,7 @@
 import styled from "styled-components";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store/store";
+import {ThemeColorType} from "../../redux/reducers/settingsReducer";
 // @ts-ignore
 
 type WrapperPropsType = {

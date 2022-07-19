@@ -3,11 +3,14 @@ import {NavLink} from "react-router-dom";
 
 import {Film, Headphones, Home, MessageSquare, Settings, ShoppingBag, Users} from "react-feather";
 import styled from "styled-components";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store/store";
+import {ThemeColorType} from "../../redux/reducers/settingsReducer";
 
 
 type NavbarPropsType = {}
 export const NavBar: React.FC<NavbarPropsType> = () => {
-
+    const color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
     const ContainerGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
@@ -27,7 +30,7 @@ export const NavBar: React.FC<NavbarPropsType> = () => {
     height: 100%;
     `
     let style = (props: { isActive: boolean }) => props.isActive ? {
-        color: "#c9a3fc",
+        color: color.second,
     } : {
         color: 'black'
     }

@@ -62,7 +62,7 @@ export const Header: React.FC<HeaderPropsType> = ({title}) => {
     return (
         <Container>
             <Logo title={title}/>
-            <SearchContainer><Search background={'#d4ddea'} hoverColor={'#c9a3fc'}/></SearchContainer>
+            <SearchContainer><Search background={'#d4ddea'}/></SearchContainer>
             <BadgesContainer>
                 <Menu icon={'store'}>
                     <MenuSelect>(empty) </MenuSelect>

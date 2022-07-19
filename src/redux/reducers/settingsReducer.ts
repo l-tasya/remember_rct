@@ -20,11 +20,11 @@ export type ThemeColorType = {
 }
 const initialState: StateType = {
     themeColor: {
-        first: '#7c5ba1',
-        second: '#c9a3fc'
+        first: '#8d59ac',
+        second: '#ca87ff'
     },
     themes:  [
-        {id: v1(), value: 'purple', first: '#7c5ba1', second: '#c9a3fc'},
+        {id: v1(), value: 'purple', first: '#8d59ac', second: '#ca87ff'},
         {id: v1(), value: 'green', first: '#01d201', second: '#98ff98'},
         {id: v1(), value: 'blue', first: '#1a74ed', second: '#84bbff'},
         {id: v1(), value: 'red', first: '#dc2121', second: '#e38585'},

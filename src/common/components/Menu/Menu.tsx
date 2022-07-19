@@ -5,6 +5,7 @@ import styled from "styled-components";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import ChatIcon from '@mui/icons-material/Chat';
+import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
@@ -14,7 +15,7 @@ type MenuPropsType = {
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     let [open, setOpen] = useState(false)
     let profileIMG = useSelector<AppStateType, string>(t => t.profile.userInfo.photo)
-
+    let color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
     //styles
     const Badge = styled.div`
     background: #d4ddea;
@@ -30,7 +31,7 @@ export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     font-size: 23px;
     }
     :hover{
-    background: #c9a3fc;
+    background: ${color.second};
     color: white;
     svg{
     color: white
