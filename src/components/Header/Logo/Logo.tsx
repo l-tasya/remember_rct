@@ -7,14 +7,13 @@ import red from '../../../common/img/Red_Fox.png';
 import pink from '../../../common/img/Pink_Fox.png';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
-import {ThemeColorType, ThemesArrayType} from "../../../redux/reducers/settingsReducer";
+import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 
 type LogoPropsType = {
     title: string
 }
 export const Logo: React.FC<LogoPropsType> = ({title}) => {
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    let themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
     const Container = styled.div`
     grid-column-start: 1;
     grid-column-end: 3;
