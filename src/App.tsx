@@ -50,14 +50,14 @@ function App() {
             <ContentContainer>
                 <ContentItem>
                     <Routes>
-                        <Route path={'/Home'} element={<Home/>}/>
-                        <Route path={'/Videos'} element={<Videos/>}/>
-                        <Route path={'/Groups'} element={<Groups/>}/>
-                        <Route path={'/Store'} element={<Store/>}/>
-                        <Route path={'/Music'} element={<Music/>}/>
-                        <Route path={'/Messages'} element={<Messages/>}/>
-                        <Route path={'/Profile'} element={<Profile/>}/>
-                        <Route path={'/Settings'} element={<Settings/>}/>
+                        <Route path={'/'} element={<Home/>}/>
+                        <Route path={'Videos'} element={<Videos/>}/>
+                        <Route path={'Groups'} element={<Groups/>}/>
+                        <Route path={'Music'} element={<Music/>}/>
+                        <Route path={'Store'} element={<Store/>}/>
+                        <Route path={'Messages'} element={<Messages/>}/>
+                        <Route path={'Profile/*'} element={<Profile/>}/>
+                        <Route path={'Settings'} element={<Settings/>}/>
                     </Routes>
                 </ContentItem>
             </ContentContainer>
