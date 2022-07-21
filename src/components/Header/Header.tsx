@@ -76,7 +76,7 @@ export const Header: React.FC<HeaderPropsType> = ({title}) => {
                     <MenuSelect>messages</MenuSelect>
                 </Menu>
                 <Menu icon={'profile'}>
-                    <MenuSelect><Profile/><NavLink to={'/Profile'}>Profile</NavLink></MenuSelect>
+                    <MenuSelect><Profile/><NavLink to={'/Profile/posts'}>Profile</NavLink></MenuSelect>
                     <MenuSelect><Settings/><NavLink to={'/Settings'}>Options</NavLink></MenuSelect>
                     <MenuSelect><LogOut/>Log Out</MenuSelect>
                 </Menu>

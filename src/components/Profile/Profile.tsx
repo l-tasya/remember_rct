@@ -18,6 +18,7 @@ export const Profile = () => {
             <Content>
                 <Routes>
                     <Route path="posts" element={<Posts/>}/>
+                    <Route path="/" element={<Posts/>}/>
                     <Route path="friends" element={<Friends/>}/>
                     <Route path="groups" element={<Groups/>}/>
                 </Routes>
