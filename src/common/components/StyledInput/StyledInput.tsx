@@ -25,6 +25,6 @@ export const StyledInput: React.FC<StyledInputPropsType> = ({addPost}) => {
             addPostCallback()
         }
     }
-    return <TextField variant="outlined" label='NewPost' error={Boolean(error)} value={value} helperText={error}
+    return <TextField size={'small'} variant="outlined" label='NewPost' error={Boolean(error)} value={value} helperText={error}
                       onChange={onChangeEvent} onKeyPress={(e) => EnterKeyPress(e)}/>
 }

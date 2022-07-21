@@ -9,13 +9,10 @@ export const Posts = () => {
     let posts = useSelector<AppStateType, PostType[]>(t => t.profile.posts)
     let dispatch = useDispatch()
     return (
-        // <div>
-        //         //     <StyledInput addPost={(value: string) => dispatch(addPostAC(value))}/>
-        //         //     {posts.map(t => <Post removePost={() => dispatch(removePostAC(t.id))} key={t.id} message={t.message}
-        //         //                           time={t.time} id={t.id}/>)}
-        //         // </div>
         <div>
-            poooooost
+            <StyledInput addPost={(value: string) => dispatch(addPostAC(value))}/>
+            {posts.map(t => <Post removePost={() => dispatch(removePostAC(t.id))} key={t.id} message={t.message}
+                                  time={t.time} id={t.id}/>)}
         </div>
     )
 }

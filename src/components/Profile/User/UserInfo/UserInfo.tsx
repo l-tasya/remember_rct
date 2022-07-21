@@ -71,19 +71,24 @@ export const UserInfo: React.FC = () => {
     grid-column-end: 4;
     grid-row-start: 6;
     grid-row-end: 7;
-    background: #b986fc;
     display: grid;
     margin: 0 5px;
     grid-template-columns: repeat(10, 1fr);
+    a{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 `
-    const FooterItem = styled(NavLink)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white
-`
+
     let user: UserType = useSelector<AppStateType, UserType>(t => t.profile.userInfo)
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
+
+    let style = (props: { isActive: boolean }) => props.isActive ? {
+        borderBottom: `4px solid ${color.first}`,
+    } : {
+        background: 'white'
+    }
     return (
         <Container>
             <BackGroundEl background={color.first}/>
@@ -95,9 +100,9 @@ export const UserInfo: React.FC = () => {
                 <SubTitle>{user.eMail}</SubTitle>
             </InfoContainer>
             <Footer>
-                <FooterItem to={'posts'}>posts</FooterItem>
-                <FooterItem to={'friends'}>friends</FooterItem>
-                <FooterItem to={'groups'}>groups</FooterItem>
+                <NavLink style={style} to={'posts'}>Posts</NavLink>
+                <NavLink style={style} to={'friends'}>Friends</NavLink>
+                <NavLink style={style}  to={'groups'}>Groups</NavLink>
             </Footer>
 
         </Container>)

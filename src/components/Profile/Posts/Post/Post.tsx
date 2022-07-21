@@ -1,5 +1,6 @@
 import React from "react";
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import styled from "styled-components";
 export type PostPropsType = {
     id: string
     message: string
@@ -7,7 +8,11 @@ export type PostPropsType = {
     removePost: () => void
 }
 export const Post: React.FC<PostPropsType> = ({ message, time, removePost}) => {
+    const Container = styled.div`
+    display: flex;
+    align-items: center;
+`
     return (
-        <div>{message}<span>{time}</span><HighlightOffIcon onClick={()=>removePost()} sx={{color: 'red'}}/></div>
+        <Container>{message}<span>{time}</span><HighlightOffIcon onClick={()=>removePost()} sx={{color: 'red'}}/></Container>
     )
 }
