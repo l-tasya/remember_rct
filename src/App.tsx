@@ -7,7 +7,7 @@ import {Videos} from "./components/Videos/Videos";
 import {Groups} from "./components/Groups/Groups";
 import {Store} from "./components/Store/Store";
 import {Music} from './components/Music/Music';
-import {Messages} from "./components/Messages/Messages";
+import {Dialogs} from "./components/Messages/Dialogs";
 import {Profile} from "./components/Profile/Profile";
 import {Settings} from "./components/Settings/Settings";
 import styled from 'styled-components';
@@ -32,14 +32,16 @@ function App() {
         //------------
         height: 100%;      
         background: #f5f5f5;  
+        position: relative;
     `
     const ContentItem = styled.div`
     grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
     //------------------//
     padding: 15px;
     border-radius: 12px;
     margin-top: 5px;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
     overflow: hidden;
     `
     return (
@@ -55,7 +57,7 @@ function App() {
                         <Route path={'Groups'} element={<Groups/>}/>
                         <Route path={'Music'} element={<Music/>}/>
                         <Route path={'Store'} element={<Store/>}/>
-                        <Route path={'Messages'} element={<Messages/>}/>
+                        <Route path={'Messages'} element={<Dialogs/>}/>
                         <Route path={'Profile/*'} element={<Profile/>}/>
                         <Route path={'Settings'} element={<Settings/>}/>
                     </Routes>
