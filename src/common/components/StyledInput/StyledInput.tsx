@@ -10,6 +10,7 @@ export const StyledInput: React.FC<StyledInputPropsType> = ({addPost}) => {
     let [value, setValue] = useState<string>('')
     let [error, setError] = useState<ErrorType>()
     const onChangeEvent = (e: ChangeEvent<HTMLInputElement>) => {
+        setError('')
         setValue(e.currentTarget.value)
     }
     const addPostCallback = () => {
@@ -25,6 +26,6 @@ export const StyledInput: React.FC<StyledInputPropsType> = ({addPost}) => {
             addPostCallback()
         }
     }
-    return <TextField size={'small'} variant="outlined" label='NewPost' error={Boolean(error)} value={value} helperText={error}
+    return <TextField size={'small'} variant="outlined" label='New Post' error={Boolean(error)} value={value} helperText={error}
                       onChange={onChangeEvent} onKeyPress={(e) => EnterKeyPress(e)}/>
 }
