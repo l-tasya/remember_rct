@@ -10,7 +10,7 @@ export const Posts = () => {
     let dispatch = useDispatch()
     return (
         <div>
-            <StyledInput addPost={(value: string) => dispatch(addPostAC(value))}/>
+            <StyledInput label={'New post'} addItem={(value: string) => dispatch(addPostAC(value))}/>
             {posts.map(t => <Post removePost={() => dispatch(removePostAC(t.id))} key={t.id} message={t.message}
                                   time={t.time} id={t.id}/>)}
         </div>
