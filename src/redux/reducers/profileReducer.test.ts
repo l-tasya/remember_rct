@@ -7,7 +7,8 @@ test('correct post should be added', () =>{
             name: 'Temirtas',
             surname: 'Nursain',
             eMail: 'dalionfull@gmail.com',
-            photo: `ddd`
+            photo: `ddd`,
+            id: v1()
         },
         posts: [
             {id: v1(), message: 'someText', time: '22:22'},
@@ -27,7 +28,8 @@ test('correct post should be removed', () =>{
             name: 'Temirtas',
             surname: 'Nursain',
             eMail: 'dalionfull@gmail.com',
-            photo: `ddd`
+            photo: `ddd`,
+            id: v1()
         },
         posts: [
             {id: v1(), message: '1', time: '22:22'},

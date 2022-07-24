@@ -8,6 +8,7 @@ export type UserType = {
     surname: string
     eMail: string
     photo: string
+    id: string
 }
 export type PostType = {
     id: string
@@ -22,10 +23,11 @@ const avaIMG = ava
 type StateType = ProfileStateType
 const initialState: StateType = {
     userInfo: {
+        id: v1(),
         name: 'Temirtas',
         surname: 'Nursain',
         eMail: 'dalionfull@gmail.com',
-        photo: avaIMG
+        photo: avaIMG,
     },
     posts: [
         {id: v1(), message: 'someText', time: '22:22'},
