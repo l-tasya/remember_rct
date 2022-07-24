@@ -3,9 +3,10 @@ import {TextField} from "@mui/material";
 
 
 type StyledInputPropsType = {
-    addPost: (value: string) => void
+    addItem: (value: string) => void
+    label: string
 }
-export const StyledInput: React.FC<StyledInputPropsType> = ({addPost}) => {
+export const StyledInput: React.FC<StyledInputPropsType> = ({addItem, label}) => {
     type ErrorType = string | '' | null
     let [value, setValue] = useState<string>('')
     let [error, setError] = useState<ErrorType>()
@@ -15,7 +16,7 @@ export const StyledInput: React.FC<StyledInputPropsType> = ({addPost}) => {
     }
     const addPostCallback = () => {
         if (value.trim() !== '') {
-            addPost(value)
+            addItem(value)
             setValue('')
         } else if (value.trim() === '') {
             setError('Invalid value')
@@ -26,6 +27,6 @@ export const StyledInput: React.FC<StyledInputPropsType> = ({addPost}) => {
             addPostCallback()
         }
     }
-    return <TextField size={'small'} variant="outlined" label='New Post' error={Boolean(error)} value={value} helperText={error}
+    return <TextField size={'small'} variant="outlined" label={label} error={Boolean(error)} value={value} helperText={error}
                       onChange={onChangeEvent} onKeyPress={(e) => EnterKeyPress(e)}/>
 }
