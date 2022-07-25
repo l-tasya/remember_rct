@@ -1,5 +1,5 @@
 import {v1} from 'uuid'
-import {dialogID1, dialogID2} from "./dialogsReducer";
+import {addDialogAC, dialogID1, dialogID2, removeDialogAC} from "./dialogsReducer";
 
 export type MessageType = {
     id: string
@@ -11,7 +11,9 @@ export type MessagesType = {
 }
 
 
-type ActionsType= ReturnType<typeof addMessage>;
+type ActionsType= ReturnType<typeof addMessageAC>
+    |ReturnType<typeof addDialogAC>
+    |ReturnType<typeof removeDialogAC>
 export type StateType = MessagesType;
 const initialState: StateType = {
     [dialogID1]:[
@@ -37,12 +39,22 @@ export const messagesReducer = (state: StateType = initialState, action: Actions
             stateCopy[action.dialogID] =[...stateCopy[action.dialogID], newMessage]
             return stateCopy
         }
+        case "ADD-DIALOG":{
+            const stateCopy = {...state};
+            stateCopy[action.id] = [];
+            return stateCopy
+        }
+        case "REMOVE-DIALOG":{
+            const stateCopy = {...state}
+            delete stateCopy[action.dialogID]
+            return stateCopy
+        }
         default: {
             return state
         }
     }
 }
-export const addMessage = (dialogID: string, newValue: string, isMe: boolean) =>{
+export const addMessageAC = (dialogID: string, newValue: string, isMe: boolean) =>{
     return {
         type: "ADD-MESSAGE",
         dialogID,
