@@ -16,12 +16,11 @@ export const Messages: React.FC<DialogPropsType> = () => {
         return pathname.split('/')[2]
     }
     let dialogID = getID(pathname)
-
-    console.log()
     //TODO: style of Messages, use isMe variable
+
     return (<div>
             {dialogID? messages[dialogID].map(t=><div key={t.id}>{t.message}</div>):<div>Messages</div>}
-        {dialogID?<StyledInput label={'New Message'} addItem={(value: string)=>dispatch(addMessageAC(dialogID,value,true))}/>:''}
+        {dialogID? <StyledInput  label={'New Message'} addItem={(value: string)=>dispatch(addMessageAC(dialogID,value,true))}/>:''}
         </div>
     )
 }

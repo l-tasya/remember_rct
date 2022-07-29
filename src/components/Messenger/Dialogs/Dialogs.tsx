@@ -40,7 +40,7 @@ export const Dialogs: React.FC<DialogPropsType> = () => {
     return (
         <Container>
             {
-                dialogs.map(t=><NavLink to={`${t.id}`}>{t.name}</NavLink>)
+                dialogs.map((t, i)=><NavLink key={i} to={`${t.id}`}>{t.name}</NavLink>)
             }
         </Container>
     )

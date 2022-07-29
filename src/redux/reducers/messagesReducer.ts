@@ -18,13 +18,13 @@ export type StateType = MessagesType;
 const initialState: StateType = {
     [dialogID1]:[
         {id: v1(), message: 'text1', isMe: true},
-        {id: v1(), message: 'text1', isMe: true},
-        {id: v1(), message: 'text1', isMe: true},
+        {id: v1(), message: 'text2', isMe: true},
+        {id: v1(), message: 'text3', isMe: true},
     ],
     [dialogID2]:[
-        {id: v1(), message: 'text2',isMe: true},
-        {id: v1(), message: 'text2',isMe: true},
-        {id: v1(), message: 'text2',isMe: true},
+        {id: v1(), message: 'tjk1',isMe: true},
+        {id: v1(), message: 'tjk2',isMe: true},
+        {id: v1(), message: 'tjk3',isMe: true},
     ]
 }
 export const messagesReducer = (state: StateType = initialState, action: ActionsType): StateType => {
