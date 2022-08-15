@@ -8,9 +8,7 @@ import {UserInfo} from "./User/UserInfo/UserInfo";
 import {StyledBlock} from "../../common/styles/styles";
 
 export const Profile = () => {
-    const Content = styled(StyledBlock)`
-        margin-top: 10px;
-        padding: 20px;
+    const Content = styled.div`
 `
     return (
         <div>

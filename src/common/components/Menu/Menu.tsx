@@ -12,6 +12,11 @@ type MenuPropsType = {
     icon: BadgeType
     children: React.ReactNode
 }
+export const ProfileBadge = styled.img`
+    border-radius: 50%;
+    width: 40px;
+    background: gray;
+`
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     let [open, setOpen] = useState(false)
     let profileIMG = useSelector<AppStateType, string>(t => t.profile.userInfo.photo)
@@ -60,10 +65,7 @@ border: 1px solid #f1f3f4;
     flex-direction: column;
     justify-content: center;
 `
-    const ProfileBadge = styled.img`
-    border-radius: 50%;
-    width: 40px;
-`
+
 
     //handlers
     function useOutsideAlerter(ref: any) {

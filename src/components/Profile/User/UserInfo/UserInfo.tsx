@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../../redux/store/store";
-import {UserType} from "../../../../redux/reducers/profileReducer";
 import {StyledBlock} from "../../../../common/styles/styles";
 import {ThemeColorType} from "../../../../redux/reducers/settingsReducer";
 import {NavLink} from "react-router-dom";
+import {UserType} from "../../../../redux/reducers/usersReducer";
 
 
 export const UserInfo: React.FC = () => {

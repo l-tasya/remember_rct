@@ -1,15 +1,10 @@
 import { v1 } from 'uuid'
 import ava from '../../common/img/eral.jpg';
+import { UserType } from './usersReducer';
 type ActionsType = ReturnType<typeof addPostAC>
 | ReturnType<typeof removePostAC>
 
-export type UserType = {
-    name: string
-    surname: string
-    eMail: string
-    photo: string
-    id: string
-}
+
 export type PostType = {
     id: string
     message: string
@@ -41,7 +36,7 @@ export const profileReducer = (state: StateType = initialState, action: ActionsT
     switch (action.type) {
         case 'ADD-POST':{
             const stateCopy = {...state}
-            const newItem: PostType = {id: v1(), message: action.newValue, time: '22:22'}
+            const newItem: PostType = {id: v1(), message: action.newValue, time: `${new Date}`.slice(16, 21)}
             stateCopy.posts = [...stateCopy.posts, newItem]
             return stateCopy
         }
