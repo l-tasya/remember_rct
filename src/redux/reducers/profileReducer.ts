@@ -18,11 +18,14 @@ const avaIMG = ava
 type StateType = ProfileStateType
 const initialState: StateType = {
     userInfo: {
-        id: v1(),
-        name: 'Temirtas',
-        surname: 'Nursain',
-        eMail: 'dalionfull@gmail.com',
-        photo: avaIMG,
+        id: 333,
+        name: 'Temirtas Nursain',
+        status: 'dalionfull@gmail.com',
+        photo: {
+            small: avaIMG,
+            large: avaIMG
+        },
+        followed: true
     },
     posts: [
         {id: v1(), message: 'someText', time: '22:22'},
@@ -37,7 +40,7 @@ export const profileReducer = (state: StateType = initialState, action: ActionsT
         case 'ADD-POST':{
             const stateCopy = {...state}
             const newItem: PostType = {id: v1(), message: action.newValue, time: `${new Date}`.slice(16, 21)}
-            stateCopy.posts = [...stateCopy.posts, newItem]
+            stateCopy.posts = [newItem, ...stateCopy.posts ]
             return stateCopy
         }
         case "REMOVE-POST":{

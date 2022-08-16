@@ -1,5 +1,4 @@
 import React from "react";
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import styled from "styled-components";
 import CancelIcon from '@mui/icons-material/Cancel';
 import {ProfileBadge} from "../../../../common/components/Menu/Menu";
@@ -11,6 +10,7 @@ export type PostPropsType = {
     removePost: () => void
 }
 export const Post: React.FC<PostPropsType> = ({message, time, removePost}) => {
+
     const Container = styled.div`
     background: white;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -20,12 +20,13 @@ export const Post: React.FC<PostPropsType> = ({message, time, removePost}) => {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr auto;
+    
 `
     const Remove = styled(CancelIcon)`
     &:hover{
     color: red;
     transition: 0.5s;
-    
+
     }
     grid-column-start: 2;
     grid-row-start: 1;
@@ -73,6 +74,9 @@ export const Post: React.FC<PostPropsType> = ({message, time, removePost}) => {
     color: #666;
     font-family: system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';;
 `
+    const onClickHandler = () => {
+        removePost()
+    }
     return (
         <Container>
             <InfoContainer>
@@ -85,7 +89,7 @@ export const Post: React.FC<PostPropsType> = ({message, time, removePost}) => {
                 {message}
             </Content>
 
-            <Remove onClick={() => removePost()} sx={{color: 'darkgrey', fontSize: 15}}/>
+            <Remove onClick={() => onClickHandler()} sx={{color: 'darkgrey', fontSize: 15}}/>
         </Container>
     )
 }

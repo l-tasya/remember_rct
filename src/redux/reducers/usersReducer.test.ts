@@ -1,16 +1,20 @@
 import {setUsersAC, StateType, usersReducer, UserType} from "./usersReducer"
-import {v1} from "uuid";
+
 test('users reducers should set users', ()=>{
     const startState: StateType = {
         users: []
     }
     let newUsers: UserType[] = [
         {
-            id: v1(),
-            photo: '',
-            eMail: 'dalionfull@gmail.com',
-            surname: 'Nursain',
-            name: 'Temirtas'
+            id: 9399,
+            photo: {
+                small: undefined,
+                large: undefined,
+            },
+            status: 'dalionfull@gmail.com',
+            name: 'Temirtas',
+            followed: true,
+
         }
     ]
     const endState: StateType = usersReducer(startState, setUsersAC(newUsers))

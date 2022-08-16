@@ -62,10 +62,11 @@ export const UserInfo: React.FC = () => {
         font-weight: 600;
     `
     const SubTitle = styled.div`
-        color: lightgreen;
+        color: tomato;
   
 
     `
+
     const Footer = styled.div`
     grid-column-start: 1;
     grid-column-end: 4;
@@ -93,11 +94,11 @@ export const UserInfo: React.FC = () => {
         <Container>
             <BackGroundEl background={color.first}/>
             <UserAvatar >
-                <img src={user.photo} alt='profile photo undefined'/>
+                <img src={user.photo.large} alt='profile photo undefined'/>
             </UserAvatar>
             <InfoContainer>
-                <Title>{user.name} {user.surname}</Title>
-                <SubTitle>{user.eMail}</SubTitle>
+                <Title>{user.name}</Title>
+                <SubTitle>{user.status}</SubTitle>
             </InfoContainer>
             <Footer>
                 <NavLink style={style} to={'posts'}>Posts</NavLink>

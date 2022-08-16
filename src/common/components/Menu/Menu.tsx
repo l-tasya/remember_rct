@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import ChatIcon from '@mui/icons-material/Chat';
 import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
+import {StyledIMGBadge} from "../../styles/styles";
 
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
@@ -19,22 +20,13 @@ export const ProfileBadge = styled.img`
 `
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     let [open, setOpen] = useState(false)
-    let profileIMG = useSelector<AppStateType, string>(t => t.profile.userInfo.photo)
-    let color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
+    let profileIMG = useSelector<AppStateType, string | undefined>(t => t.profile.userInfo.photo.large)
+    let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     //styles
-    const Badge = styled.div`
-    background: #d4ddea;
-    border-radius: 50%;
+    const Badge = styled(StyledIMGBadge)`
     width: 40px;
     height: 40px;
-    margin: 0 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    svg{
-    color: #3f424b;
-    font-size: 23px;
-    }
+        border-radius: 50%;
     :hover{
     background: ${color.second};
     color: white;
@@ -110,8 +102,8 @@ border: 1px solid #f1f3f4;
             }
         }
     }
-    return <MenuContainer  ref={wrapperRef}>
+    return <MenuContainer ref={wrapperRef}>
         <Badge onClick={() => setOpen(!open)}>{iconEl()}</Badge>
-        {open ? <MenuContent onClick={()=>setOpen(false)}>{children}</MenuContent> : ''}
+        {open ? <MenuContent onClick={() => setOpen(false)}>{children}</MenuContent> : ''}
     </MenuContainer>
 }

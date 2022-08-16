@@ -5,10 +5,10 @@ import {Friends} from "./Friends/Friends";
 import {Groups} from "./Groups/Groups";
 import {Posts} from "./Posts/Posts";
 import {UserInfo} from "./User/UserInfo/UserInfo";
-import {StyledBlock} from "../../common/styles/styles";
 
 export const Profile = () => {
     const Content = styled.div`
+
 `
     return (
         <div>

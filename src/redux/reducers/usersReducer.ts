@@ -1,10 +1,13 @@
 
 export type UserType = {
     name: string
-    surname: string
-    eMail: string
-    photo: string
-    id: string
+    id: number
+    photo: {
+        small?: string,
+        large?: string,
+    }
+    status: string
+    followed: boolean
 }
 type ActionsType = ReturnType<typeof setUsersAC>
 export type StateType = {

@@ -5,10 +5,13 @@ test('correct post should be added', () =>{
     const startState: ProfileStateType = {
         userInfo: {
             name: 'Temirtas',
-            surname: 'Nursain',
-            eMail: 'dalionfull@gmail.com',
-            photo: `ddd`,
-            id: v1()
+            status: 'dalionfull@gmail.com',
+            photo: {
+                large: undefined,
+                small: undefined,
+            },
+            id: 333,
+            followed: true,
         },
         posts: [
             {id: v1(), message: 'someText', time: '22:22'},
@@ -26,10 +29,13 @@ test('correct post should be removed', () =>{
     const startState: ProfileStateType = {
         userInfo: {
             name: 'Temirtas',
-            surname: 'Nursain',
-            eMail: 'dalionfull@gmail.com',
-            photo: `ddd`,
-            id: v1()
+            status: 'dalionfull@gmail.com',
+            photo: {
+                large: undefined,
+                small: undefined,
+            },
+            id: 333,
+            followed: true,
         },
         posts: [
             {id: v1(), message: '1', time: '22:22'},

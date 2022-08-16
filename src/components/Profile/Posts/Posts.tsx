@@ -11,6 +11,7 @@ export const Posts = () => {
     let posts = useSelector<AppStateType, PostType[]>(t => t.profile.posts)
     let dispatch = useDispatch()
     const Container = styled.div`
+    transition: 3s linear;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
