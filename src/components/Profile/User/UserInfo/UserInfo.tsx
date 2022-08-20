@@ -15,6 +15,7 @@ export const UserInfo: React.FC = () => {
       grid-template-columns: 1fr 1fr 1fr; 
       grid-template-rows: repeat(6,1fr);
       height: 400px;
+      min-width: 585px
     `
     const BackGroundEl = styled.div`
         grid-column-start: 1;
@@ -42,7 +43,8 @@ export const UserInfo: React.FC = () => {
         width: 152px;
         height: 152px;
         border-radius: 50%;
-        border: 10px solid white;}
+        border: 10px solid white;
+        }
        
     `
     const InfoContainer = styled.div`

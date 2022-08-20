@@ -26,6 +26,7 @@ export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     const Badge = styled(StyledIMGBadge)`
     width: 40px;
     height: 40px;
+    margin: 0 10px;
         border-radius: 50%;
     :hover{
     background: ${color.second};

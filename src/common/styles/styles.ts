@@ -20,9 +20,6 @@ export const StyledBlock = styled.div`
 `
 export const StyledIMGBadge = styled.div`
     background: #d4ddea;
-
- 
-    margin: 0 10px;
     display: flex;
     justify-content: center;
     align-items: center;

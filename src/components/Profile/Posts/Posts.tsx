@@ -2,10 +2,10 @@ import React from "react";
 import {Post} from "./Post/Post";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
-import {addPostAC, PostType, removePostAC} from "../../../redux/reducers/profileReducer";
+import {addPostAC, likeClickAC, PostType, removePostAC} from "../../../redux/reducers/profileReducer";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
 import styled from "styled-components";
-import { StyledBlock } from "../../../common/styles/styles";
+import {StyledBlock} from "../../../common/styles/styles";
 
 export const Posts = () => {
     let posts = useSelector<AppStateType, PostType[]>(t => t.profile.posts)
@@ -24,6 +24,7 @@ export const Posts = () => {
     display: block;
     margin: 20px 0 20px 20px;
     height: 300px;
+    min-width: 200px;
 `
     const Input = styled.div`
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -40,8 +41,17 @@ export const Posts = () => {
                 <Input>
                     <StyledInput label={'New post'} addItem={(value: string) => dispatch(addPostAC(value))}/>
                 </Input>
-                {posts.map(t => <Post removePost={() => dispatch(removePostAC(t.id))} key={t.id} message={t.message}
-                                      time={t.time} id={t.id}/>)}
+                {posts.map(t => <Post
+                    removePost={() => dispatch(removePostAC(t.id))}
+                    key={t.id}
+                    message={t.message}
+                    time={t.time}
+                    id={t.id}
+                    likeCount={t.likeCount}
+                    isLiked={t.isLiked}
+                    likeCallback={(postID: string) => dispatch(likeClickAC(postID))}/>
+                    )
+                }
             </Content>
             <About>
                 <div>Friends: 5,344+</div>
