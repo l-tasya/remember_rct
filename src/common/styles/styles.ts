@@ -11,7 +11,6 @@ export const AppWrapper = styled.div`
  overflow-x: hidden;
 `
 export const StyledBlock = styled.div`
-    min-width: 40%;
     background: white;
     padding: 16px;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -27,4 +26,20 @@ export const StyledIMGBadge = styled.div`
     color: #3f424b;
     font-size: 23px;
     }
+`
+export const StyledButton = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    background: white;
+    border: 0;
+    outline: 0;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    height: 40px;
+    width: 60%;
+    font-weight: 700;
+    color: #3f424b;
+    
 `
