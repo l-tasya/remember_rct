@@ -10,19 +10,31 @@ export type UserType = {
     followed: boolean
 }
 type ActionsType = ReturnType<typeof setUsersAC>
-export type StateType = {
+|ReturnType<typeof changeTotalUsersAC>
+export type UsersStateType = {
     users: UserType[]
+    pageSize: number
+    currentPage: number
+    totalUsers: number
 }
 
-const initialState: StateType = {
-    users: []
+const initialState: UsersStateType = {
+    users: [],
+    pageSize: 12,
+    currentPage: 2,
+    totalUsers: 0,
 }
 
-export const usersReducer = (state: StateType = initialState, action: ActionsType): StateType =>{
+export const usersReducer = (state: UsersStateType = initialState, action: ActionsType): UsersStateType =>{
     switch(action.type){
         case "SET-USERS":{
             const stateCopy = {...state}
-            stateCopy.users = [...stateCopy.users, ...action.users]
+            stateCopy.users = [...action.users]
+            return stateCopy
+        }
+        case "CHANGE-TOTAL-USERS":{
+            const stateCopy = {...state}
+            stateCopy.totalUsers = action.newValue
             return stateCopy
         }
         default: {
@@ -36,4 +48,10 @@ export const setUsersAC = (users: UserType[]) => {
         users,
 
     } as const
+}
+export const changeTotalUsersAC = (newValue: number)=>{
+    return {
+        type: "CHANGE-TOTAL-USERS",
+        newValue,
+    }as const
 }
