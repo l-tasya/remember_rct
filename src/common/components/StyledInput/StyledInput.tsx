@@ -29,4 +29,4 @@ export const StyledInput: React.FC<StyledInputPropsType> = React.memo(({addItem,
     }
     return <TextField margin='normal' size={'small'} variant="outlined" label={label} error={Boolean(error)} value={value} helperText={error}
                       onChange={onChangeEvent} onKeyPress={(e) => EnterKeyPress(e)}/>
-}
+})
