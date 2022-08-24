@@ -13,13 +13,7 @@ export type ColorValueType =
     | 'blue'
     | 'red'
     | 'pink';
-export type StateType = {
-    id: string
-    value: ColorValueType
-    first: string
-    second: string
-}[]
-export const Settings = () => {
+export const Settings = React.memo(() => {
     let themes = useSelector<AppStateType, ThemesArrayType>(t=>t.settings.themes)
     let dispatch = useDispatch()
     const SettingContainer = styled(StyledBlock)`
@@ -59,3 +53,4 @@ export const Settings = () => {
         <ApplyButton onClick={()=>dispatch(setColorAC(value))} variant={'contained'} size={'small'}>Apply</ApplyButton>
     </SettingContainer>
 }
+)

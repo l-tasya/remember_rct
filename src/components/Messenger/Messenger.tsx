@@ -4,7 +4,7 @@ import {Dialogs} from "./Dialogs/Dialogs";
 import {Messages} from "./Messages/Messages";
 
 
-export const Messenger = () => {
+export const Messenger = React.memo(() => {
 
     const Container = styled.div`
     background: white;
@@ -26,3 +26,4 @@ export const Messenger = () => {
         </Container>
     )
 }
+)

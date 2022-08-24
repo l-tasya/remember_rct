@@ -13,7 +13,9 @@ export type UserPropsType = {
     }
 }
 
-export const User: React.FC<UserPropsType> = ({photo, id, name, status}) =>{
+export const User: React.FC<UserPropsType> = React.memo(({photo, name, status,followed}) =>{
+    const [follow, setFollow] = useState(followed)
+    const color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
     const Container = styled(StyledBlock)`
     margin: 10px 5px;
     display: grid;

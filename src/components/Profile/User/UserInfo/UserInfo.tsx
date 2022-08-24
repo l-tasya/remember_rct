@@ -8,7 +8,7 @@ import {NavLink} from "react-router-dom";
 import {UserType} from "../../../../redux/reducers/usersReducer";
 
 
-export const UserInfo: React.FC = () => {
+export const UserInfo: React.FC = React.memo(() => {
     const Container = styled(StyledBlock)`
       padding: 0;
       display: grid;
@@ -89,12 +89,14 @@ export const UserInfo: React.FC = () => {
 
     let style = (props: { isActive: boolean }) => props.isActive ? {
         borderBottom: `4px solid ${color.first}`,
+        transition: '0.3s'
     } : {
-        background: 'white'
+        background: 'white',
+        transition: '0.3s'
     }
     return (
         <Container>
-            <BackGroundEl background={color.first}/>
+            <BackGroundEl background={color.second}/>
             <UserAvatar >
                 <img src={user.photo.large} alt='profile photo undefined'/>
             </UserAvatar>
@@ -109,4 +111,4 @@ export const UserInfo: React.FC = () => {
             </Footer>
 
         </Container>)
-}
+})

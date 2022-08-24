@@ -33,7 +33,7 @@ export const Logo: React.FC<LogoPropsType> = ({title}) => {
         switch (color.first) {
             case "#8d59ac":
                 return purple
-            case "#01d201":
+            case "mediumspringgreen":
                 return green
             case "#1a74ed":
                 return blue

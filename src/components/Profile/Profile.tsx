@@ -6,7 +6,7 @@ import {Groups} from "./Groups/Groups";
 import {Posts} from "./Posts/Posts";
 import {UserInfo} from "./User/UserInfo/UserInfo";
 
-export const Profile = () => {
+export const Profile = React.memo(() => {
     const Content = styled.div`
 
 `

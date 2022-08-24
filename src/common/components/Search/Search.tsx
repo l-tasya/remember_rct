@@ -9,7 +9,7 @@ type SearchPropsType = {
     background: string
 }
 
-export const Search: React.FC<SearchPropsType> = ({background}) => {
+export const Search: React.FC<SearchPropsType> = React.memo(({background}) => {
     const color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',

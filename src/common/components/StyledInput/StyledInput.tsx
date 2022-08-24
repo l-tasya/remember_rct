@@ -6,7 +6,7 @@ type StyledInputPropsType = {
     addItem: (value: string) => void
     label: string
 }
-export const StyledInput: React.FC<StyledInputPropsType> = ({addItem, label}) => {
+export const StyledInput: React.FC<StyledInputPropsType> = React.memo(({addItem, label}) => {
     type ErrorType = string | '' | null
     let [value, setValue] = useState<string>('')
     let [error, setError] = useState<ErrorType>()

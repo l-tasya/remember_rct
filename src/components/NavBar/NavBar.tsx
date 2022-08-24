@@ -9,7 +9,7 @@ import {ThemeColorType} from "../../redux/reducers/settingsReducer";
 
 
 type NavbarPropsType = {}
-export const NavBar: React.FC<NavbarPropsType> = () => {
+export const NavBar: React.FC<NavbarPropsType> =React.memo( () => {
     const color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
     const ContainerGrid = styled.div`
     display: grid;
@@ -49,4 +49,4 @@ export const NavBar: React.FC<NavbarPropsType> = () => {
             <LastChild><NavLink style={style} to={'Settings'}><Settings size={30}/></NavLink></LastChild>
         </Container>
     )
-}
+})

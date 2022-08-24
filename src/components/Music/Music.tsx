@@ -2,10 +2,10 @@ import React from "react";
 
 
 
-export const Music = () =>{
+export const Music = React.memo(() =>{
     return (
         <div>
             music
         </div>
     )
-}
+})

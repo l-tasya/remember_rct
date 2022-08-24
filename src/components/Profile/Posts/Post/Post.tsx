@@ -19,7 +19,7 @@ export type PostPropsType = {
     likeCallback: (postID: string) => void
     isLiked: boolean
 }
-export const Post: React.FC<PostPropsType> = ({id,message, time, removePost, likeCount, isLiked, likeCallback}) => {
+export const Post: React.FC<PostPropsType> = React.memo(({id, message, time, removePost, likeCount, isLiked, likeCallback}) => {
     const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     //styles
     const Container = styled.div`

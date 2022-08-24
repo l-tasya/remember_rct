@@ -8,7 +8,7 @@ import {AppStateType} from "../../../redux/store/store";
 import {User} from "./User/User";
 
 
-export const Friends = () => {
+export const Friends = React.memo(() => {
     const Container = styled(StyledBlock)`
     margin-top: 20px;
     display: grid;
