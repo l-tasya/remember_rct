@@ -1,15 +1,18 @@
 import React from "react";
 import {Post} from "./Post/Post";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store/store";
-import {addPostAC, likeClickAC, PostType, removePostAC} from "../../../redux/reducers/profileReducer";
+import {PostType} from "../../../redux/reducers/profileReducer";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
 
-export const Posts = () => {
-    let posts = useSelector<AppStateType, PostType[]>(t => t.profile.posts)
-    let dispatch = useDispatch()
+type PostsPropsType = {
+    posts: PostType[]
+    addPost: (value:string)=>void
+    removePost: (postID:string)=>void
+    likeCallback: (postID: string)=>void
+}
+export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,removePost,likeCallback}) => {
+
     const Container = styled.div`
     transition: 3s linear;
     display: grid;
@@ -25,13 +28,13 @@ export const Posts = () => {
     margin: 20px 0 20px 20px;
     height: 300px;
     min-width: 200px;
+    h4{
+    color: #3f424b;
+    }
 `
-    const Input = styled.div`
-      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-      background: white;
+    const Input = styled(StyledBlock)`
       border-radius: 8px;
       margin: 10px 0 ;
-      padding: 16px;
       display: flex;
       justify-content: center;
 `
@@ -39,21 +42,22 @@ export const Posts = () => {
         <Container>
             <Content>
                 <Input>
-                    <StyledInput label={'New post'} addItem={(value: string) => dispatch(addPostAC(value))}/>
+                    <StyledInput label={'New post'} addItem={addPost}/>
                 </Input>
                 {posts.map(t => <Post
-                    removePost={() => dispatch(removePostAC(t.id))}
+                    removePost={removePost}
                     key={t.id}
                     message={t.message}
                     time={t.time}
                     id={t.id}
                     likeCount={t.likeCount}
                     isLiked={t.isLiked}
-                    likeCallback={(postID: string) => dispatch(likeClickAC(postID))}/>
-                    )
+                    likeCallback={likeCallback}/>
+                )
                 }
             </Content>
             <About>
+                <h4>About:</h4>
                 <div>Friends: 5,344+</div>
                 <div>Groups: 344</div>
                 <div>Live in: ...</div>
@@ -62,4 +66,4 @@ export const Posts = () => {
             </About>
         </Container>
     )
-}
+})
