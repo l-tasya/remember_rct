@@ -37,7 +37,7 @@ export const Search: React.FC<SearchPropsType> = React.memo(({background}) => {
             transition: theme.transitions.create('width'),
             width: '100%',
             [theme.breakpoints.up('sm')]: {
-                width: '12ch',
+                width: '18ch',
                 '&:focus': {
                     width: '30ch',
                 },
@@ -66,3 +66,4 @@ export const Search: React.FC<SearchPropsType> = React.memo(({background}) => {
         />
     </Search>
 }
+)
