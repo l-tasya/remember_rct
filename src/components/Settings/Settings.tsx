@@ -6,7 +6,7 @@ import {StyledBlock} from "../../common/styles/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store/store";
 import {setColorAC, ThemesArrayType} from "../../redux/reducers/settingsReducer";
-
+import JavascriptIcon from '@mui/icons-material/Javascript';
 export type ColorValueType =
     | 'purple'
     | 'green'
@@ -19,7 +19,7 @@ export const Settings = React.memo(() => {
     const SettingContainer = styled(StyledBlock)`
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
     
@@ -43,6 +43,11 @@ export const Settings = React.memo(() => {
        width: 30px;
        justify-self: flex-end;
 `
+    const Icon = styled(JavascriptIcon)`
+    grid-row-start: 4;
+    grid-column-start: 3;
+    justify-self: flex-end;
+`
     let [value, setValue] = useState<ColorValueType>('pink')
     return <SettingContainer>
         <Title>Select app theme</Title>
@@ -51,6 +56,7 @@ export const Settings = React.memo(() => {
                                                checked={t.value === value}/>)}
         </ColorSelectContainer>
         <ApplyButton onClick={()=>dispatch(setColorAC(value))} variant={'contained'} size={'small'}>Apply</ApplyButton>
+        <Icon sx={{fontSize: 30}}/>
     </SettingContainer>
 }
 )
