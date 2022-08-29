@@ -25,8 +25,18 @@ export const Search: React.FC<SearchPropsType> = React.memo(({background}) => {
             marginLeft: theme.spacing(1),
             width: 'auto',
         },
-        color: 'gray'
+        color: color.second,
+        '&::placeholder': {//Opera, Chrome,Mozilla
+            color: color.second,
+            opacity: 1,
+        },
 
+        '&:-ms-input-placeholder': { /* Internet Explorer 10-11 */
+            color: color.second,
+        },
+        '::-ms-input-placeholder': { /* Microsoft Edge */
+            color: color.second,
+        },
     }));
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: 'gray',

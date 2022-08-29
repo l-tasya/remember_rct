@@ -18,7 +18,7 @@ export const StyledBlock = styled.div`
     border-radius: 8px;
 `
 export const StyledIMGBadge = styled.div`
-    background: #d4ddea;
+    background: #f5f5f5;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,9 +37,15 @@ export const StyledButton = styled.button`
     outline: 0;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     border-radius: 4px;
-    height: 40px;
-    width: 60%;
+    height: 30px;
+    width: 50%;
     font-weight: 700;
     color: #3f424b;
+    margin: 3px;
     
+`
+export const ProfileBadge = styled.img`
+    border-radius: 50%;
+    width: 40px;
+    background: gray;
 `

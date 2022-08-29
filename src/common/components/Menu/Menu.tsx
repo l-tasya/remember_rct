@@ -6,18 +6,14 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import ChatIcon from '@mui/icons-material/Chat';
 import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
-import {StyledIMGBadge} from "../../styles/styles";
+import {ProfileBadge, StyledIMGBadge} from "../../styles/styles";
 
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
     icon: BadgeType
     children: React.ReactNode
 }
-export const ProfileBadge = styled.img`
-    border-radius: 50%;
-    width: 40px;
-    background: gray;
-`
+
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     let [open, setOpen] = useState(false)
     let profileIMG = useSelector<AppStateType, string | undefined>(t => t.profile.userInfo.photo.large)
@@ -28,6 +24,9 @@ export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     height: 40px;
     margin: 0 10px;
         border-radius: 50%;
+        svg{
+        color: ${color.first};
+        }
     :hover{
     background: ${color.second};
     color: white;
@@ -58,7 +57,9 @@ border: 1px solid #f1f3f4;
     flex-direction: column;
     justify-content: center;
 `
-
+    const Profile = styled(ProfileBadge)`
+    border: 1px solid ${color.first};
+`
 
     //handlers
     function useOutsideAlerter(ref: any) {
@@ -87,7 +88,7 @@ border: 1px solid #f1f3f4;
     let iconEl = () => {
         switch (icon) {
             case 'profile': {
-                return <ProfileBadge src={profileIMG}/>
+                return <Profile src={profileIMG}/>
             }
             case 'notifications': {
                 return <NotificationsIcon/>

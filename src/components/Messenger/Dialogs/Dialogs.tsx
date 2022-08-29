@@ -1,18 +1,19 @@
 import React from 'react';
 import styled from "styled-components";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
-import {DialogsType} from '../../../redux/reducers/dialogsReducer';
-import {NavLink} from "react-router-dom";
-import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
+import {addDialogAC, DialogsType, removeDialogAC} from '../../../redux/reducers/dialogsReducer';
+import {AddDialog} from "./AddDialog/AddDialog";
+import {Dialog} from "./Dialog/Dialog";
 
 
 type DialogPropsType = {}
 
-export const Dialogs: React.FC<DialogPropsType> = () => {
+export const Dialogs: React.FC<DialogPropsType> = React.memo(() => {
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     let dialogs = useSelector<AppStateType, DialogsType>(t => t.dialogs)
+    const dispatch = useDispatch()
     const Container = styled.div`
     display: grid;
     border-right: 0.3px solid rgb(211,211,211, 0.3);
@@ -39,14 +40,9 @@ export const Dialogs: React.FC<DialogPropsType> = () => {
 }
 `
     const Title = styled.div`
-      
-  
       font-weight: 600;
       font-size: 1.5rem;
       color: #333;
-`
-    const Icon = styled(LibraryAddIcon)`
-       color: #333;
 `
     const Header = styled.div`
     border: 0.3px solid rgb(211,211,211, 0.3);
@@ -57,13 +53,18 @@ export const Dialogs: React.FC<DialogPropsType> = () => {
     justify-content: space-around;
 
 `
-
+    const addDialog = (newValue: string) => {
+        dispatch(addDialogAC(newValue))
+    }
+    const removeDialog = (dialogID: string) =>{
+        dispatch(removeDialogAC(dialogID))
+    }
     return (
         <Container>
-            <Header><Title>Chats</Title><Icon/></Header>
+            <Header><Title>Chats</Title><AddDialog addDialog={addDialog} color={color.first}/></Header>
             {
-                dialogs.map((t, i) => <NavLink key={i} to={`${t.id}`}>{t.name}</NavLink>)
+                dialogs.map(t=> <Dialog removeDialog={removeDialog} id={t.id} name={t.name}/>)
             }
         </Container>
     )
-}
+})

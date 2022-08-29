@@ -4,6 +4,9 @@ import {PostType} from "../../../redux/reducers/profileReducer";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../../redux/store/store";
+import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 
 type PostsPropsType = {
     posts: PostType[]
@@ -12,7 +15,7 @@ type PostsPropsType = {
     likeCallback: (postID: string)=>void
 }
 export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,removePost,likeCallback}) => {
-
+    const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     const Container = styled.div`
     transition: 3s linear;
     display: grid;
@@ -29,7 +32,10 @@ export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,remov
     height: 300px;
     min-width: 200px;
     h4{
-    color: #3f424b;
+    color: ${color.first};
+    }
+    span{
+        color: ${color.second};
     }
 `
     const Input = styled(StyledBlock)`
@@ -58,11 +64,11 @@ export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,remov
             </Content>
             <About>
                 <h4>About:</h4>
-                <div>Friends: 5,344+</div>
-                <div>Groups: 344</div>
-                <div>Live in: ...</div>
-                <div>From: ...</div>
-                <div>Followers: 999,999+</div>
+                <div>Friends: <span>5,344+</span></div>
+                <div>Groups: <span>344</span></div>
+                <div>Live in: <span>...</span></div>
+                <div>From: <span>...</span></div>
+                <div>Followers: <span>999,999+</span></div>
             </About>
         </Container>
     )

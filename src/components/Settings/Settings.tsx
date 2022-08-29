@@ -48,7 +48,7 @@ export const Settings = React.memo(() => {
     grid-column-start: 3;
     justify-self: flex-end;
 `
-    let [value, setValue] = useState<ColorValueType>('pink')
+    let [value, setValue] = useState<ColorValueType>('blue')
     return <SettingContainer>
         <Title>Select app theme</Title>
         <ColorSelectContainer>

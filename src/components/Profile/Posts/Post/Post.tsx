@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import {ProfileBadge} from "../../../../common/components/Menu/Menu";
+import {ProfileBadge} from "../../../../common/styles/styles";
 import {StyledBlock, StyledIMGBadge} from "../../../../common/styles/styles";
 import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
@@ -20,6 +20,7 @@ export type PostPropsType = {
     isLiked: boolean
 }
 export const Post: React.FC<PostPropsType> = React.memo(({id, message, time, removePost, likeCount, isLiked, likeCallback}) => {
+    //state
     const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     //styles
     const Container = styled(StyledBlock)`
@@ -113,9 +114,14 @@ color: #666;
     border-radius: 50%;
     border: 2px solid white;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    background: ${color.second}
     `
     const Share = styled.div`
     grid-column-start: 14;
+`
+    const RemoveEl = styled(Remove)`
+    grid-column-start: 4;
+    grid-row-start: 1;
 `
     return (
         <Container>
@@ -123,7 +129,7 @@ color: #666;
                 <UserIMG src={'http://localhost:3000/static/media/eral.3a96cf0943b92706de14.jpg'}/>
                 <Title>Nursain Temirtas</Title>
                 <SubTitle>{time}</SubTitle>
-                <Remove removeCallback={()=>removePost(id)} color={'darkgrey'} fontSize={15}/>
+                <RemoveEl removeCallback={()=>removePost(id)} fontSize={15}/>
             </Header>
 
 

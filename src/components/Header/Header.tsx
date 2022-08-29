@@ -66,7 +66,7 @@ export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
     return (
         <Container>
             <Logo title={title}/>
-            <SearchContainer><Search background={'#d4ddea'}/></SearchContainer>
+            <SearchContainer><Search background={'#f5f5f5'}/></SearchContainer>
             <BadgesContainer>
                 <Menu icon={'store'}>
                     <MenuSelect>(empty) </MenuSelect>
