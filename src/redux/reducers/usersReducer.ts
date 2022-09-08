@@ -11,11 +11,14 @@ export type UserType = {
 }
 type ActionsType = ReturnType<typeof setUsersAC>
 |ReturnType<typeof changeTotalUsersAC>
+|ReturnType<typeof changeIsFetchingAC>
+|ReturnType<typeof changeCurrentPageAC>
 export type UsersStateType = {
     users: UserType[]
     pageSize: number
     currentPage: number
     totalUsers: number
+    isFetching: boolean
 }
 
 const initialState: UsersStateType = {
@@ -23,6 +26,7 @@ const initialState: UsersStateType = {
     pageSize: 12,
     currentPage: 2,
     totalUsers: 0,
+    isFetching: false,
 }
 
 export const usersReducer = (state: UsersStateType = initialState, action: ActionsType): UsersStateType =>{
@@ -35,6 +39,16 @@ export const usersReducer = (state: UsersStateType = initialState, action: Actio
         case "CHANGE-TOTAL-USERS":{
             const stateCopy = {...state}
             stateCopy.totalUsers = action.newValue
+            return stateCopy
+        }
+        case "CHANGE-IS-FETCHING":{
+            const stateCopy = {...state}
+            stateCopy.isFetching = action.newValue
+            return stateCopy
+        }
+        case "CHANGE-CURRENT-PAGE":{
+            const stateCopy = {...state}
+            stateCopy.currentPage = action.page
             return stateCopy
         }
         default: {
@@ -54,4 +68,16 @@ export const changeTotalUsersAC = (newValue: number)=>{
         type: "CHANGE-TOTAL-USERS",
         newValue,
     }as const
+}
+export const changeIsFetchingAC = (newValue: boolean) =>{
+    return {
+        type: 'CHANGE-IS-FETCHING',
+        newValue
+    } as const
+}
+export const changeCurrentPageAC = (page: number) => {
+    return{
+        type: 'CHANGE-CURRENT-PAGE',
+        page,
+    } as const
 }

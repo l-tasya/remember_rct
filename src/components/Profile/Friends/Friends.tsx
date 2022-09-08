@@ -1,41 +1,49 @@
-import axios from "axios";
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
-import {useDispatch, useSelector} from "react-redux";
-import {changeTotalUsersAC, setUsersAC, UsersStateType} from "../../../redux/reducers/usersReducer";
-import {AppStateType} from "../../../redux/store/store";
+import {UserType} from "../../../redux/reducers/usersReducer";
 import {User} from "./User/User";
+import Pagination from "@mui/material/Pagination";
 
+type FriendsPropsType = {
+    users: UserType[]
+    isFetching: boolean
+    currentPage: number
+    pagesCount: number
+    changeCurrentPage: (page: number) =>void
+}
+export const Friends: React.FC<FriendsPropsType> = React.memo(({users, isFetching, currentPage, pagesCount, changeCurrentPage}) => {
+        const Container = styled(StyledBlock)`
+        margin-top: 20px;
 
-export const Friends = React.memo(() => {
-    const Container = styled(StyledBlock)`
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(3, 200px)
+  
 `
-    const dispatch = useDispatch()
-    const users = useSelector<AppStateType, UsersStateType>(t => t.users)
-    useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${users.currentPage}&count=${users.pageSize}`).then(response => {
-            dispatch(setUsersAC(response.data.items))
-            dispatch(changeTotalUsersAC(50))
-        })
-    }, [])
-
-    return (
-        <Container>
-            {
-                users.users.map(t => <User
-                    key={t.id}
-                    id={t.id}
-                    name={t.name}
-                    status={t.status}
-                    photo={t.photo}
-                    followed={t.followed}
-                />)
-            }
-        </Container>
-    )
-})
+        const Users = styled.div`
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(3, 200px)
+`
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        changeCurrentPage(value);
+    };
+        return (
+            <Container>
+                {
+                        <Users>{
+                                users.map(t => <User
+                                    key={t.id}
+                                    id={t.id}
+                                    name={t.name}
+                                    status={t.status}
+                                    photo={t.photo}
+                                    followed={t.followed}
+                                    loading={isFetching}
+                                />)
+                        }
+                        </Users>
+                }
+                <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
+            </Container>
+        )
+    }
+)

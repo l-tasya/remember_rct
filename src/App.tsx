@@ -11,17 +11,16 @@ import {Messenger} from "./components/Messenger/Messenger";
 import {Profile} from "./components/Profile/Profile";
 import {Settings} from "./components/Settings/Settings";
 import styled from 'styled-components';
-import Grid from '@mui/material/Grid';
-import {NavBar} from './components/NavBar/NavBar';
+import {NavBar} from './components/NavBar/NavBar';s
 
 function App() {
-    const GridContainer = styled(Grid)`
+    const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(1, 60px 1fr);
     grid-template-rows: repeat(1, 60px 1fr);
     height: 100vh;
     `
-    const ContentContainer = styled.div`
+    const Content = styled.div`
         display: grid;
         grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 1fr;
@@ -34,7 +33,7 @@ function App() {
         background: #f5f5f5;  
         position: relative;
     `
-    const ContentItem = styled.div`
+    const ContentContainer = styled.div`
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
@@ -45,12 +44,12 @@ function App() {
     overflow: hidden;
     `
     return (
-        <GridContainer>
+        <Container>
 
             <Header title={'FOX NETWORK'}/>
             <NavBar/>
-            <ContentContainer>
-                <ContentItem>
+            <Content>
+                <ContentContainer>
                     <Routes>
                         <Route path={'/'} element={<Home/>}/>
                         <Route path={'Videos'} element={<Videos/>}/>
@@ -61,9 +60,9 @@ function App() {
                         <Route path={'Profile/*'} element={<Profile/>}/>
                         <Route path={'Settings'} element={<Settings/>}/>
                     </Routes>
-                </ContentItem>
-            </ContentContainer>
-        </GridContainer>
+                </ContentContainer>
+            </Content>
+        </Container>
     );
 }
 
