@@ -1,18 +1,18 @@
 import {v1} from "uuid";
-import {ColorValueType} from "../../components/Settings/Settings";
 
 export type SettingsStateType = {
     themeColor: ThemeColorType
     themes: ThemesArrayType
 
 }
-export type ThemesArrayType = {
+export type ThemeType = {
     id: string
-    value: ColorValueType
     first: string
     second: string
-}[]
+}
+export type ThemesArrayType = ThemeType[]
 type ActionsType = ReturnType<typeof setColorAC>
+| ReturnType<typeof addThemeAC>
 type StateType = SettingsStateType
 export type ThemeColorType = {
     first: string
@@ -24,19 +24,23 @@ const initialState: StateType = {
         second: '#84bbff'
     },
     themes:  [
-        {id: v1(), value: 'purple', first: '#8d59ac', second: '#ca87ff'},
-        {id: v1(), value: 'green', first: 'mediumspringgreen', second: '#98ff98'},
-        {id: v1(), value: 'blue', first: '#1a74ed', second: '#84bbff'},
-        {id: v1(), value: 'red', first: '#dc2121', second: '#e38585'},
-        {id: v1(), value: 'pink', first: '#ff0084', second: '#ff8bc0'},
+        {id: v1(), first: '#8d59ac', second: '#ca87ff'},
+        {id: v1(), first: 'mediumspringgreen', second: '#98ff98'},
+        {id: v1(), first: '#1a74ed', second: '#84bbff'},
+        {id: v1(), first: '#dc2121', second: '#e38585'},
+        {id: v1(), first: '#ff0084', second: '#ff8bc0'},
     ]
 }
-
 export const settingsReducer = (state: StateType = initialState, action: ActionsType): StateType => {
+    function componentToHex(c: any) {
+        let value = c>200?c:c+60
+        var hex = value.toString(16);
+        return hex.length == 1 ? "0" + hex : hex;
+    }
     switch (action.type) {
         case "SET-COLOR":{
             const stateCopy = {...state}
-            let theme = stateCopy.themes.find(t=>t.value === action.newValue)
+            let theme = stateCopy.themes.find(t=>t.id === action.id)
             if(theme){
                 stateCopy.themeColor = {
                 first: theme.first,
@@ -45,14 +49,38 @@ export const settingsReducer = (state: StateType = initialState, action: Actions
             }
             return stateCopy
         }
+        case "ADD-THEME":{
+            const stateCopy = {...state}
+            let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(action.value);
+            let rgb = null
+            if(result){
+                rgb = {
+                    r: parseInt(result[1], 16),
+                    g: parseInt(result[2], 16),
+                    b: parseInt(result[3], 16)
+                }
+            }
+
+            let first = action.value
+            let second = rgb? "#" + componentToHex(rgb.r) + componentToHex(rgb.g) + componentToHex(rgb.b):''
+            let newTheme: ThemeType = {id: v1(), first: first.toString(), second: second.toString()}
+            stateCopy.themes = [...stateCopy.themes, newTheme]
+            return stateCopy
+        }
         default: {
             return state
         }
     }
 }
-export const setColorAC = (newValue:  ColorValueType) => {
+export const setColorAC = (id:  string) => {
     return {
         type: 'SET-COLOR',
-        newValue
+        id
     } as const
+}
+export const addThemeAC = (value: string) =>{
+    return {
+        type: 'ADD-THEME',
+        value
+    }as const
 }

@@ -11,7 +11,7 @@ import {Messenger} from "./components/Messenger/Messenger";
 import {Profile} from "./components/Profile/Profile";
 import {Settings} from "./components/Settings/Settings";
 import styled from 'styled-components';
-import {NavBar} from './components/NavBar/NavBar';s
+import {NavBar} from './components/NavBar/NavBar';
 
 function App() {
     const Container = styled.div`
