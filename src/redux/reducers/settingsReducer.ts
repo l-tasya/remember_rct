@@ -35,7 +35,7 @@ export const settingsReducer = (state: StateType = initialState, action: Actions
     function componentToHex(c: any) {
         let value = c>200?c:c+60
         var hex = value.toString(16);
-        return hex.length == 1 ? "0" + hex : hex;
+        return hex.length === 1 ? "0" + hex : hex;
     }
     switch (action.type) {
         case "SET-COLOR":{
