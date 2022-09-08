@@ -61,7 +61,7 @@ export const Settings = React.memo(() => {
             <ColorPicker>
                 <Title>Select app theme</Title>
                 <ColorRadio>
-                    {themes.map(t => <RadioButton key={t.id} title={t.second} c1={() => setTheme(t.id)}
+                    {themes.map(t => <RadioButton key={t.id} title={t.first} c1={() => setTheme(t.id)}
                                                   checked={t.id === theme}/>)}
                     <AddTheme addTheme={(value: string) => dispatch(addThemeAC(value))}/>
                 </ColorRadio>
