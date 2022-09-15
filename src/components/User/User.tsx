@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {StyledBlock, StyledButton, StyledIMGBadge} from "../../../../common/styles/styles";
+import {StyledBlock, StyledButton, StyledIMGBadge} from "../../common/styles/styles";
 import PersonIcon from '@mui/icons-material/Person';
-import {AppStateType} from "../../../../redux/store/store";
+import {AppStateType} from "../../redux/store/store";
 import {useSelector} from "react-redux";
-import {ThemeColorType} from "../../../../redux/reducers/settingsReducer";
+import {ThemeColorType} from "../../redux/reducers/settingsReducer";
 import {Skeleton} from "@mui/material";
+import {NavLink} from "react-router-dom";
 
 export type UserPropsType = {
     name: string
@@ -19,7 +20,7 @@ export type UserPropsType = {
     loading: boolean
 }
 
-export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading}) => {
+export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id}) => {
     const [follow, setFollow] = useState(followed)
     const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     const Container = styled(StyledBlock)`
@@ -32,19 +33,23 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
     const Avatar = styled(StyledIMGBadge)`
     border-radius: 8px;
     background: ${color.second};
+    height: 100%;
+    
 `
     const Content = styled.div`
     position: absolute;
-    top: 0;
+    bottom: 0;
     width: 100%;
     height: 66%;
     display: flex;
     justify-content: center;
     align-items: end;
+    color: #3f424b;
     div{
     background: white;
     border-radius: 8px 8px 0 0;
     padding: 0 8px 10px 8px;
+    font-weight: 700;
     }
 `
     const Button = styled(StyledButton)`
@@ -76,16 +81,27 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
     position: relative;
     top: -45px;
 `
+    const NavItem = styled(NavLink)`
+    position: relative;
+    &:hover{
+    #content{
+      transition: 0.3s;
+    color: ${color.first}
+    }
+    }
+`
     return loading ? (
-        <SkeletonEl height={240}/>
+            <SkeletonEl height={240}/>
         )
         :
         (
             <Container>
-                <Avatar>{img}</Avatar>
-                <Content>
-                    <div>{name}</div>
-                </Content>
+                <NavItem to={`/${id}`}>
+                    <Avatar>{img}</Avatar>
+                    <Content id={'content'}>
+                        <div>{name}</div>
+                    </Content>
+                </NavItem>
                 <Button onClick={() => setFollow(!follow)}>
                     {follow ? 'Following' : 'Follow'}
                 </Button>

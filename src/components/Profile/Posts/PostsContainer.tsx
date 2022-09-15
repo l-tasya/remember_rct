@@ -1,10 +1,8 @@
 import React from 'react';
-import { Posts } from './Posts';
+import {Posts} from './Posts';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import {addPostAC, likeClickAC, PostType, removePostAC} from "../../../redux/reducers/profileReducer";
-
-
 
 
 export const PostsContainer = React.memo(() =>{

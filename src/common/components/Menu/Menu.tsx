@@ -7,6 +7,7 @@ import {AppStateType} from "../../../redux/store/store";
 import ChatIcon from '@mui/icons-material/Chat';
 import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 import {ProfileBadge, StyledIMGBadge} from "../../styles/styles";
+import img from './../../img/eral.jpg';
 
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
@@ -15,8 +16,9 @@ type MenuPropsType = {
 }
 
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
+    //TODO:props with profileIMG
     let [open, setOpen] = useState(false)
-    let profileIMG = useSelector<AppStateType, string | undefined>(t => t.profile.userInfo.photo.large)
+    let profileIMG = img
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     //styles
     const Badge = styled(StyledIMGBadge)`

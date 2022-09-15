@@ -9,14 +9,9 @@ import {addThemeAC, setColorAC, ThemesArrayType} from "../../redux/reducers/sett
 import JavascriptIcon from '@mui/icons-material/Javascript';
 import {AddTheme} from "./AddTheme";
 
-export type ColorValueType =
-    | 'purple'
-    | 'green'
-    | 'blue'
-    | 'red'
-    | 'pink';
 export const Settings = React.memo(() => {
         let themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
+
         let [theme, setTheme] = useState<string>('')
         let dispatch = useDispatch()
         const Container = styled(StyledBlock)`
@@ -61,8 +56,13 @@ export const Settings = React.memo(() => {
             <ColorPicker>
                 <Title>Select app theme</Title>
                 <ColorRadio>
-                    {themes.map(t => <RadioButton key={t.id} title={t.first} c1={() => setTheme(t.id)}
-                                                  checked={t.id === theme}/>)}
+                    {themes.map(t => <RadioButton
+                            key={t.id}
+                            title={t.first}
+                            c1={() => setTheme(t.id)}
+                            checked={t.id === theme}
+                        />
+                    )}
                     <AddTheme addTheme={(value: string) => dispatch(addThemeAC(value))}/>
                 </ColorRadio>
                 <ApplyButton onClick={() => dispatch(setColorAC(theme))} variant={'contained'}

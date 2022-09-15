@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
 import {UserType} from "../../../redux/reducers/usersReducer";
-import {User} from "./User/User";
+import {User} from "../../User/User";
 import Pagination from "@mui/material/Pagination";
 
 type FriendsPropsType = {

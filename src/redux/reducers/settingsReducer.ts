@@ -21,11 +21,12 @@ export type ThemeColorType = {
 const initialState: StateType = {
     themeColor: {
         first: '#1a74ed',
-        second: '#84bbff'
+        second: '#84bbff',
     },
     themes:  [
         {id: v1(), first: '#8d59ac', second: '#ca87ff'},
         {id: v1(), first: 'mediumspringgreen', second: '#98ff98'},
+        {id: v1(), first: "#004080", second: "#3c7cbc"},
         {id: v1(), first: '#1a74ed', second: '#84bbff'},
         {id: v1(), first: '#dc2121', second: '#e38585'},
         {id: v1(), first: '#ff0084', second: '#ff8bc0'},

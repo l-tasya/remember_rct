@@ -5,13 +5,15 @@ import {AppStateType} from "../../../../redux/store/store";
 import {StyledBlock} from "../../../../common/styles/styles";
 import {ThemeColorType} from "../../../../redux/reducers/settingsReducer";
 import {NavLink} from "react-router-dom";
-import {UserType} from "../../../../redux/reducers/usersReducer";
+import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
 
+type UserInfoPropsType = {
+    user: ProfileUserType
+}
 
-export const UserInfo: React.FC = React.memo(() => {
-    let user: UserType = useSelector<AppStateType, UserType>(t => t.profile.userInfo)
+export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-
+//TODO: usenInfo doesnt display when i click to the different user
     const Container = styled(StyledBlock)`
       padding: 0;
       display: grid;
@@ -98,17 +100,17 @@ export const UserInfo: React.FC = React.memo(() => {
     return (
         <Container>
             <BackGroundEl background={color.second}/>
-            <UserAvatar >
-                <img src={user.photo.large} alt={'error'}/>
+            <UserAvatar>
+                <img src={user.photos.large} alt={'error'}/>
             </UserAvatar>
             <InfoContainer>
-                <Title>{user.name}</Title>
-                <SubTitle>{user.status}</SubTitle>
+                <Title>{user.fullName}</Title>
+                <SubTitle>{user.contacts.mainLink}</SubTitle>
             </InfoContainer>
             <Footer>
                 <NavLink style={style} to={'posts'}>Posts</NavLink>
                 <NavLink style={style} to={'friends'}>Friends</NavLink>
-                <NavLink style={style}  to={'groups'}>Groups</NavLink>
+                <NavLink style={style} to={'groups'}>Groups</NavLink>
             </Footer>
 
         </Container>)

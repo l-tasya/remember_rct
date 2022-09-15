@@ -80,7 +80,7 @@ export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
                     <MenuSelect>messages</MenuSelect>
                 </Menu>
                 <Menu icon={'profile'}>
-                    <MenuSelect><Profile/><NavLink to={'/Profile/posts'}>Profile</NavLink></MenuSelect>
+                    <MenuSelect><Profile/><NavLink to={'/main/posts'}>Profile</NavLink></MenuSelect>
                     <MenuSelect><Settings/><NavLink to={'/Settings'}>Options</NavLink></MenuSelect>
                     <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
                 </Menu>
