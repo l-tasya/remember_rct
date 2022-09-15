@@ -63,7 +63,7 @@ export const Dialogs: React.FC<DialogPropsType> = React.memo(() => {
         <Container>
             <Header><Title>Chats</Title><AddDialog addDialog={addDialog} color={color.first}/></Header>
             {
-                dialogs.map(t=> <Dialog removeDialog={removeDialog} id={t.id} name={t.name}/>)
+                dialogs.map(t=> <Dialog key={t.id} removeDialog={removeDialog} id={t.id} name={t.name}/>)
             }
         </Container>
     )

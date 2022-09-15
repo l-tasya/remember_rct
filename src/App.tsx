@@ -3,8 +3,6 @@ import {Route, Routes} from 'react-router-dom';
 import './App.scss';
 import {Header} from "./components/Header/Header";
 import {Home} from "./components/Home/Home";
-import {Videos} from "./components/Videos/Videos";
-import {Groups} from "./components/Groups/Groups";
 import {Store} from "./components/Store/Store";
 import {Music} from './components/Music/Music';
 import {Messenger} from "./components/Messenger/Messenger";
@@ -12,8 +10,9 @@ import {Settings} from "./components/Settings/Settings";
 import styled from 'styled-components';
 import {NavBar} from './components/NavBar/NavBar';
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
+import {UsersContainer} from './components/Users/UsersContainer';
 
-function App() {
+const App = React.memo(() => {
     const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(1, 60px 1fr);
@@ -53,17 +52,17 @@ function App() {
                     <Routes>
                         <Route path={'/'} element={<Home/>}/>
                         <Route path={'/:userID/*'} element={<ProfileContainer/>}/>
-                        <Route path={'Videos'} element={<Videos/>}/>
-                        <Route path={'Groups'} element={<Groups/>}/>
                         <Route path={'Music'} element={<Music/>}/>
                         <Route path={'Store'} element={<Store/>}/>
                         <Route path={'Messenger/*'} element={<Messenger/>}/>
                         <Route path={'Settings'} element={<Settings/>}/>
+                        <Route path={'Users'} element={<UsersContainer columns={4} rows={3}/>}/>
                     </Routes>
                 </ContentContainer>
             </Content>
         </Container>
     );
 }
+)
 
 export default App;

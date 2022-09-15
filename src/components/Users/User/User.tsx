@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {StyledBlock, StyledButton, StyledIMGBadge} from "../../common/styles/styles";
+import {StyledBlock, StyledButton, StyledIMGBadge} from "../../../common/styles/styles";
 import PersonIcon from '@mui/icons-material/Person';
-import {AppStateType} from "../../redux/store/store";
+import {AppStateType} from "../../../redux/store/store";
 import {useSelector} from "react-redux";
-import {ThemeColorType} from "../../redux/reducers/settingsReducer";
+import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 import {Skeleton} from "@mui/material";
 import {NavLink} from "react-router-dom";
 

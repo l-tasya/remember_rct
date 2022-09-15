@@ -4,8 +4,8 @@ import styled from "styled-components";
 import {Groups} from "./Groups/Groups";
 import {UserInfo} from "./User/UserInfo/UserInfo";
 import {PostsContainer} from "./Posts/PostsContainer";
-import {FriendsContainer} from "./Friends/FriendsContainer";
 import {ProfileUserType} from "../../redux/reducers/profileReducer";
+import {Friends} from "./Friends/Friends";
 
 type ProfilePropsType = {
     user: ProfileUserType
@@ -21,7 +21,7 @@ export const Profile: React.FC<ProfilePropsType> = React.memo(({user}) => {
                 <Routes>
                     <Route path="/" element={<PostsContainer/>}/>
                     <Route path="/posts" element={<PostsContainer/>}/>
-                    <Route path="/friends" element={<FriendsContainer/>}/>
+                    <Route path="/friends" element={<Friends/>}/>
                     <Route path="/groups" element={<Groups/>}/>
                 </Routes>
             </Content>

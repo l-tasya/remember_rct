@@ -13,6 +13,7 @@ type ActionsType = ReturnType<typeof setUsersAC>
 |ReturnType<typeof changeTotalUsersAC>
 |ReturnType<typeof changeIsFetchingAC>
 |ReturnType<typeof changeCurrentPageAC>
+|ReturnType<typeof changePageSizeAC>
 export type UsersStateType = {
     users: UserType[]
     pageSize: number
@@ -51,6 +52,11 @@ export const usersReducer = (state: UsersStateType = initialState, action: Actio
             stateCopy.currentPage = action.page
             return stateCopy
         }
+        case "CHANGE-PAGE-SIZE":{
+            const stateCopy = {...state}
+            stateCopy.pageSize = action.count
+            return stateCopy
+        }
         default: {
            return state
         }
@@ -79,5 +85,11 @@ export const changeCurrentPageAC = (page: number) => {
     return{
         type: 'CHANGE-CURRENT-PAGE',
         page,
+    } as const
+}
+export const changePageSizeAC = (count: number) =>{
+    return {
+        type: 'CHANGE-PAGE-SIZE',
+        count
     } as const
 }

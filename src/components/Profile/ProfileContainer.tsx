@@ -26,6 +26,6 @@ export const ProfileContainer = () => {
                 }
             })
 
-    },[])
+    },[param.userID, user])
     return <Profile user={user}/>
 }

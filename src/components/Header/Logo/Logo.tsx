@@ -3,13 +3,14 @@ import styled from "styled-components";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
+import { NavLink } from "react-router-dom";
 
 type LogoPropsType = {
     title: string
 }
 export const Logo: React.FC<LogoPropsType> = ({title}) => {
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    const Container = styled.div`
+    const Container = styled(NavLink)`
     grid-column-start: 1;
     grid-column-end: 3;
     display: flex;
@@ -21,7 +22,7 @@ export const Logo: React.FC<LogoPropsType> = ({title}) => {
     font-size: 18px;
     color: ${color.first}
     `
-    return (<Container>
+    return (<Container to={'/'}>
             <svg id="svg" version="1.1" width="60" height="60" viewBox="0, 0, 400,400">
                 <g id="svgg">
                     <path id="path0"

@@ -13,7 +13,6 @@ type UserInfoPropsType = {
 
 export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
     let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-//TODO: usenInfo doesnt display when i click to the different user
     const Container = styled(StyledBlock)`
       padding: 0;
       display: grid;
