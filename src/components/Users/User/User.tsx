@@ -96,7 +96,7 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
         :
         (
             <Container>
-                <NavItem to={`/${id}`}>
+                <NavItem to={`/remember_rct/${id}`}>
                     <Avatar>{img}</Avatar>
                     <Content id={'content'}>
                         <div>{name}</div>

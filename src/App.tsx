@@ -12,14 +12,14 @@ import {NavBar} from './components/NavBar/NavBar';
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {UsersContainer} from './components/Users/UsersContainer';
 
-const App = React.memo(() => {
-    const Container = styled.div`
+
+const Container = styled.div`
     display: grid;
     grid-template-columns: repeat(1, 60px 1fr);
     grid-template-rows: repeat(1, 60px 1fr);
     height: 100vh;
     `
-    const Content = styled.div`
+const Content = styled.div`
         display: grid;
         grid-template-columns: 1fr 4fr 1fr;
         grid-template-rows: 1fr;
@@ -32,7 +32,7 @@ const App = React.memo(() => {
         background: #f5f5f5;  
         position: relative;
     `
-    const ContentContainer = styled.div`
+const ContentContainer = styled.div`
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 1;
@@ -42,21 +42,23 @@ const App = React.memo(() => {
     margin-top: 5px;
     overflow: hidden;
     `
+
+const App = React.memo(() => {
     return (
         <Container>
 
-            <Header title={'FOX NETWORK'}/>
+            <Header title={'TASYA NETWORK'}/>
             <NavBar/>
             <Content>
                 <ContentContainer>
                     <Routes>
-                        <Route path={'/'} element={<Home/>}/>
-                        <Route path={'/:userID/*'} element={<ProfileContainer/>}/>
-                        <Route path={'Music'} element={<Music/>}/>
-                        <Route path={'Store'} element={<Store/>}/>
-                        <Route path={'Messenger/*'} element={<Messenger/>}/>
-                        <Route path={'Settings'} element={<Settings/>}/>
-                        <Route path={'Users'} element={<UsersContainer columns={4} rows={3}/>}/>
+                        <Route path={'remember_rct/'} element={<Home/>}/>
+                        <Route path={'remember_rct/:userID/*'} element={<ProfileContainer/>}/>
+                        <Route path={'remember_rct/Music'} element={<Music/>}/>
+                        <Route path={'remember_rct/Store'} element={<Store/>}/>
+                        <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
+                        <Route path={'remember_rct/Settings'} element={<Settings/>}/>
+                        <Route path={'remember_rct/Users'} element={<UsersContainer columns={4} rows={3}/>}/>
                     </Routes>
                 </ContentContainer>
             </Content>

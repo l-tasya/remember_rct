@@ -47,12 +47,12 @@ export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
 `
     return (
         <Container>
-            <NavLink style={style} to={'/'}><Home size={30}/></NavLink>
-            <NavLink style={style} to={'messenger'}><MessageSquare size={30}/></NavLink>
-            <NavLink style={style} to={'users'}><Users size={30}/></NavLink>
-            <NavLink style={style} to={'store'}><ShoppingBag size={30}/></NavLink>
-            <NavLink style={style} to={'music'}><Headphones size={30}/></NavLink>
-            <LastChild><NavLink style={style} to={'settings'}><SettingAnimation size={30}/></NavLink></LastChild>
+            <NavLink style={style} to={'remember_rct/'}><Home size={30}/></NavLink>
+            <NavLink style={style} to={'/remember_rct/messenger'}><MessageSquare size={30}/></NavLink>
+            <NavLink style={style} to={'remember_rct/users'}><Users size={30}/></NavLink>
+            <NavLink style={style} to={'remember_rct/store'}><ShoppingBag size={30}/></NavLink>
+            <NavLink style={style} to={'remember_rct/music'}><Headphones size={30}/></NavLink>
+            <LastChild><NavLink style={style} to={'remember_rct/settings'}><SettingAnimation size={30}/></NavLink></LastChild>
         </Container>
     )
 })

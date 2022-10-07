@@ -11,21 +11,21 @@ export const ProfileContainer = () => {
     let param = useParams()
     let dispatch = useDispatch()
 
-    const user = useSelector<AppStateType, ProfileUserType>(t=>t.profile.profile)
-    const setUserCallback = (user: ProfileUserType)=>{
+    const user = useSelector<AppStateType, ProfileUserType>(t => t.profile.profile)
+    const setUserCallback = (user: ProfileUserType) => {
         dispatch(setProfileAC(user))
     }
 
-    useEffect(()=>{
-        axios(`https://social-network.samuraijs.com/api/1.0/profile/${param.userID}`)
-            .then(response=>{
-                if(param.userID === 'main'){
-                    setUserCallback(defaultUser)
-                }else{
+    useEffect(() => {
+        if (param.userID === 'main') {
+            setUserCallback(defaultUser)
+        } else {
+            axios(`https://social-network.samuraijs.com/api/1.0/profile/${param.userID}`)
+                .then(response => {
                     setUserCallback(response.data)
-                }
-            })
+                })
+        }
 
-    },[param.userID, user])
+    }, [param.userID, user, setUserCallback])
     return <Profile user={user}/>
 }

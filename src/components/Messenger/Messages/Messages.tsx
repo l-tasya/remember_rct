@@ -13,7 +13,7 @@ export const Messages: React.FC<DialogPropsType> = () => {
     const dispatch = useDispatch()
     let {pathname} = useLocation();
     const getID = (pathname: string): string =>{
-        return pathname.split('/')[2]
+        return pathname.split('/')[3]
     }
     let dialogID = getID(pathname)
     //TODO: style of Messages, use isMe variable
