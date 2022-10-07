@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
 
-type FriendsPropsType = {
-}
+type FriendsPropsType = {}
 export const Friends: React.FC<FriendsPropsType> = React.memo(({}) => {
         const Container = styled(StyledBlock)`
         margin-top: 20px;
