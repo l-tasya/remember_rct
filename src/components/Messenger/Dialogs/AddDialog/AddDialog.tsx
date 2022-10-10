@@ -38,7 +38,7 @@ export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDi
         <Dialog open={open} onClose={handleClick}>
             <DialogContainer>
                 <Title>Enter a name for new Dialog:</Title>
-                <Input addItem={addDialog} label={'New Dialog'}/>
+                <Input addItem={addDialog}/>
             </DialogContainer>
         </Dialog>
     </Container>

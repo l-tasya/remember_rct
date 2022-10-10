@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import styled from 'styled-components';
 import {Remove} from '../../../../common/components/Remove/Remove';
@@ -19,12 +19,12 @@ export const Dialog: React.FC<DialogPropsType> = React.memo(({id, name, removeDi
 `
     let navigate = useNavigate()
     let {pathname} = useLocation()
-    const removeCallback = ()=>{
+    const removeCallback = useCallback(()=>{
         if(pathname.split('/')[3] === id){
             navigate('/remember_rct/messenger')
         }
         removeDialog(id)
-    }
+    }, [id, navigate, pathname, removeDialog])
 
     return <Container>
         <NavLink key={id} to={`${id}`}>{name}</NavLink><RemoveEl fontSize={15} removeCallback={()=>removeCallback()}/>

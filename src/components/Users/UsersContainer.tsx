@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import axios from "axios";
 import {Users} from './Users';
@@ -8,8 +8,10 @@ import {
     changeIsFetchingAC, changePageSizeAC,
     changeTotalUsersAC,
     setUsersAC,
-    UsersStateType
+    UsersStateType,
+    UserType
 } from '../../redux/reducers/usersReducer';
+
 type UserContainerPropsType = {
     columns: number
     rows: number
@@ -17,20 +19,35 @@ type UserContainerPropsType = {
 export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(({columns, rows}) => {
         const dispatch = useDispatch()
         const users = useSelector<AppStateType, UsersStateType>(t => t.users)
+        const changeIsFetching = useCallback((value: boolean) => {
+            dispatch(changeIsFetchingAC(value))
+        }, [dispatch])
+        const changePageSize = useCallback((value: number) => {
+            dispatch(changePageSizeAC(value))
+        }, [dispatch])
+        const changeTotalUsers = useCallback((value: number) => {
+            dispatch(changeTotalUsersAC(value))
+        }, [dispatch])
+        const setUsers = useCallback((users: UserType[]) => {
+            dispatch(setUsersAC(users))
+        }, [dispatch])
+        const changeCurrentPage = useCallback((page: number) => {
+            dispatch(changeCurrentPageAC(page))
+        }, [dispatch])
         useEffect(() => {
-            dispatch(changeIsFetchingAC(true))
-            dispatch(changePageSizeAC(rows*columns))
+            changeIsFetching(true)
+            changePageSize(rows * columns)
 
             axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${users.currentPage}&count=${users.pageSize}`).then(response => {
-                dispatch(setUsersAC(response.data.items))
-                setTimeout(() => dispatch(changeIsFetchingAC(false)), 900)
-                dispatch(changeTotalUsersAC(response.data.totalCount))
+                setUsers(response.data.items)
+                setTimeout(() => {
+                    changeIsFetching(false)
+                }, 900)
+                changeTotalUsers(response.data.totalCount)
 
             })
-        }, [users.currentPage,])
-        const changeCurrentPage = (page: number) => {
-            dispatch(changeCurrentPageAC(page))
-        }
+        }, [users.currentPage, changeIsFetching, changeCurrentPage, changePageSize,changeTotalUsers, columns, rows, setUsers, users.pageSize])
+
         let pagesCount = Math.ceil(users.totalUsers / users.pageSize)
         return <Users
             users={users.users}

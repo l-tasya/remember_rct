@@ -15,9 +15,8 @@ test('settingReducer should change theme color', () => {
             {id: v1(), first: '#ff0084', second: '#ff8bc0'},
         ]
     }
-    let theme = startState.themes.find(t => t.id === id)
-
     const id = startState.themes[3].id
+    let theme = startState.themes.find(t => t.id === id)
     const endState = settingsReducer(startState, setColorAC(id))
     expect(endState.themeColor.first).toBe(theme?.first)
     expect(endState.themeColor.second).toBe(theme?.second)

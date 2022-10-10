@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import {Dialogs} from "./Dialogs/Dialogs";
-import {Messages} from "./Messages/Messages";
+import {DialogsContainer} from "./Dialogs/DialogsContainer";
+import {MessagesContainer} from "./Messages/MessagesContainer";
 
 
 export const Messenger = React.memo(() => {
 
-    const Container = styled.div`
+        const Container = styled.div`
     background: white;
     display: grid;
     grid-template-columns: 1fr 7fr;
@@ -19,11 +19,11 @@ export const Messenger = React.memo(() => {
 `
 
 
-    return (
-        <Container>
-            <Dialogs/>
-            <Messages/>
-        </Container>
-    )
-}
+        return (
+            <Container>
+                <DialogsContainer/>
+                <MessagesContainer/>
+            </Container>
+        )
+    }
 )

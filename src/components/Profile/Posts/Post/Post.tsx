@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "styled-components";
 import {ProfileBadge} from "../../../../common/styles/styles";
 import {StyledBlock, StyledIMGBadge} from "../../../../common/styles/styles";
@@ -123,13 +123,19 @@ color: #666;
     grid-column-start: 4;
     grid-row-start: 1;
 `
+    const removeCallback = useCallback(() =>{
+        removePost(id)
+    },[removePost, id])
+    const like = useCallback(()=>{
+        likeCallback(id)
+    },[likeCallback, id])
     return (
         <Container>
             <Header>
                 <UserIMG src={'http://localhost:3000/static/media/eral.3a96cf0943b92706de14.jpg'}/>
                 <Title>Nursain Temirtas</Title>
                 <SubTitle>{time}</SubTitle>
-                <RemoveEl removeCallback={()=>removePost(id)} fontSize={15}/>
+                <RemoveEl removeCallback={removeCallback} fontSize={15}/>
             </Header>
 
 
@@ -139,7 +145,7 @@ color: #666;
 
             <Footer>
                 <div>
-                    <Like disabled={isLiked} isLiked={isLiked} likeCallback={() => likeCallback(id)}/>
+                    <Like disabled={isLiked} isLiked={isLiked} likeCallback={like}/>
                 </div>
                 <div>
                     <CommentIcon/>

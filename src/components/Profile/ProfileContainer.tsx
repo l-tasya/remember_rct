@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {Profile} from "./Profile";
 import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
@@ -7,14 +7,14 @@ import axios from "axios";
 import {AppStateType} from "../../redux/store/store";
 
 
-export const ProfileContainer = () => {
+export const ProfileContainer = React.memo(() => {
     let param = useParams()
     let dispatch = useDispatch()
 
     const user = useSelector<AppStateType, ProfileUserType>(t => t.profile.profile)
-    const setUserCallback = (user: ProfileUserType) => {
+    const setUserCallback = useCallback((user: ProfileUserType) => {
         dispatch(setProfileAC(user))
-    }
+    },[dispatch])
 
     useEffect(() => {
         if (param.userID === 'main') {
@@ -28,4 +28,4 @@ export const ProfileContainer = () => {
 
     }, [param.userID, user, setUserCallback])
     return <Profile user={user}/>
-}
+})

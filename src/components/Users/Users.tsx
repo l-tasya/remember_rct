@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import {UserType} from "../../redux/reducers/usersReducer";
@@ -34,9 +34,9 @@ export const Users: React.FC<UsersPropsType> = React.memo((
         grid-template-columns: repeat(${page.columns}, 1fr);
         grid-template-rows: repeat(${page.rows}, 200px)
 `
-        const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
             changeCurrentPage(value);
-        };
+        },[changeCurrentPage]);
         return (
             <Container>
                 {

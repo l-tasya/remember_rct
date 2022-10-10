@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useCallback} from "react";
 import {Post} from "./Post/Post";
 import {PostType} from "../../../redux/reducers/profileReducer";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
@@ -14,7 +14,14 @@ type PostsPropsType = {
     removePost: (postID:string)=>void
     likeCallback: (postID: string)=>void
 }
+const Input = styled(StyledBlock)`
+      border-radius: 8px;
+      margin: 10px 0 ;
+      display: flex;
+      justify-content: center;
+`
 export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,removePost,likeCallback}) => {
+    console.log('Posts')
     const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
     const Container = styled.div`
     transition: 3s linear;
@@ -38,27 +45,30 @@ export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,remov
         color: ${color.second};
     }
 `
-    const Input = styled(StyledBlock)`
-      border-radius: 8px;
-      margin: 10px 0 ;
-      display: flex;
-      justify-content: center;
-`
+    const addPostCallback = useCallback((value: string) =>{
+        addPost(value)
+    },[addPost])
+    const removePostCallback = useCallback( (postID: string)=>{
+        removePost(postID)
+    }, [removePost])
+    const like = useCallback((postID: string)=>{
+        likeCallback(postID)
+    },[likeCallback])
     return (
         <Container>
             <Content>
                 <Input>
-                    <StyledInput label={'New post'} addItem={addPost}/>
+                    <StyledInput addItem={addPostCallback}/>
                 </Input>
                 {posts.map(t => <Post
-                    removePost={removePost}
+                    removePost={removePostCallback}
                     key={t.id}
                     message={t.message}
                     time={t.time}
                     id={t.id}
                     likeCount={t.likeCount}
                     isLiked={t.isLiked}
-                    likeCallback={likeCallback}/>
+                    likeCallback={like}/>
                 )
                 }
             </Content>

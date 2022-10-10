@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button/Button";
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import styled from "styled-components";
 import {RadioButton} from "../../common/components/Radio/Radio";
 import {StyledBlock} from "../../common/styles/styles";
@@ -50,8 +50,12 @@ export const Settings = React.memo(() => {
     justify-content: center;
     align-items: center;
 `
-
-
+        const addTheme = useCallback((value: string)=>{
+            dispatch(addThemeAC(value))
+        },[dispatch])
+        const setColor = useCallback(()=>{
+            dispatch(setColorAC(theme))
+    },[dispatch, theme])
         return <Container>
             <ColorPicker>
                 <Title>Select app theme</Title>
@@ -63,9 +67,9 @@ export const Settings = React.memo(() => {
                             checked={t.id === theme}
                         />
                     )}
-                    <AddTheme addTheme={(value: string) => dispatch(addThemeAC(value))}/>
+                    <AddTheme addTheme={addTheme}/>
                 </ColorRadio>
-                <ApplyButton onClick={() => dispatch(setColorAC(theme))} variant={'contained'}
+                <ApplyButton onClick={setColor} variant={'contained'}
                              size={'small'}>Apply</ApplyButton>
             </ColorPicker>
             <Icon sx={{fontSize: 30}}/>

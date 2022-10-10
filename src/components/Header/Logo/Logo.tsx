@@ -22,7 +22,7 @@ export const Logo: React.FC<LogoPropsType> = ({title}) => {
     font-size: 18px;
     color: ${color.first}
     `
-    return (<Container to={'/'}>
+    return (<Container to={'/remember_rct/'}>
             <svg id="svg" version="1.1" width="60" height="60" viewBox="0, 0, 400,400">
                 <g id="svgg">
                     <path id="path0"
