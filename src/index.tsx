@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from './redux/store/store';
 import {AppWrapper} from "./common/styles/styles";
+import ToggleColorMode from "./ToggleColor";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,7 +15,7 @@ root.render(
     <Provider store={store}>
         <AppWrapper background={'f5f5f5'}>
                 <BrowserRouter>
-                    <App/>
+                    <ToggleColorMode/>
                 </BrowserRouter>
         </AppWrapper>
     </Provider>

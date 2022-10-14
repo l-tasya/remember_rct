@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import {UserType} from "../../redux/reducers/usersReducer";
 import {User} from "./User/User";
+import { PaddedContentContainer } from "../../common/styles/styles";
 
 type UsersPropsType = {
     users: UserType[]
@@ -25,10 +26,7 @@ export const Users: React.FC<UsersPropsType> = React.memo((
         page
     }
     ) => {
-        const Container = styled.div`
 
-  
-`
         const Users = styled.div`
         display: grid;
         grid-template-columns: repeat(${page.columns}, 1fr);
@@ -38,7 +36,7 @@ export const Users: React.FC<UsersPropsType> = React.memo((
             changeCurrentPage(value);
         },[changeCurrentPage]);
         return (
-            <Container>
+            <PaddedContentContainer>
                 {
                     <Users>{
                         users.map(t => <User
@@ -54,7 +52,7 @@ export const Users: React.FC<UsersPropsType> = React.memo((
                     </Users>
                 }
                 <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
-            </Container>
+            </PaddedContentContainer>
         )
     }
 )

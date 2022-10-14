@@ -10,10 +10,7 @@ import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
 type UserInfoPropsType = {
     user: ProfileUserType
 }
-
-export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
-    let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    const Container = styled(StyledBlock)`
+const Container = styled(StyledBlock)`
       padding: 0;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr; 
@@ -36,9 +33,9 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
         grid-column-start: 2;
         grid-row-start: 2;
         grid-row-end: 4;
-       display: flex;
-       justify-content: center;
-       align-items: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         img{
         position: relative;
         top: 5px;
@@ -51,6 +48,11 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
         }
        
     `
+export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
+    let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
+
+
+
     const InfoContainer = styled.div`
         grid-column-start: 2;
         grid-row-start: 4;

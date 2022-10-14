@@ -7,6 +7,7 @@ test('settingReducer should change theme color', () => {
             first: '#7c5ba1',
             second: '#c9a3fc'
         },
+        active: '',
         themes:  [
             {id: v1(), first: '#8d59ac', second: '#ca87ff'},
             {id: v1(), first: 'mediumspringgreen', second: '#98ff98'},
@@ -27,6 +28,7 @@ test('settingReducer should add theme color', () => {
             first: '#7c5ba1',
             second: '#c9a3fc'
         },
+        active: '',
         themes:  [
             {id: v1(), first: '#8d59ac', second: '#ca87ff'},
             {id: v1(), first: 'mediumspringgreen', second: '#98ff98'},

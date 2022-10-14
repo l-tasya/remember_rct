@@ -18,16 +18,13 @@ type HeaderPropsType = {
 export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
     //styles
     const color = useSelector<AppStateType, ThemeColorType>(t=>t.settings.themeColor)
-    const ContainerGrid = styled.div`
+    const Container = styled.div`
             grid-column-start: 1;
             grid-column-end: 3;
-
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: 1fr;
-    `
-    const Container = styled(ContainerGrid)`
-    background: white;
+                background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
     z-index: 2;
     position: fixed; 

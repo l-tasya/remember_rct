@@ -2,6 +2,7 @@ import {v1} from "uuid";
 
 export type SettingsStateType = {
     themeColor: ThemeColorType
+    active: string
     themes: ThemesArrayType
 
 }
@@ -23,9 +24,10 @@ const initialState: StateType = {
         first: '#1a74ed',
         second: '#84bbff',
     },
+    active: 'default',
     themes:  [
-        {id: v1(), first: '#8d59ac', second: '#ca87ff'},
-        {id: v1(), first: 'mediumspringgreen', second: '#98ff98'},
+        {id: 'default', first: '#8d59ac', second: '#ca87ff'},
+        {id: v1(), first: '#198219', second: '#98ff98'},
         {id: v1(), first: "#004080", second: "#3c7cbc"},
         {id: v1(), first: '#1a74ed', second: '#84bbff'},
         {id: v1(), first: '#dc2121', second: '#e38585'},
@@ -47,6 +49,7 @@ export const settingsReducer = (state: StateType = initialState, action: Actions
                 first: theme.first,
                 second: theme.second,
             }
+            stateCopy.active = action.id
             }
             return stateCopy
         }

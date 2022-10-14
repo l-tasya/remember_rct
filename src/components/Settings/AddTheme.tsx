@@ -33,15 +33,7 @@ export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => 
    align-items: center;
    flex-direction: column;
 `
-
-    const Input = styled.input`
-    border: 0;
-    background: none;
-    width: 100px;
-    height: 30px;
-    outline: none;
-    margin: 0 2px;
-`
+    
 
     const [open, setOpen] = useState(false)
     const handleClick = () => setOpen(!open)
@@ -50,12 +42,13 @@ export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => 
         addTheme(color)
         handleClick()
     }
+
     return <Container>
         <AddIcon onClick={handleClick}/>
         <Dialog open={open} onClose={handleClick}>
             <DialogContainer>
                 <DialogTitle>Choose The Color</DialogTitle>
-                <Input type="color" value={color} onChange={(e) => setColor(e.currentTarget.value)}/>
+                <input type="color" value={color} onInput={(e)=> setColor(e.currentTarget.value)}/>
                 <Button variant={'contained'}
                         size={'small'} onClick={callback1}>submit</Button>
             </DialogContainer>

@@ -1,22 +1,49 @@
 import styled from "styled-components";
+import {Paper} from "@mui/material";
 
 type WrapperPropsType = {
     background: string
 }
 //global
+
+//contentContainer wrap-------------------------
+export const PaddedContentContainer = styled.div`
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    margin-top: 16px;
+    height: 100%;
+`
+export const ContentContainerWithoutPadding = styled.div`
+   grid-column-start: 1;
+   grid-column-end: 4;
+   grid-row-start: 1;
+`
+//--------------------------
+//paper--------------------------
+export const StyledBlock = styled(Paper)`
+    background: white;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    ${(props: {padding?: string | 16}) =>(props.padding === 'none')?
+        `padding: 0px'4`
+    :
+    `padding: 16px`
+}
+`
+
+
+
+
+
+
+//-------------------------
 export const AppWrapper = styled.div`
  background: #${(props: WrapperPropsType) => props.background};
- min-height: 100vh;
  width: 100%;
  overflow-x: hidden;
 `
-export const StyledBlock = styled.div`
-    background: white;
-    padding: 16px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    overflow: hidden;
-    border-radius: 8px;
-`
+
 export const StyledIMGBadge = styled.div`
     background: #f5f5f5;
     display: flex;
