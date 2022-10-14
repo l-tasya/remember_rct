@@ -33,7 +33,7 @@ export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => 
    align-items: center;
    flex-direction: column;
 `
-    
+
 
     const [open, setOpen] = useState(false)
     const handleClick = () => setOpen(!open)
