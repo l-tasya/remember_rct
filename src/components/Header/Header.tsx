@@ -25,7 +25,7 @@ export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: 1fr;
                 background: white;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
     z-index: 2;
     position: fixed; 
     top: 0; 

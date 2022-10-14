@@ -18,6 +18,8 @@ const Container = styled.div`
     grid-template-columns: repeat(1, 60px 1fr);
     grid-template-rows: repeat(1, 60px 1fr);
     height: 100vh;
+    overflow: visible;
+    
     `
 const Content = styled.div`
         display: grid;
@@ -27,44 +29,32 @@ const Content = styled.div`
         grid-row-end: 3;
         grid-column-start: 2;
         grid-column-end: 3;
-        //------------
-        height: 100%;      
-        background: #f5f5f5;  
-        position: relative;
-    `
-const ContentContainer = styled.div`
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    //------------------//
-    padding: 15px;
-    border-radius: 12px;
-    margin-top: 5px;
-    overflow: hidden;
-    `
+        //------------   
+        position: relative;      
+    
 
+    
+    `
 const App = React.memo(() => {
-    return (
-        <Container>
+        return (
+            <Container>
 
-            <Header title={'TASYA NETWORK'}/>
-            <NavBar/>
-            <Content>
-                <ContentContainer>
+                <Header title={'TASYA NETWORK'}/>
+                <NavBar/>
+                <Content>
                     <Routes>
                         <Route path={'remember_rct/'} element={<Home/>}/>
                         <Route path={'remember_rct/:userID/*'} element={<ProfileContainer/>}/>
                         <Route path={'remember_rct/Music'} element={<Music/>}/>
                         <Route path={'remember_rct/Store'} element={<Store/>}/>
-                        {/*<Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>*/}
+                        <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
                         <Route path={'remember_rct/Settings'} element={<Settings/>}/>
                         <Route path={'remember_rct/Users'} element={<UsersContainer columns={4} rows={3}/>}/>
                     </Routes>
-                </ContentContainer>
-            </Content>
-        </Container>
-    );
-}
+                </Content>
+            </Container>
+        );
+    }
 )
 
 export default App;

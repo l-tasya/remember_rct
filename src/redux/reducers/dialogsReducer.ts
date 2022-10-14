@@ -40,6 +40,10 @@ const initialState: StateType = [
     {id: `${Math.random()}`, name: "Tima"},
     {id: `${Math.random()}`, name: "Tima"},
     {id: `${Math.random()}`, name: "Tima"},
+    {id: `${Math.random()}`, name: "Tima"},
+    {id: `${Math.random()}`, name: "Tima"},
+    {id: `${Math.random()}`, name: "Tima"},
+    {id: `${Math.random()}`, name: "Tima"},
 
 ]
 export const dialogsReducer = (state: StateType = initialState, action: ActionsType): StateType => {

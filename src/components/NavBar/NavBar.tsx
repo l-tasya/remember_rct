@@ -23,11 +23,12 @@ export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
     background: white;
 
     --tw-border-opacity: 2;
-    border-right: 1px solid rgba(229,231,235,var(--tw-border-opacity));
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
     position: fixed; 
     top: 60px;
     width: 60px; 
     height: 100%;
+    z-index: 1
     `
     let style = (props: { isActive: boolean }) => props.isActive ? {
         color: color.second,
