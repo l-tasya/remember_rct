@@ -83,6 +83,13 @@ const initialState: StateType = {
             time: 'Jan 7 at 03:28',
             likeCount: 444
         },
+        {
+            id: v1(),
+            isLiked: false,
+            message: 'last',
+            time: 'Jan U j U',
+            likeCount: 3333
+        }
     ]
 }
 export const profileReducer = (state: StateType = initialState, action: ActionsType): StateType => {

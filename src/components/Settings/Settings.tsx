@@ -30,7 +30,7 @@ export const Settings = React.memo(() => {
 
         let dispatch = useDispatch()
         const Container = styled(StyledBlock)`
-
+          grid-column-start: 2;
     
 `
         const Title = styled.div`
@@ -74,7 +74,7 @@ export const Settings = React.memo(() => {
 
         }, [dispatch, value])
         return <PaddedContentContainer>
-            <Container>
+            <Container post={true}>
                 <ColorPicker>
                     <Title>Select app theme</Title>
                     <ColorRadio>

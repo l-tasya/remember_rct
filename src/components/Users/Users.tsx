@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import {UserType} from "../../redux/reducers/usersReducer";
 import {User} from "./User/User";
-import { PaddedContentContainer } from "../../common/styles/styles";
+import {PaddedContentContainer} from "../../common/styles/styles";
 
 type UsersPropsType = {
     users: UserType[]
@@ -16,6 +16,9 @@ type UsersPropsType = {
         rows: number
     }
 }
+const Container = styled.div`
+  grid-column-start: 2;
+`
 export const Users: React.FC<UsersPropsType> = React.memo((
     {
         users,
@@ -34,24 +37,26 @@ export const Users: React.FC<UsersPropsType> = React.memo((
 `
         const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
             changeCurrentPage(value);
-        },[changeCurrentPage]);
+        }, [changeCurrentPage]);
         return (
             <PaddedContentContainer>
-                {
-                    <Users>{
-                        users.map(t => <User
-                            key={t.id}
-                            id={t.id}
-                            name={t.name}
-                            status={t.status}
-                            photo={t.photo}
-                            followed={t.followed}
-                            loading={isFetching}
-                        />)
+                <Container>
+                    {
+                        <Users>{
+                            users.map(t => <User
+                                key={t.id}
+                                id={t.id}
+                                name={t.name}
+                                status={t.status}
+                                photo={t.photo}
+                                followed={t.followed}
+                                loading={isFetching}
+                            />)
+                        }
+                        </Users>
                     }
-                    </Users>
-                }
-                <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
+                    <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
+                </Container>
             </PaddedContentContainer>
         )
     }

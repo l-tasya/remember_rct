@@ -18,13 +18,10 @@ const Container = styled.div`
     grid-template-columns: repeat(1, 60px 1fr);
     grid-template-rows: repeat(1, 60px 1fr);
     height: 100vh;
-    overflow: visible;
+    overflow: hidden;
     
     `
 const Content = styled.div`
-        display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 1fr;
         grid-row-start: 2;
         grid-row-end: 3;
         grid-column-start: 2;

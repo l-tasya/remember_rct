@@ -28,7 +28,6 @@ export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,remov
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
-    height: 100%;
 `
     const Content = styled.div`
     margin-top: 10px;

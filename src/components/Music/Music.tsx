@@ -1,11 +1,39 @@
 import React from "react";
+import styled from "styled-components";
+import {PaddedContentContainer, StyledBlock} from "../../common/styles/styles";
 
 
-
-export const Music = React.memo(() =>{
+const Container = styled(StyledBlock)`
+  grid-column-start: 2;
+`
+export const Music = React.memo(() => {
     return (
-        <div>
-            music
-        </div>
+        <PaddedContentContainer>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+            <Container post>
+                music
+            </Container>
+
+        </PaddedContentContainer>
     )
 })
