@@ -74,7 +74,7 @@ export const Settings = React.memo(() => {
 
         }, [dispatch, value])
         return <PaddedContentContainer>
-            <Container post={true}>
+            <Container post>
                 <ColorPicker>
                     <Title>Select app theme</Title>
                     <ColorRadio>

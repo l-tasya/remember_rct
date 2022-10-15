@@ -5,23 +5,21 @@ import styled from "styled-components";
 
 const Container = styled(StyledBlock)`
   grid-column-start: 2;
-  margin: 15px;
-  height: 200px;
    
 `
 export const Store = React.memo(() => {
     return (
         <PaddedContentContainer>
-            <Container>
+            <Container post>
                 store
             </Container>
-            <Container>
+            <Container post>
                 заглушки
             </Container>
-            <Container>
+            <Container post>
                 store
             </Container>
-            <Container>
+            <Container post>
                 store
             </Container>
         </PaddedContentContainer>
