@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 //global
 
 //contentContainer wrap-------------------------
@@ -19,19 +18,18 @@ export const ContentContainerWithoutPadding = styled.div`
    
 
 `
-//--------------------------
 //paper--------------------------
 type StyledBlockPropsType = {
-    radius?: number
+    radius?: number | 'none' | 'default'
     padding?: string
-    elevation?: number
+    elevation?: 1 | 3 | 'none' | 'default'
 }
-const elevationReducer = (elevation: number) => {
+const elevationReducer = (elevation: 3 | 1 | 'none' | 'default') => {
     switch (elevation) {
-        case 0: {
-            return 'box-shadow: 0px'
+        case 'none': {
+            return 'box-shadow: 0px;'
         }
-        case 2: {
+        case 'default': {
             return 'box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);'
         }
         case 1: {
@@ -45,23 +43,47 @@ const elevationReducer = (elevation: number) => {
         }
     }
 }
+const borderReducer = (value: number | 'none' | 'default') => {
+    switch (value) {
+        case 'none': {
+            return 'border-radius: 0px;'
+        }
+        case 'default': {
+            return `border-radius: 4px;`
+        }
+        default: {
+            return `border-radius: ${value};`
+        }
+    }
+}
 export const StyledBlock = styled.div`
     background: white;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    ${(props: StyledBlockPropsType) => props.radius ? `border-radius: ${props.radius}px;` : `border-radius: 4px;`}
+    ${(props: StyledBlockPropsType) => props.radius ? borderReducer(props.radius) : borderReducer('default')}
     ${(props: StyledBlockPropsType) => (props.padding === 'none') ? `padding: 0px;` : `padding: 16px;`}
-    ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer(2)}
+    ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer('default')}
     
 
 `
-
-
-//-------------------------
-export const AppWrapper = styled.div`
-  background: #f5f5f5;
-  overflow-y: hidden;
+//scroll-------------------------
+export const Scroll = styled.div`
+    overflow-y: scroll;
+    position: absolute;
+width: 100%;
+    //firefox
+    scrollbar-color: pink white;
+    scrollbar-width: thin;
+    //google chrome
+    ::-webkit-scrollbar {
+    height: 10px;
+    width: 5px;
+    background: white;
+    }
+    ::-webkit-scrollbar-thumb {
+    background: pink;
+}
 `
-
+//other-------------------------
 export const StyledIMGBadge = styled.div`
     background: #f5f5f5;
     display: flex;
