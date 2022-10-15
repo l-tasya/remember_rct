@@ -20,9 +20,6 @@ const Container = styled.div`
     height: 100vh;
     `
 const Content = styled.div`
-        display: grid;
-        grid-template-columns: 1fr 4fr 1fr;
-        grid-template-rows: 1fr;
         grid-row-start: 2;
         grid-row-end: 3;
         grid-column-start: 2;
@@ -32,39 +29,25 @@ const Content = styled.div`
         background: #f5f5f5;  
         position: relative;
     `
-const ContentContainer = styled.div`
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    //------------------//
-    padding: 15px;
-    border-radius: 12px;
-    margin-top: 5px;
-    overflow: hidden;
-    `
-
 const App = React.memo(() => {
-    return (
-        <Container>
-
-            <Header title={'TASYA NETWORK'}/>
-            <NavBar/>
-            <Content>
-                <ContentContainer>
+        return (
+            <Container>
+                <Header title={'TASYA NETWORK'}/>
+                <NavBar/>
+                <Content>
                     <Routes>
                         <Route path={'remember_rct/'} element={<Home/>}/>
                         <Route path={'remember_rct/:userID/*'} element={<ProfileContainer/>}/>
                         <Route path={'remember_rct/Music'} element={<Music/>}/>
                         <Route path={'remember_rct/Store'} element={<Store/>}/>
-                        {/*<Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>*/}
+                        <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
                         <Route path={'remember_rct/Settings'} element={<Settings/>}/>
                         <Route path={'remember_rct/Users'} element={<UsersContainer columns={4} rows={3}/>}/>
                     </Routes>
-                </ContentContainer>
-            </Content>
-        </Container>
-    );
-}
+                </Content>
+            </Container>
+        );
+    }
 )
 
 export default App;
