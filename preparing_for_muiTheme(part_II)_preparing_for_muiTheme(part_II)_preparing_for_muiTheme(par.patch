@@ -1,0 +1,910 @@
+Index: src/App.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/App.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/App.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -18,53 +18,40 @@
+     grid-template-columns: repeat(1, 60px 1fr);
+     grid-template-rows: repeat(1, 60px 1fr);
+     height: 100vh;
++    overflow: hidden;
++    
+     `
+ const Content = styled.div`
+-        display: grid;
+-        grid-template-columns: 1fr 4fr 1fr;
+-        grid-template-rows: 1fr;
+         grid-row-start: 2;
+         grid-row-end: 3;
+         grid-column-start: 2;
+         grid-column-end: 3;
+-        //------------
+-        height: 100%;      
+-        background: #f5f5f5;  
+-        position: relative;
++        //------------   
++        position: relative;      
++    
++
++    
+     `
+-const ContentContainer = styled.div`
+-    grid-column-start: 2;
+-    grid-column-end: 3;
+-    grid-row-start: 1;
+-    //------------------//
+-    padding: 15px;
+-    border-radius: 12px;
+-    margin-top: 5px;
+-    overflow: hidden;
+-    `
+-
+ const App = React.memo(() => {
+-    return (
+-        <Container>
++        return (
++            <Container>
+ 
+-            <Header title={'TASYA NETWORK'}/>
+-            <NavBar/>
+-            <Content>
+-                <ContentContainer>
++                <Header title={'TASYA NETWORK'}/>
++                <NavBar/>
++                <Content>
+                     <Routes>
+                         <Route path={'remember_rct/'} element={<Home/>}/>
+                         <Route path={'remember_rct/:userID/*'} element={<ProfileContainer/>}/>
+                         <Route path={'remember_rct/Music'} element={<Music/>}/>
+                         <Route path={'remember_rct/Store'} element={<Store/>}/>
+-                        {/*<Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>*/}
++                        <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
+                         <Route path={'remember_rct/Settings'} element={<Settings/>}/>
+                         <Route path={'remember_rct/Users'} element={<UsersContainer columns={4} rows={3}/>}/>
+                     </Routes>
+-                </ContentContainer>
+-            </Content>
+-        </Container>
+-    );
+-}
++                </Content>
++            </Container>
++        );
++    }
+ )
+ 
+ export default App;
+Index: src/ToggleColor.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/ToggleColor.tsx	(revision ff2a890975b11559655b1a84fbef7daa305927fd)
++++ src/ToggleColor.tsx	(revision ff2a890975b11559655b1a84fbef7daa305927fd)
+@@ -0,0 +1,52 @@
++import {createTheme, ThemeProvider} from '@mui/material/styles';
++import React, {useCallback} from 'react';
++import App from './App';
++
++
++export const ColorModeContext = React.createContext({
++    toggleColorMode: (value: string) => {
++    }
++})
++
++export default function ToggleColorMode() {
++    const [mode, setMode] = React.useState<string>('#f1f1f1');
++    const colorMode = React.useMemo(() => ({
++        toggleColorMode: (value: string) => {
++            setMode(value);
++        },
++    }), [],);
++    const getSecondValue = useCallback((): string => {
++        function componentToHex(c: any) {
++            let value = c > 200 ? c : c + 60
++            var hex = value.toString(16);
++            return hex.length === 1 ? "0" + hex : hex;
++        }
++
++        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(mode)
++        let rgb = null
++        if (result) {
++            rgb = {
++                r: parseInt(result[1], 16),
++                g: parseInt(result[2], 16),
++                b: parseInt(result[3], 16)
++            }
++        }
++        return rgb ? "#" + componentToHex(rgb.r) + componentToHex(rgb.g) + componentToHex(rgb.b) : ''
++    }, [mode])
++    const theme = React.useMemo(() => createTheme({
++        palette: {
++            primary: {
++                main: mode,
++                light: getSecondValue()
++            }
++        },
++    }), [mode, getSecondValue]);
++
++    return (
++        <ColorModeContext.Provider value={colorMode}>
++            <ThemeProvider theme={theme}>
++                <App/>
++            </ThemeProvider>
++        </ColorModeContext.Provider>
++    );
++}
+\ No newline at end of file
+Index: src/ToggleColor.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/ToggleColor.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
++++ src/ToggleColor.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -0,0 +1,52 @@
++import {createTheme, ThemeProvider} from '@mui/material/styles';
++import React, {useCallback} from 'react';
++import App from './App';
++
++
++export const ColorModeContext = React.createContext({
++    toggleColorMode: (value: string) => {
++    }
++})
++
++export default function ToggleColorMode() {
++    const [mode, setMode] = React.useState<string>('#f1f1f1');
++    const colorMode = React.useMemo(() => ({
++        toggleColorMode: (value: string) => {
++            setMode(value);
++        },
++    }), [],);
++    const getSecondValue = useCallback((): string => {
++        function componentToHex(c: any) {
++            let value = c > 200 ? c : c + 60
++            var hex = value.toString(16);
++            return hex.length === 1 ? "0" + hex : hex;
++        }
++
++        let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(mode)
++        let rgb = null
++        if (result) {
++            rgb = {
++                r: parseInt(result[1], 16),
++                g: parseInt(result[2], 16),
++                b: parseInt(result[3], 16)
++            }
++        }
++        return rgb ? "#" + componentToHex(rgb.r) + componentToHex(rgb.g) + componentToHex(rgb.b) : ''
++    }, [mode])
++    const theme = React.useMemo(() => createTheme({
++        palette: {
++            primary: {
++                main: mode,
++                light: getSecondValue()
++            }
++        },
++    }), [mode, getSecondValue]);
++
++    return (
++        <ColorModeContext.Provider value={colorMode}>
++            <ThemeProvider theme={theme}>
++                <App/>
++            </ThemeProvider>
++        </ColorModeContext.Provider>
++    );
++}
+\ No newline at end of file
+Index: src/common/styles/styles.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/common/styles/styles.ts	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/common/styles/styles.ts	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -1,49 +1,88 @@
+ import styled from "styled-components";
+-import {Paper} from "@mui/material";
+-
+-type WrapperPropsType = {
+-    background: string
+-}
+ //global
+-
++//scroll-------------------------
++export const Scroll = styled.div`
++    overflow-y: scroll;
++    position: absolute;
++    width: 100%;
++    //firefox
++    scrollbar-color: black white;
++    scrollbar-width: thin;
++    //google chrome
++    ::-webkit-scrollbar {
++    height: 10px;
++    width: 5px;
++    background: white;
++    }
++    ::-webkit-scrollbar-thumb {
++    background: black;
++}
++`
+ //contentContainer wrap-------------------------
+-export const PaddedContentContainer = styled.div`
++export const PaddedContentContainer = styled(Scroll)`
++    display: grid;
++    grid-template-columns: 1fr 4fr 1fr;
++    grid-template-rows: 1fr;
+     grid-column-start: 2;
+-    grid-column-end: 3;
+-    grid-row-start: 1;
+-    grid-row-end: 4;
+-    margin-top: 16px;
+     height: 100%;
++
++    
+ `
+ export const ContentContainerWithoutPadding = styled.div`
+-   grid-column-start: 1;
+-   grid-column-end: 4;
+-   grid-row-start: 1;
++       width: 100%;
++       height: 100%;
++   
++
+ `
+-//--------------------------
+ //paper--------------------------
+-export const StyledBlock = styled(Paper)`
++type StyledBlockPropsType = {
++    radius?: number | 'none' | 'default'
++    padding?: string
++    elevation?: 1 | 3 | 'none' | 'default'
++    post?: boolean
++}
++const elevationReducer = (elevation: 3 | 1 | 'none' | 'default') => {
++    switch (elevation) {
++        case 'none': {
++            return 'box-shadow: 0px;'
++        }
++        case 'default': {
++            return 'box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);'
++        }
++        case 1: {
++            return '  box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),0px 1px 1px 0px rgba(0,0,0,0.14),0px 1px 3px 0px rgba(0,0,0,0.12);'
++        }
++        case 3: {
++            return 'box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;'
++        }
++        default: {
++            throw new Error('i dont understand this elevation(maybe it is invalid)')
++        }
++    }
++}
++const borderReducer = (value: number | 'none' | 'default') => {
++    switch (value) {
++        case 'none': {
++            return 'border-radius: 0px;'
++        }
++        case 'default': {
++            return `border-radius: 4px;`
++        }
++        default: {
++            return `border-radius: ${value};`
++        }
++    }
++}
++export const StyledBlock = styled.div`
+     background: white;
+     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+-    ${(props: {padding?: string | 16}) =>(props.padding === 'none')?
+-        `padding: 0px'4`
+-    :
+-    `padding: 16px`
+-}
++    ${(props: StyledBlockPropsType) => props.radius ? borderReducer(props.radius) : borderReducer('default')}
++    ${(props: StyledBlockPropsType) => (props.padding === 'none') ? `padding: 0px;` : `padding: 16px;`}
++    ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer('default')}
++    ${(props: StyledBlockPropsType) => props.post ? 'min-width: 200px; height: 200px; margin-top: 8px;' : ''}
+ `
+ 
+-
+-
+-
+-
+-
+-//-------------------------
+-export const AppWrapper = styled.div`
+- background: #${(props: WrapperPropsType) => props.background};
+- width: 100%;
+- overflow-x: hidden;
+-`
+-
++//other-------------------------
+ export const StyledIMGBadge = styled.div`
+     background: #f5f5f5;
+     display: flex;
+Index: src/components/Header/Header.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Header/Header.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/components/Header/Header.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -25,7 +25,7 @@
+             grid-template-columns: repeat(8, 1fr);
+             grid-template-rows: 1fr;
+                 background: white;
+-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
++    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+     z-index: 2;
+     position: fixed; 
+     top: 0; 
+Index: src/components/Messenger/Dialogs/Dialogs.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Messenger/Dialogs/Dialogs.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/components/Messenger/Dialogs/Dialogs.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -1,11 +1,10 @@
+-import React, { useCallback } from 'react';
++import React, {useCallback} from 'react';
+ import styled from "styled-components";
+-import {useSelector} from "react-redux";
+-import {AppStateType} from "../../../redux/store/store";
+-import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
+ import {DialogsType} from '../../../redux/reducers/dialogsReducer';
+ import {AddDialog} from "./AddDialog/AddDialog";
+ import {Dialog} from "./Dialog/Dialog";
++import {Scroll, StyledBlock} from '../../../common/styles/styles';
++import {useTheme} from '@mui/material';
+ 
+ 
+ type DialogPropsType = {
+@@ -15,35 +14,49 @@
+ 
+ }
+ 
+-export const Dialogs: React.FC<DialogPropsType> = React.memo(({dialogs, addDialog, removeDialog}) => {
+-    let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
+-    const Container = styled.div`\n    display: grid;\n    border-right: 0.3px solid rgb(211,211,211, 0.3);\n    align-items: center;\n    justify-items: center;\n    grid-template-columns: 1fr;\n    grid-template-rows: repeat(20, 50px);\n    overflow-y: scroll;\n    //firefox\n    scrollbar-color: ${color.first} white;\n    scrollbar-width: thin;\n    //google chrome\n    ::-webkit-scrollbar {\n    height: 10px;\n    width: 5px;\n    background: white;\n    }\n    ::-webkit-scrollbar-thumb {\n    background: ${color.first};\n}\n\n::-webkit-scrollbar-corner {\n    background: #000;\n}\n`
+-    const Title = styled.div`
+-      font-weight: 600;
+-      font-size: 1.5rem;
+-      color: #333;
+-`
+-    const Header = styled.div`
+-    border: 0.3px solid rgb(211,211,211, 0.3);
+-    width: 100%;
+-    height: 100%;
+-    display: flex;
+-    align-items: center;
+-    justify-content: space-around;
++const Container = styled.div`
++width: 100%;
++height: 100%;
++position: relative;
++
++`
++const Header = styled(StyledBlock)`
++display: flex;
++height: 10%;
++padding: 0 16px;
++justify-content: space-between;
++align-items: center;
+ 
++b{
++font-weight: 600;
++      color: #333;
++      font-size: 1.5rem;
++}
+ `
++const List = styled(Scroll)`
++height: 90%;
++
++
++`
++export const Dialogs: React.FC<DialogPropsType> = React.memo(({dialogs, addDialog, removeDialog}) => {
++    let color = useTheme()
+     const addDialogCallback = useCallback((newValue: string) => {
+         addDialog(newValue)
+     }, [addDialog])
+     const removeDialogCallback = useCallback((dialogID: string) => {
+         removeDialog(dialogID)
+-    },[removeDialog])
++    }, [removeDialog])
+     return (
+         <Container>
+-            <Header><Title>Chats</Title><AddDialog addDialog={addDialogCallback} color={color.first}/></Header>
+-            {
+-                dialogs.map(t => <Dialog key={t.id} removeDialog={removeDialogCallback} id={t.id} name={t.name}/>)
+-            }
++            <Header radius={'none'} elevation={'none'} padding='none'><b>Chats</b><AddDialog
++                addDialog={addDialogCallback}
++                color={color.palette.primary.main}/></Header>
++            <List id={'list'}>
++                {
++                    dialogs.map(t => <Dialog key={t.id} removeDialog={removeDialogCallback} id={t.id}
++                                             name={t.name}/>)
++                }
++            </List>
+         </Container>
+     )
+ })
+\ No newline at end of file
+Index: src/components/Messenger/Messenger.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Messenger/Messenger.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/components/Messenger/Messenger.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -1,29 +1,27 @@
+ import React from "react";
+ import styled from "styled-components";
++import {ContentContainerWithoutPadding, StyledBlock} from "../../common/styles/styles";
+ import {DialogsContainer} from "./Dialogs/DialogsContainer";
+ import {MessagesContainer} from "./Messages/MessagesContainer";
+ 
+ 
+ export const Messenger = React.memo(() => {
+ 
+-        const Container = styled.div`
+-    background: white;
+-    display: grid;
+-    grid-template-columns: 1fr 7fr;
+-    position: absolute;
+-    top: 0;
+-    left: 0;
+-    width: 100%;
+-    height: 100%;
+-    border: 0.3px solid rgb(211,211,211, 0.3)
+-`
+-
+-
++        const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
++`
++        const Container = styled(StyledBlock)`
++          width: 100%;
++          height: 100%;
++          display: grid;
++          grid-template-columns: 1fr 9fr;
++        `
+         return (
+-            <Container>
+-                <DialogsContainer/>
+-                <MessagesContainer/>
+-            </Container>
++            <ContainerWithoutPadding>
++                <Container padding={'none'} elevation={'none'} radius={0}>
++                    <DialogsContainer/>
++                    <MessagesContainer/>
++                </Container>
++            </ContainerWithoutPadding>
+         )
+     }
+ )
+\ No newline at end of file
+Index: src/components/NavBar/NavBar.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/NavBar/NavBar.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/components/NavBar/NavBar.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -23,11 +23,12 @@
+     background: white;
+ 
+     --tw-border-opacity: 2;
+-    border-right: 1px solid rgba(229,231,235,var(--tw-border-opacity));
++    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+     position: fixed; 
+     top: 60px;
+     width: 60px; 
+     height: 100%;
++    z-index: 1
+     `
+     let style = (props: { isActive: boolean }) => props.isActive ? {
+         color: color.second,
+Index: src/components/Settings/AddTheme.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Settings/AddTheme.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/components/Settings/AddTheme.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -33,7 +33,7 @@
+    align-items: center;
+    flex-direction: column;
+ `
+-    
++
+ 
+     const [open, setOpen] = useState(false)
+     const handleClick = () => setOpen(!open)
+Index: src/index.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/index.scss	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/index.scss	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -1,10 +1,12 @@
+ body {
+   margin: 0;
+   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+-    sans-serif;
++  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
++  sans-serif;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
++  max-height: 100vh;
++  background: #f5f5f5;
+ }
+ * {
+   padding: 0;
+Index: src/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/index.tsx	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/index.tsx	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -5,7 +5,6 @@
+ import {BrowserRouter} from "react-router-dom";
+ import {Provider} from "react-redux";
+ import {store} from './redux/store/store';
+-import {AppWrapper} from "./common/styles/styles";
+ import ToggleColorMode from "./ToggleColor";
+ 
+ const root = ReactDOM.createRoot(
+@@ -13,11 +12,9 @@
+ );
+ root.render(
+     <Provider store={store}>
+-        <AppWrapper background={'f5f5f5'}>
+-                <BrowserRouter>
+-                    <ToggleColorMode/>
+-                </BrowserRouter>
+-        </AppWrapper>
++        <BrowserRouter>
++            <ToggleColorMode/>
++        </BrowserRouter>
+     </Provider>
+ );
+ 
+Index: src/redux/reducers/dialogsReducer.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/redux/reducers/dialogsReducer.ts	(revision 5e068f137e0f3936bff1430cab7b0aa8a23f9cdb)
++++ src/redux/reducers/dialogsReducer.ts	(revision 0ed6b350e8cfc7ef4df503679744b05051e928b4)
+@@ -40,6 +40,10 @@
+     {id: `${Math.random()}`, name: "Tima"},
+     {id: `${Math.random()}`, name: "Tima"},
+     {id: `${Math.random()}`, name: "Tima"},
++    {id: `${Math.random()}`, name: "Tima"},
++    {id: `${Math.random()}`, name: "Tima"},
++    {id: `${Math.random()}`, name: "Tima"},
++    {id: `${Math.random()}`, name: "last"},
+ 
+ ]
+ export const dialogsReducer = (state: StateType = initialState, action: ActionsType): StateType => {
+Index: src/components/Home/Home.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Home/Home.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Home/Home.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -1,11 +1,28 @@
+ import React from "react";
+-import { PaddedContentContainer } from "../../common/styles/styles";
++import {PaddedContentContainer, StyledBlock} from "../../common/styles/styles";
++import styled from "styled-components";
+ 
+-
++const Container = styled(StyledBlock)`
++  grid-column-start: 2;
++`
+ export const Home = React.memo(() => {
++
+     return (<PaddedContentContainer>
+-            <div>home</div>
+-
++            <Container post>
++                <div>home</div>
++            </Container>
++            <Container post>
++                <div>home</div>
++            </Container>
++            <Container post>
++                <div>home</div>
++            </Container>
++            <Container post>
++                <div>home</div>
++            </Container>
++            <Container post>
++                <div>home</div>
++            </Container>
+         </PaddedContentContainer>
+     )
+ })
+\ No newline at end of file
+Index: src/components/Music/Music.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Music/Music.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Music/Music.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -1,11 +1,39 @@
+ import React from "react";
++import styled from "styled-components";
++import {PaddedContentContainer, StyledBlock} from "../../common/styles/styles";
+ 
+ 
+-
+-export const Music = React.memo(() =>{
++const Container = styled(StyledBlock)`
++  grid-column-start: 2;
++`
++export const Music = React.memo(() => {
+     return (
+-        <div>
+-            music
+-        </div>
++        <PaddedContentContainer>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++            <Container post>
++                music
++            </Container>
++
++        </PaddedContentContainer>
+     )
+ })
+\ No newline at end of file
+Index: src/components/Profile/Posts/Posts.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Profile/Posts/Posts.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Profile/Posts/Posts.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -28,7 +28,6 @@
+     display: grid;
+     grid-template-columns: 2fr 1fr;
+     grid-template-rows: 1fr;
+-    height: 100%;
+ `
+     const Content = styled.div`
+     margin-top: 10px;
+Index: src/components/Profile/Profile.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Profile/Profile.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Profile/Profile.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -6,21 +6,31 @@
+ import {ProfileUserType} from "../../redux/reducers/profileReducer";
+ import {Friends} from "./Friends/Friends";
+ import {PaddedContentContainer} from "../../common/styles/styles";
++import styled from "styled-components";
+ 
+ type ProfilePropsType = {
+     user: ProfileUserType
+ }
++const Container = styled.div`
++grid-column-start: 2;
++`
++const Wrapper = styled(PaddedContentContainer)`
++position: absolute;
++height: 100%;
++`
+ export const Profile: React.FC<ProfilePropsType> = React.memo(({user}) => {
+ 
+     return (
+-        <PaddedContentContainer>
+-            <UserInfo user={user} />
+-            <Routes>
++        <Wrapper>
++            <Container>
++                <UserInfo user={user}/>
++                <Routes>
+                     <Route path="/" element={<PostsContainer/>}/>
+                     <Route path="/posts" element={<PostsContainer/>}/>
+                     <Route path="/friends" element={<Friends/>}/>
+                     <Route path="/groups" element={<Groups/>}/>
+-            </Routes>
+-        </PaddedContentContainer>
++                </Routes>
++            </Container>
++        </Wrapper>
+     )
+ })
+\ No newline at end of file
+Index: src/components/Settings/Settings.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Settings/Settings.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Settings/Settings.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -30,7 +30,7 @@
+ 
+         let dispatch = useDispatch()
+         const Container = styled(StyledBlock)`
+-
++          grid-column-start: 2;
+     
+ `
+         const Title = styled.div`
+@@ -74,7 +74,7 @@
+ 
+         }, [dispatch, value])
+         return <PaddedContentContainer>
+-            <Container>
++            <Container post={true}>
+                 <ColorPicker>
+                     <Title>Select app theme</Title>
+                     <ColorRadio>
+Index: src/components/Store/Store.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Store/Store.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Store/Store.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -1,11 +1,29 @@
+ import React from "react";
++import {PaddedContentContainer, StyledBlock} from "../../common/styles/styles";
++import styled from "styled-components";
+ 
+ 
+-
+-export const Store = React.memo(() =>{
++const Container = styled(StyledBlock)`
++  grid-column-start: 2;
++  margin: 15px;
++  height: 200px;
++   
++`
++export const Store = React.memo(() => {
+     return (
+-        <div>
+-            store
+-        </div>
++        <PaddedContentContainer>
++            <Container>
++                store
++            </Container>
++            <Container>
++                заглушки
++            </Container>
++            <Container>
++                store
++            </Container>
++            <Container>
++                store
++            </Container>
++        </PaddedContentContainer>
+     )
+ })
+\ No newline at end of file
+Index: src/components/Users/Users.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/components/Users/Users.tsx	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/components/Users/Users.tsx	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -3,7 +3,7 @@
+ import Pagination from "@mui/material/Pagination";
+ import {UserType} from "../../redux/reducers/usersReducer";
+ import {User} from "./User/User";
+-import { PaddedContentContainer } from "../../common/styles/styles";
++import {PaddedContentContainer} from "../../common/styles/styles";
+ 
+ type UsersPropsType = {
+     users: UserType[]
+@@ -16,6 +16,9 @@
+         rows: number
+     }
+ }
++const Container = styled.div`
++  grid-column-start: 2;
++`
+ export const Users: React.FC<UsersPropsType> = React.memo((
+     {
+         users,
+@@ -34,24 +37,26 @@
+ `
+         const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
+             changeCurrentPage(value);
+-        },[changeCurrentPage]);
++        }, [changeCurrentPage]);
+         return (
+             <PaddedContentContainer>
+-                {
+-                    <Users>{
+-                        users.map(t => <User
+-                            key={t.id}
+-                            id={t.id}
+-                            name={t.name}
+-                            status={t.status}
+-                            photo={t.photo}
+-                            followed={t.followed}
+-                            loading={isFetching}
+-                        />)
+-                    }
+-                    </Users>
+-                }
+-                <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
++                <Container>
++                    {
++                        <Users>{
++                            users.map(t => <User
++                                key={t.id}
++                                id={t.id}
++                                name={t.name}
++                                status={t.status}
++                                photo={t.photo}
++                                followed={t.followed}
++                                loading={isFetching}
++                            />)
++                        }
++                        </Users>
++                    }
++                    <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
++                </Container>
+             </PaddedContentContainer>
+         )
+     }
+Index: src/redux/reducers/profileReducer.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/redux/reducers/profileReducer.ts	(revision 2d0bd08b12d7651c792717db4a450556a6b26db9)
++++ src/redux/reducers/profileReducer.ts	(revision 09ae929555cc6b4ccabd8191549d8d51346ee61d)
+@@ -83,6 +83,13 @@
+             time: 'Jan 7 at 03:28',
+             likeCount: 444
+         },
++        {
++            id: v1(),
++            isLiked: false,
++            message: 'last',
++            time: 'Jan U j U',
++            likeCount: 3333
++        }
+     ]
+ }
+ export const profileReducer = (state: StateType = initialState, action: ActionsType): StateType => {
