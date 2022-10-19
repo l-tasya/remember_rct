@@ -57,11 +57,11 @@ type FollowButtonProps =
     & ClassAttributes<HTMLButtonElement>
     & ButtonHTMLAttributes<HTMLButtonElement>
     & { theme: Theme }
-    & { followed: boolean };
-export const FollowButton = styled(Button)(({theme, followed}: FollowButtonProps) => {
+    & { follow: boolean };
+export const FollowButton = styled(Button)(({theme, follow}: FollowButtonProps) => {
     return ({
-        background: followed ? theme.palette.primary.main : theme.palette.background.paper,
-        color: followed ? theme.palette.primary.light : theme.palette.text.primary,
+        background: follow ? theme.palette.primary.main : theme.palette.background.paper,
+        color: follow ? theme.palette.primary.light : theme.palette.text.primary,
 
     })
 })

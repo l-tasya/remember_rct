@@ -8,9 +8,7 @@ type LikePropsType = {
     likeCallback: ()=>void;
     disabled: boolean
 }
-
-export const Like: React.FC<LikePropsType> = React.memo(({disabled,isLiked, likeCallback}) =>{
-    const Container = styled.button`
+const Container = styled.button`
      display: inline-block;
      svg{
      color: red;
@@ -18,7 +16,10 @@ export const Like: React.FC<LikePropsType> = React.memo(({disabled,isLiked, like
      }
      
 `
-    return <Container  disabled={disabled}>
-        {isLiked?<Favorite onClick={()=>likeCallback()}/>:<FavoriteBorder onClick={()=>likeCallback()}/>}
+
+export const Like: React.FC<LikePropsType> = React.memo(({disabled, isLiked, likeCallback}) => {
+
+    return <Container disabled={disabled}>
+        {isLiked ? <Favorite onClick={() => likeCallback()}/> : <FavoriteBorder onClick={() => likeCallback()}/>}
     </Container>
 })

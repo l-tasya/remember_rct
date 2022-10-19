@@ -9,9 +9,7 @@ import Button from "@mui/material/Button";
 type AddThemePropsType = {
     addTheme: (value: string) => void
 }
-
-export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => {
-    const Container = styled.div`
+const Container = styled.div`
           border: 1px solid white;
           outline: 2px solid black;
           width: 35px;
@@ -21,7 +19,7 @@ export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => 
           align-items: center;
           justify-content: center;
 `
-    const DialogContainer = styled.div`
+const DialogContainer = styled.div`
     padding: 10px;
    width: 300px;
    height: 500px;
@@ -33,12 +31,13 @@ export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => 
    align-items: center;
    flex-direction: column;
 `
+export const AddTheme: React.FC<AddThemePropsType> = React.memo(({addTheme}) => {
 
 
     const [open, setOpen] = useState(false)
     const handleClick = () => setOpen(!open)
     const [color, setColor] = useState('#FFFFFF')
-    const callback1 = () =>{
+    const callback1 = () => {
         addTheme(color)
         handleClick()
     }

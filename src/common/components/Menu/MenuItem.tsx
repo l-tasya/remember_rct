@@ -5,8 +5,7 @@ import styled from "styled-components";
 type MenuSelectPropsType = {
     children: any
 }
-export const MenuSelect: React.FC<MenuSelectPropsType> = ({children}) => {
-    const StyledItem = styled.div`
+const StyledItem = styled.div`
     padding: 4px 6px;
     transition: 3s;
     display: flex;
@@ -16,6 +15,8 @@ export const MenuSelect: React.FC<MenuSelectPropsType> = ({children}) => {
     font-size: 20px;
     }
 `
+export const MenuSelect: React.FC<MenuSelectPropsType> = ({children}) => {
+
     return <StyledItem>
         {children}
     </StyledItem>

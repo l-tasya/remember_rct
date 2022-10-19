@@ -4,9 +4,6 @@ import {PostType} from "../../../redux/reducers/profileReducer";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store/store";
-import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 import {Title} from "../../../common/styles/mui-styles";
 
 type PostsPropsType = {
@@ -27,34 +24,28 @@ const Container = styled.div`
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
 `
-export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost, removePost, likeCallback}) => {
-    console.log('Posts')
-    const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-
-    const Content = styled.div`
+const Content = styled.div`
     margin-top: 10px;
 `
-    const About = styled(StyledBlock)`
+const About = styled(StyledBlock)`
     display: block;
     margin: 20px 0 20px 20px;
     height: 300px;
     min-width: 200px;
-    h4{
-    color: ${color.first};
-    }
-    span{
-        color: ${color.second};
-    }
 `
-    const addPostCallback = useCallback((value: string) =>{
+export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost, removePost, likeCallback}) => {
+    console.log('Posts')
+
+
+    const addPostCallback = useCallback((value: string) => {
         addPost(value)
-    },[addPost])
-    const removePostCallback = useCallback( (postID: string)=>{
+    }, [addPost])
+    const removePostCallback = useCallback((postID: string) => {
         removePost(postID)
     }, [removePost])
-    const like = useCallback((postID: string)=>{
+    const like = useCallback((postID: string) => {
         likeCallback(postID)
-    },[likeCallback])
+    }, [likeCallback])
     return (
         <Container>
             <Content>

@@ -85,13 +85,13 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
         :
         (
             <Container>
-                <NavItem hover={theme.palette.primary.light} to={` / remember_rct /${id}`}>
+                <NavItem hover={theme.palette.primary.light} to={`/remember_rct/${id}`}>
                     <Background color={theme.palette.primary.light}>{img}</Background>
                     <Content id={'content'}>
                         <div>{name}</div>
                     </Content>
                 </NavItem>
-                <FollowButton followed={follow} variant='default' onClick={() => setFollow(!follow)}>
+                <FollowButton follow={follow} variant='default' onClick={() => setFollow(!follow)}>
                     {follow ? 'Following' : 'Follow'}
                 </FollowButton>
 

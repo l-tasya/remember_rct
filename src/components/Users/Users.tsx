@@ -19,6 +19,15 @@ type UsersPropsType = {
 const Container = styled.div`
   grid-column-start: 2;
 `
+type UsersContainerProps = {
+    columns: number
+    rows: number
+}
+const UsersContainer = styled.div`
+        display: grid;
+        grid-template-columns: repeat(${(props: UsersContainerProps) => props.columns}, 1fr);
+        grid-template-rows: repeat(${(props: UsersContainerProps) => props.rows}, 200px)
+`
 export const Users: React.FC<UsersPropsType> = React.memo((
     {
         users,
@@ -30,19 +39,17 @@ export const Users: React.FC<UsersPropsType> = React.memo((
     }
     ) => {
 
-        const Users = styled.div`
-        display: grid;
-        grid-template-columns: repeat(${page.columns}, 1fr);
-        grid-template-rows: repeat(${page.rows}, 200px)
-`
+
         const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
             changeCurrentPage(value);
         }, [changeCurrentPage]);
+
+
         return (
             <PaddedContentContainer>
                 <Container>
                     {
-                        <Users>{
+                        <UsersContainer rows={page.rows} columns={page.columns}>{
                             users.map(t => <User
                                 key={t.id}
                                 id={t.id}
@@ -53,7 +60,7 @@ export const Users: React.FC<UsersPropsType> = React.memo((
                                 loading={isFetching}
                             />)
                         }
-                        </Users>
+                        </UsersContainer>
                     }
                     <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
                 </Container>

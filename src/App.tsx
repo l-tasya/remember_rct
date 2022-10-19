@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import './App.scss';
 import {Header} from "./components/Header/Header";
@@ -11,7 +11,10 @@ import styled from 'styled-components';
 import {NavBar} from './components/NavBar/NavBar';
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {UsersContainer} from './components/Users/UsersContainer';
-import useTheme from "@mui/material/styles/useTheme";
+import {useSelector} from "react-redux";
+import {AppStateType} from "./redux/store/store";
+import {ThemesArrayType} from "./redux/reducers/settingsReducer";
+import {ColorModeContext} from "./ToggleColor";
 
 
 const Container = styled.div`
@@ -31,8 +34,15 @@ const Content = styled.div`
         position: relative;
     `
 const App = React.memo(() => {
-        let theme = useTheme()
-        console.log(theme)
+        let themeMode = useContext(ColorModeContext)
+        let themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
+        let active = useSelector<AppStateType, string>(t => t.settings.active)
+        useEffect(() => {
+            let color = themes.find(t => t.id === active)
+            if (color) {
+                themeMode.toggleColorMode(color.first)
+            }
+        }, [])
         return (
             <Container>
                 <Header title={'TASYA NETWORK'}/>
