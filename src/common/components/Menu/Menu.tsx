@@ -2,43 +2,16 @@ import React, {useEffect, useRef, useState} from "react";
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import styled from "styled-components";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store/store";
 import ChatIcon from '@mui/icons-material/Chat';
-import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
-import {ProfileBadge, StyledIMGBadge} from "../../styles/styles";
-import img from './../../img/eral.jpg';
+import {ProfileBadge, StyledIMGBadge} from "../../styles/mui-styles";
+import {defaultUser} from "../../../redux/reducers/profileReducer";
 
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
     icon: BadgeType
     children: React.ReactNode
 }
-
-export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
-    //TODO:props with profileIMG
-    let [open, setOpen] = useState(false)
-    let profileIMG = img
-    let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    //styles
-    const Badge = styled(StyledIMGBadge)`
-    width: 40px;
-    height: 40px;
-    margin: 0 10px;
-        border-radius: 50%;
-        svg{
-        color: ${color.first};
-        }
-    :hover{
-    background: ${color.second};
-    color: white;
-    svg{
-    color: white
-    }
-    
-    }
-    `
-    const MenuContent = styled.div`
+const MenuContent = styled.div`
     position: absolute;
     padding: 8px;
 border: 1px solid #f1f3f4;
@@ -53,15 +26,23 @@ border: 1px solid #f1f3f4;
    
     
 `
-    const MenuContainer = styled.div`
+const MenuContainer = styled.div`
     position: relative;
     display:flex;
     flex-direction: column;
     justify-content: center;
 `
-    const Profile = styled(ProfileBadge)`
-    border: 1px solid ${color.first};
+const Badge = styled(StyledIMGBadge)`
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    border-radius: 50%;
 `
+export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
+    let [open, setOpen] = useState(false)
+    let profileIMG = defaultUser.photos.large
+    //styles
+
 
     //handlers
     function useOutsideAlerter(ref: any) {
@@ -90,7 +71,7 @@ border: 1px solid #f1f3f4;
     let iconEl = () => {
         switch (icon) {
             case 'profile': {
-                return <Profile src={profileIMG}/>
+                return <ProfileBadge src={profileIMG}/>
             }
             case 'notifications': {
                 return <NotificationsIcon/>

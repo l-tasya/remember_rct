@@ -9,36 +9,39 @@ import {addThemeAC, setColorAC, ThemesArrayType} from "../../redux/reducers/sett
 import JavascriptIcon from '@mui/icons-material/Javascript';
 import {AddTheme} from "./AddTheme";
 import {ColorModeContext} from "../../ToggleColor";
+import useTheme from "@mui/material/styles/useTheme";
 
 export const Settings = React.memo(() => {
-        let themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
-        let initialActive = useSelector<AppStateType, string>(t => t.settings.active)
-        let [value, setValue] = useState<string>(initialActive)
-        let themeMode = useContext(ColorModeContext)
-        useEffect(() => {
-            let color = themes.find(t => t.id === value)
-            if (color) {
-                themeMode.toggleColorMode(color.first)
-            }
-        }, [])
-        let color = useMemo(() => {
-            let curr = themes.find(t => t.id === value)
-            if (curr) {
-                return curr.first
-            }
-        }, [themes, value])
+    let theme = useTheme()
+    let themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
+    let initialActive = useSelector<AppStateType, string>(t => t.settings.active)
+    let [value, setValue] = useState<string>(initialActive)
+    let themeMode = useContext(ColorModeContext)
+    useEffect(() => {
+        let color = themes.find(t => t.id === value)
+        if (color) {
+            themeMode.toggleColorMode(color.first)
+        }
+        console.log(theme)
+    }, [])
+    let color = useMemo(() => {
+        let curr = themes.find(t => t.id === value)
+        if (curr) {
+            return curr.first
+        }
+    }, [themes, value])
 
-        let dispatch = useDispatch()
-        const Container = styled(StyledBlock)`
+    let dispatch = useDispatch()
+    const Container = styled(StyledBlock)`
           grid-column-start: 2;
     
 `
-        const Title = styled.div`
+    const Title = styled.div`
     grid-column-start: 1;
     grid-row-start: 1;
     font-size: 17px;
 `
-        const ColorRadio = styled.div`
+    const ColorRadio = styled.div`
     grid-column-start: 1;
     grid-column-end: 4;
     display: grid;
@@ -47,27 +50,27 @@ export const Settings = React.memo(() => {
     align-items: center;
     margin-bottom: 5px;
 `
-        const ApplyButton = styled(Button)`
+    const ApplyButton = styled(Button)`
        grid-column-start: 3;
        grid-row-start: 3;
        width: 30px;
        justify-self: flex-end;
 `
-        const Icon = styled(JavascriptIcon)`
+    const Icon = styled(JavascriptIcon)`
     grid-row-start: 4;
     grid-column-start: 3;
     justify-self: flex-end;
 `
-        const ColorPicker = styled.div`
+    const ColorPicker = styled.div`
           display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
 `
-        const addTheme = useCallback((value: string) => {
-            dispatch(addThemeAC(value))
-        }, [dispatch])
+    const addTheme = useCallback((value: string) => {
+        dispatch(addThemeAC(value))
+    }, [dispatch])
         const setColor = useCallback(() => {
             dispatch(setColorAC(value))
             themeMode.toggleColorMode(color || 'default')

@@ -3,15 +3,11 @@ import {NavLink} from "react-router-dom";
 
 import {Headphones, Home, MessageSquare, Settings, ShoppingBag, Users} from "react-feather";
 import styled from "styled-components";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store/store";
-import {ThemeColorType} from "../../redux/reducers/settingsReducer";
+import useTheme from "@mui/material/styles/useTheme";
 
 
 type NavbarPropsType = {}
-export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
-    const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    const ContainerGrid = styled.div`
+const ContainerGrid = styled.div`
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(12, 1fr);
@@ -19,7 +15,7 @@ export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
     align-items:center;
  
     `
-    const Container = styled(ContainerGrid)`
+const Container = styled(ContainerGrid)`
     background: white;
 
     --tw-border-opacity: 2;
@@ -30,22 +26,25 @@ export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
     height: 100%;
     z-index: 1
     `
-    let style = (props: { isActive: boolean }) => props.isActive ? {
-        color: color.second,
-    } : {
-        color: 'black'
-    }
-    const LastChild = styled.div`
+const LastChild = styled.div`
     grid-row-start: 11;
     
     `
-    const SettingAnimation = styled(Settings)`
+const SettingAnimation = styled(Settings)`
     :hover{
     transform: rotate(360deg);
     transition-duration: 3s;
     animation-timing-function: linear;
     }
 `
+export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
+    let theme = useTheme()
+    let style = (props: { isActive: boolean }) => props.isActive ? {
+        color: theme.palette.primary.main,
+    } : {
+        color: 'black'
+    }
+
     return (
         <Container>
             <NavLink style={style} to={'remember_rct/'}><Home size={30}/></NavLink>

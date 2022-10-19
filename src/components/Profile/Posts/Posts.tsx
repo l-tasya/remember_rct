@@ -7,6 +7,7 @@ import {StyledBlock} from "../../../common/styles/styles";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../../redux/store/store";
 import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
+import {Title} from "../../../common/styles/mui-styles";
 
 type PostsPropsType = {
     posts: PostType[]
@@ -20,15 +21,16 @@ const Input = styled(StyledBlock)`
       display: flex;
       justify-content: center;
 `
-export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,removePost,likeCallback}) => {
-    console.log('Posts')
-    const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    const Container = styled.div`
+const Container = styled.div`
     transition: 3s linear;
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
 `
+export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost, removePost, likeCallback}) => {
+    console.log('Posts')
+    const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
+
     const Content = styled.div`
     margin-top: 10px;
 `
@@ -72,12 +74,12 @@ export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost,remov
                 }
             </Content>
             <About>
-                <h4>About:</h4>
-                <div>Friends: <span>5,344+</span></div>
-                <div>Groups: <span>344</span></div>
-                <div>Live in: <span>...</span></div>
-                <div>From: <span>...</span></div>
-                <div>Followers: <span>999,999+</span></div>
+                <Title value={'main'} sx={{fontWeight: 700}}>About:</Title>
+                <div>Friends: <Title value={'light'}>5,344+</Title></div>
+                <div>Groups: <Title value={'light'}>344</Title></div>
+                <div>Live in: <Title value={'light'}>...</Title></div>
+                <div>From: <Title value={'light'}>...</Title></div>
+                <div>Followers: <Title value={'light'}>999,999+</Title></div>
             </About>
         </Container>
     )

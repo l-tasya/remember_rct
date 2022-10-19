@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import {StyledBlock, StyledButton, StyledIMGBadge} from "../../../common/styles/styles";
+import {StyledBlock} from "../../../common/styles/styles";
 import PersonIcon from '@mui/icons-material/Person';
-import {AppStateType} from "../../../redux/store/store";
-import {useSelector} from "react-redux";
-import {ThemeColorType} from "../../../redux/reducers/settingsReducer";
 import {Skeleton} from "@mui/material";
 import {NavLink} from "react-router-dom";
+import {FollowButton} from '../../../common/styles/mui-styles';
+import useTheme from "@mui/material/styles/useTheme";
 
 export type UserPropsType = {
     name: string
@@ -19,24 +18,37 @@ export type UserPropsType = {
     followed: boolean
     loading: boolean
 }
-
-export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id}) => {
-    const [follow, setFollow] = useState(followed)
-    const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-    const Container = styled(StyledBlock)`
+const Container = styled(StyledBlock)`
     margin: 10px 5px;
     display: grid;
     grid-template-rows: 2fr 1fr;
     padding: 8px;
     position: relative;
 `
-    const Avatar = styled(StyledIMGBadge)`
+const Background = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
-    background: ${color.second};
     height: 100%;
-    
+    background: ${(props: { color: string }) => props.color}
 `
-    const Content = styled.div`
+const SkeletonEl = styled(Skeleton)`
+       margin: 10px 5px;
+    padding: 8px;
+    position: relative;
+    top: -45px;
+`
+const NavItem = styled(NavLink)`
+    position: relative;
+    &:hover{
+    #content{
+      transition: 0.3s;
+    color: ${(props: { hover: string }) => props.hover}
+    }
+    }
+`
+const Content = styled.div`
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -52,20 +64,7 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
     font-weight: 700;
     }
 `
-    const Button = styled(StyledButton)`
-    background: ${follow ? color.first : 'white'};
-    opacity: 0.9;
-    color: ${follow ? color.second : '#3f424b'};
-    justify-self: center;
-    margin: 5px;
-    grid-row-start: 2;
-    :hover{
-    background: ${follow ? 'tomato' : 'mediumspringgreen'};
-    transition: 0.3s;
-    color: white;
-    }
-`
-    const SubTitle = styled.div`
+const SubTitle = styled.div`
      color: #3f424b;
      font-size: 14px;
      align-self: center;
@@ -74,37 +73,27 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
      
      
 `
-    const img = Boolean(photo?.large && photo?.small) ? <img src={photo?.small} alt=""/> : <PersonIcon/>
-    const SkeletonEl = styled(Skeleton)`
-       margin: 10px 5px;
-    padding: 8px;
-    position: relative;
-    top: -45px;
-`
-    const NavItem = styled(NavLink)`
-    position: relative;
-    &:hover{
-    #content{
-      transition: 0.3s;
-    color: ${color.first}
-    }
-    }
-`
+export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id}) => {
+    const [follow, setFollow] = useState(followed)
+    const theme = useTheme()
+
+
+    const img = Boolean(photo?.large || photo?.small) ? <img src={photo?.small} alt=""/> : <PersonIcon/>
     return loading ? (
             <SkeletonEl height={240}/>
         )
         :
         (
             <Container>
-                <NavItem to={`/remember_rct/${id}`}>
-                    <Avatar>{img}</Avatar>
+                <NavItem hover={theme.palette.primary.light} to={` / remember_rct /${id}`}>
+                    <Background color={theme.palette.primary.light}>{img}</Background>
                     <Content id={'content'}>
                         <div>{name}</div>
                     </Content>
                 </NavItem>
-                <Button onClick={() => setFollow(!follow)}>
+                <FollowButton followed={follow} variant='default' onClick={() => setFollow(!follow)}>
                     {follow ? 'Following' : 'Follow'}
-                </Button>
+                </FollowButton>
 
                 {status && <SubTitle>{status}</SubTitle>}
             </Container>

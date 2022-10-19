@@ -8,17 +8,12 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import {NavLink} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store/store";
-import {ThemeColorType} from "../../redux/reducers/settingsReducer";
+import {useTheme} from '@mui/material/styles';
 
 type HeaderPropsType = {
     title: string
 }
-export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
-        //styles
-        const color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-        const Container = styled.div`
+const Container = styled.div`
             grid-column-start: 1;
             grid-column-end: 3;
             display: grid;
@@ -33,11 +28,11 @@ export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
     height: 60px;
     align-items: center;
     `
-        const SearchContainer = styled.div`
+const SearchContainer = styled.div`
     grid-column-start: 4;
     position: absolute;
 `
-        const BadgesContainer = styled.div`
+const BadgesContainer = styled.div`
       display: flex;
       grid-column-start: 7;
       grid-column-end: 9;
@@ -48,18 +43,17 @@ export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
       
       
 `
-        const Profile = styled(PersonIcon)`
-    color: ${color.first};
-    font-size: 10px;
-`
-        const Settings = styled(SettingsIcon)`
+const Settings = styled(SettingsIcon)`
     color: gray;
-    font-size: 10px;
 `
-        const LogOut = styled(LogoutIcon)`
+const LogOut = styled(LogoutIcon)`
     color: red;
-    font-size: 10px;
+    padding-left: 2px;
 `
+export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
+        //styles
+        let theme = useTheme()
+        let first = theme.palette.primary.main
         return (
             <Container>
                 <Logo title={title}/>
@@ -77,7 +71,8 @@ export const Header: React.FC<HeaderPropsType> =React.memo( ({title}) => {
                         <MenuSelect>messages</MenuSelect>
                     </Menu>
                     <Menu icon={'profile'}>
-                        <MenuSelect><Profile/><NavLink to={'remember_rct/main/posts'}>Profile</NavLink></MenuSelect>
+                        <MenuSelect><PersonIcon sx={{color: first}}/><NavLink
+                            to={'remember_rct/main/posts'}>Profile</NavLink></MenuSelect>
                         <MenuSelect><Settings/><NavLink to={'remember_rct/Settings'}>Options</NavLink></MenuSelect>
                         <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
                     </Menu>

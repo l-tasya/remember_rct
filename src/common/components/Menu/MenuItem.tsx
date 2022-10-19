@@ -12,6 +12,9 @@ export const MenuSelect: React.FC<MenuSelectPropsType> = ({children}) => {
     display: flex;
     justify-content: flex-start;
     align-items: center;    
+    svg{
+    font-size: 20px;
+    }
 `
     return <StyledItem>
         {children}

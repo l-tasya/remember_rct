@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../redux/store/store";
 import {StyledBlock} from "../../../../common/styles/styles";
-import {ThemeColorType} from "../../../../redux/reducers/settingsReducer";
 import {NavLink} from "react-router-dom";
 import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
+import {useTheme} from "@mui/material/styles";
 
 type UserInfoPropsType = {
     user: ProfileUserType
@@ -18,7 +16,7 @@ const Container = styled(StyledBlock)`
       height: 400px;
       min-width: 585px
     `
-    const BackGroundEl = styled.div`
+const BackGroundEl = styled.div`
         grid-column-start: 1;
         grid-column-end: 4;
         grid-row-start: 1;
@@ -29,7 +27,7 @@ const Container = styled(StyledBlock)`
         width: 100%;
         background: ${(props: { background: string }) => props.background}
     `
-    const UserAvatar = styled.div`
+const UserAvatar = styled.div`
         grid-column-start: 2;
         grid-row-start: 2;
         grid-row-end: 4;
@@ -48,12 +46,7 @@ const Container = styled(StyledBlock)`
         }
        
     `
-export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
-    let color = useSelector<AppStateType, ThemeColorType>(t => t.settings.themeColor)
-
-
-
-    const InfoContainer = styled.div`
+const InfoContainer = styled.div`
         grid-column-start: 2;
         grid-row-start: 4;
         grid-row-end: 6;
@@ -63,19 +56,17 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
         align-items: center;
         text-align: center;
 `
-    const Title = styled.div`
+const SubTitle = styled.div`
+  
+
+    `
+const Title = styled.div`
         font-size: 30px;
         color: rgb(62,62,62);
         text-transform: capitalize;
         font-weight: 600;
     `
-    const SubTitle = styled.div`
-        color: ${color.first};
-  
-
-    `
-
-    const Footer = styled.div`
+const Footer = styled.div`
     grid-column-start: 1;
     grid-column-end: 4;
     grid-row-start: 6;
@@ -91,8 +82,11 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
 `
 
 
+export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
+    let theme = useTheme()
+
     let style = (props: { isActive: boolean }) => props.isActive ? {
-        borderBottom: `4px solid ${color.first}`,
+        borderBottom: `4px solid ${theme.palette.primary.main}`,
         transition: '0.3s'
     } : {
         background: 'white',
@@ -100,7 +94,7 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
     }
     return (
         <Container>
-            <BackGroundEl background={color.second}/>
+            <BackGroundEl background={theme.palette.primary.light}/>
             <UserAvatar>
                 <img src={user.photos.large} alt={'error'}/>
             </UserAvatar>

@@ -27,6 +27,6 @@ export const Dialog: React.FC<DialogPropsType> = React.memo(({id, name, removeDi
     }, [id, navigate, pathname, removeDialog])
 
     return <Container>
-        <NavLink key={id} to={`${id}`}>{name}</NavLink><RemoveEl fontSize={15} removeCallback={()=>removeCallback()}/>
+        <NavLink key={id} to={`${id}`}>{name}</NavLink><RemoveEl removeCallback={() => removeCallback()}/>
     </Container>
 })

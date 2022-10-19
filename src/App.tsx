@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import {NavBar} from './components/NavBar/NavBar';
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {UsersContainer} from './components/Users/UsersContainer';
+import useTheme from "@mui/material/styles/useTheme";
 
 
 const Container = styled.div`
@@ -30,6 +31,8 @@ const Content = styled.div`
         position: relative;
     `
 const App = React.memo(() => {
+        let theme = useTheme()
+        console.log(theme)
         return (
             <Container>
                 <Header title={'TASYA NETWORK'}/>
