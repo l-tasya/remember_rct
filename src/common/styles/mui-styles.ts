@@ -65,14 +65,14 @@ export const FollowButton = styled(Button)(({theme, follow}: FollowButtonProps) 
 
     })
 })
-type Title =
+type TitleProps =
     MUIStyledCommonProps
     & ClassAttributes<HTMLDivElement>
     & HTMLAttributes<HTMLDivElement>
     & { theme: Theme }
     & { value: 'main' | 'default' | 'light' | 'gray' }
 
-export const Title = styled('div')(({theme, value}: Title) => {
+export const Title = styled('div')(({theme, value}: TitleProps) => {
     let valueReducer = (value: 'main' | 'default' | 'light' | 'gray') => {
         switch (value) {
             case "default": {

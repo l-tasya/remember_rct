@@ -8,7 +8,7 @@ const Container = styled(StyledBlock)`
 
   
 `
-export const Friends: React.FC<FriendsPropsType> = React.memo(({}) => {
+export const Friends: React.FC<FriendsPropsType> = React.memo(() => {
 
         return (
             <Container>

@@ -42,7 +42,7 @@ const App = React.memo(() => {
             if (color) {
                 themeMode.toggleColorMode(color.first)
             }
-        }, [])
+        }, [themeMode, active, themes])
         return (
             <Container>
                 <Header title={'TASYA NETWORK'}/>

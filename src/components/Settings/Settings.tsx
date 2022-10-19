@@ -68,7 +68,7 @@ export const Settings = React.memo(() => {
             dispatch(setColorAC(value))
             themeMode.toggleColorMode(color || 'default')
 
-        }, [dispatch, value])
+        }, [dispatch, value, color, themeMode])
         return <PaddedContentContainer>
             <Container post>
                 <ColorPicker>
