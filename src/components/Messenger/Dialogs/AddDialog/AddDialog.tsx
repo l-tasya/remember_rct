@@ -9,14 +9,13 @@ type AddDialogPropsType = {
     color: string
     addDialog: (value: string) => void
 }
-export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDialog}) => {
-    const Container = styled.div`
+const Container = styled.div`
     
 `
-    const Icon = styled(LibraryAddIcon)`
-    color: ${color}
+const Icon = styled(LibraryAddIcon)`
+    color: ${(props: { icon: string }) => props.icon}
 `
-    const DialogContainer = styled.div`
+const DialogContainer = styled.div`
     height: 100px;
     width: 250px;
     display: flex;
@@ -25,16 +24,18 @@ export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDi
     flex-direction: column;
     
 `
-    const Title = styled.div`
+const Title = styled.div`
     text-align: center;
 `
-    const Input = styled(StyledInput)`
+const Input = styled(StyledInput)`
 `
+export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDialog}) => {
+
     const [open, setOpen] = useState(false)
     const handleClick = () => setOpen(!open)
 
     return <Container>
-        <Icon onClick={handleClick}/>
+        <Icon icon={color} onClick={handleClick}/>
         <Dialog open={open} onClose={handleClick}>
             <DialogContainer>
                 <Title>Enter a name for new Dialog:</Title>

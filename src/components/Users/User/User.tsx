@@ -74,7 +74,7 @@ const SubTitle = styled.div`
      
 `
 export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id}) => {
-    const [follow, setFollow] = useState(followed)
+    const [follow, setFollow] = useState<boolean>(followed)
     const theme = useTheme()
 
 

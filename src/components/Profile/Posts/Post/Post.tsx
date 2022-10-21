@@ -11,15 +11,7 @@ import {Remove} from "../../../../common/components/Remove/Remove";
 import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
 import useTheme from "@mui/material/styles/useTheme";
 
-export type PostPropsType = {
-    id: string
-    message: string
-    time: string
-    removePost: (postID: string) => void
-    likeCount: number
-    likeCallback: (postID: string) => void
-    isLiked: boolean
-}
+
 const Badge = styled.div`
     width: 14px;
     height: 14px;
@@ -115,7 +107,17 @@ const UserIMG = styled(ProfileBadge)`
     justify-self: center;
     
 `
+export type PostPropsType = {
+    id: string
+    message: string
+    time: string
+    removePost: (postID: string) => void
+    likeCount: number
+    likeCallback: (postID: string) => void
+    isLiked: boolean
+}
 export const Post: React.FC<PostPropsType> = React.memo(({id, message, time, removePost, likeCount, isLiked, likeCallback}) => {
+    console.log('Post')
     const removeCallback = useCallback(() => {
         removePost(id)
     }, [removePost, id])

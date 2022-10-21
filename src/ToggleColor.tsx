@@ -1,6 +1,9 @@
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import React, {useCallback} from 'react';
 import App from './App';
+import {AppStateType} from "./redux/store/store";
+import {useSelector} from "react-redux";
+import {ThemesArrayType} from "./redux/reducers/settingsReducer";
 
 
 export const ColorModeContext = React.createContext({
@@ -9,7 +12,9 @@ export const ColorModeContext = React.createContext({
 })
 
 export default function ToggleColorMode() {
-    const [mode, setMode] = React.useState<string>('#f1f1f1');
+    const themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
+    const current = themes.find(t => t.id === 'default')
+    const [mode, setMode] = React.useState<string>(current ? current.first : '#f1f1f1');
     const colorMode = React.useMemo(() => ({
         toggleColorMode: (value: string) => {
             setMode(value);
@@ -38,7 +43,7 @@ export default function ToggleColorMode() {
             primary: {
                 main: mode,
                 light: getSecondValue()
-            }
+            },
         },
     }), [mode, getSecondValue]);
 

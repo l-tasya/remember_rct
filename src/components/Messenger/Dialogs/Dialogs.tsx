@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import {DialogsType} from '../../../redux/reducers/dialogsReducer';
 import {AddDialog} from "./AddDialog/AddDialog";
@@ -41,20 +41,14 @@ height: 90%;
 `
 export const Dialogs: React.FC<DialogPropsType> = React.memo(({dialogs, addDialog, removeDialog}) => {
     let color = useTheme()
-    const addDialogCallback = useCallback((newValue: string) => {
-        addDialog(newValue)
-    }, [addDialog])
-    const removeDialogCallback = useCallback((dialogID: string) => {
-        removeDialog(dialogID)
-    }, [removeDialog])
     return (
         <Container>
             <Header radius={'none'} elevation={'none'} padding='none'><b>Chats</b><AddDialog
-                addDialog={addDialogCallback}
+                addDialog={addDialog}
                 color={color.palette.primary.main}/></Header>
             <List id={'list'}>
                 {
-                    dialogs.map(t => <Dialog key={t.id} removeDialog={removeDialogCallback} id={t.id}
+                    dialogs.map(t => <Dialog key={t.id} removeDialog={removeDialog} id={t.id}
                                              name={t.name}/>)
                 }
             </List>

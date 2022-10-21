@@ -5,17 +5,15 @@ import {StyledBlock} from "../../common/styles/styles";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
 import {MessagesContainer} from "./Messages/MessagesContainer";
 
-
-export const Messenger = React.memo(() => {
-
-    const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
-`
-    const Container = styled(StyledBlock)`
+const Container = styled(StyledBlock)`
           width: 100%;
           height: 100%;
           display: grid;
           grid-template-columns: 1fr 9fr;
         `
+const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
+`
+export const Messenger = React.memo(() => {
         return (
             <ContainerWithoutPadding>
                 <Container padding={'none'} elevation={'none'} radius={0}>
