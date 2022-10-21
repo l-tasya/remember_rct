@@ -2,13 +2,14 @@ import Button from "@mui/material/Button/Button";
 import React, {useCallback, useContext, useMemo, useState} from "react";
 import styled from "styled-components";
 import {RadioButton} from "../../common/components/Radio/Radio";
-import {PaddedContentContainer, StyledBlock} from "../../common/styles/styles";
+import {StyledBlock} from "../../common/styles/styles";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store/store";
 import {addThemeAC, setColorAC, ThemesArrayType} from "../../redux/reducers/settingsReducer";
 import JavascriptIcon from '@mui/icons-material/Javascript';
 import {AddTheme} from "./AddTheme";
 import {ColorModeContext} from "../../ToggleColor";
+import {PaddedContentContainer} from "../../common/styles/mui-styles";
 
 const Container = styled(StyledBlock)`
           grid-column-start: 2;

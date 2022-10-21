@@ -5,18 +5,18 @@ import styled from "styled-components";
 import ChatIcon from '@mui/icons-material/Chat';
 import {ProfileBadge, StyledIMGBadge} from "../../styles/mui-styles";
 import {defaultUser} from "../../../redux/reducers/profileReducer";
+import {StyledBlock} from "../../styles/styles";
 
 type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
     icon: BadgeType
     children: React.ReactNode
 }
-const MenuContent = styled.div`
+const MenuContent = styled(StyledBlock)`
     position: absolute;
     padding: 8px;
-border: 1px solid #f1f3f4;
+    border: 1px solid #f1f3f4;
     border-radius: 4px;
-    background: white;
     width: 250px;
     top: 40px;
     left: -50%;

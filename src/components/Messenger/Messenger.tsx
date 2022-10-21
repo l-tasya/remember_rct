@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import {ContentContainerWithoutPadding, StyledBlock} from "../../common/styles/styles";
+import {ContentContainerWithoutPadding} from "../../common/styles/mui-styles";
+import {StyledBlock} from "../../common/styles/styles";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
 import {MessagesContainer} from "./Messages/MessagesContainer";
 
 
 export const Messenger = React.memo(() => {
 
-        const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
+    const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
 `
-        const Container = styled(StyledBlock)`
+    const Container = styled(StyledBlock)`
           width: 100%;
           height: 100%;
           display: grid;

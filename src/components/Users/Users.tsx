@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import {UserType} from "../../redux/reducers/usersReducer";
 import {User} from "./User/User";
-import {PaddedContentContainer} from "../../common/styles/styles";
+import {PaddedContentContainer} from "../../common/styles/mui-styles";
 
 type UsersPropsType = {
     users: UserType[]

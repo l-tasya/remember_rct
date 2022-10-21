@@ -5,7 +5,7 @@ import {UserInfo} from "./User/UserInfo/UserInfo";
 import {PostsContainer} from "./Posts/PostsContainer";
 import {ProfileUserType} from "../../redux/reducers/profileReducer";
 import {Friends} from "./Friends/Friends";
-import {PaddedContentContainer} from "../../common/styles/styles";
+import {PaddedContentContainer} from "../../common/styles/mui-styles";
 import styled from "styled-components";
 
 type ProfilePropsType = {

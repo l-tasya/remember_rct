@@ -3,8 +3,9 @@ import styled from "styled-components";
 import {DialogsType} from '../../../redux/reducers/dialogsReducer';
 import {AddDialog} from "./AddDialog/AddDialog";
 import {Dialog} from "./Dialog/Dialog";
-import {Scroll, StyledBlock} from '../../../common/styles/styles';
+import {StyledBlock} from '../../../common/styles/styles';
 import {useTheme} from '@mui/material';
+import {Scroll} from '../../../common/styles/mui-styles';
 
 
 type DialogPropsType = {

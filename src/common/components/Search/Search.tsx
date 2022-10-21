@@ -3,24 +3,23 @@ import SearchIcon from '@mui/icons-material/Search';
 import {InputBase, styled} from "@mui/material";
 
 type SearchPropsType = {
-    background: string
 }
 
-export const Search: React.FC<SearchPropsType> = React.memo(({background}) => {
-        const Search = styled('div')(({theme}) => ({
-            position: 'relative',
-            borderRadius: theme.shape.borderRadius,
-            background: background,
-            '&:hover': {
-                backgroundColor: theme.palette.primary.light,
-                color: 'white',
-            },
-            marginLeft: 0,
-            width: '100%',
-            [theme.breakpoints.up('sm')]: {
-                marginLeft: theme.spacing(1),
-                width: 'auto',
-            },
+export const Search: React.FC<SearchPropsType> = React.memo(() => {
+    const Search = styled('div')(({theme}) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        background: theme.palette.divider,
+        '&:hover': {
+            backgroundColor: theme.palette.primary.light,
+            color: 'white',
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            marginLeft: theme.spacing(1),
+            width: 'auto',
+        },
             color: theme.palette.primary.light,
             '&::placeholder': {//Opera, Chrome,Mozilla
                 color: theme.palette.primary.light,
@@ -35,7 +34,7 @@ export const Search: React.FC<SearchPropsType> = React.memo(({background}) => {
             },
         }));
         const StyledInputBase = styled(InputBase)(({theme}) => ({
-            color: 'gray',
+            color: theme.palette.text.secondary,
             '& .MuiInputBase-input': {
                 padding: theme.spacing(1, 1, 1, 0),
                 // vertical padding + font size from searchIcon

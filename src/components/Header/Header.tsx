@@ -9,17 +9,17 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import {NavLink} from "react-router-dom";
 import {useTheme} from '@mui/material/styles';
+import {StyledBlock} from "../../common/styles/styles";
 
 type HeaderPropsType = {
     title: string
 }
-const Container = styled.div`
+const Container = styled(StyledBlock)`
             grid-column-start: 1;
             grid-column-end: 3;
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             grid-template-rows: 1fr;
-                background: white;
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
     z-index: 2;
     position: fixed; 
@@ -55,9 +55,9 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
         let theme = useTheme()
         let first = theme.palette.primary.main
         return (
-            <Container>
+            <Container padding={'none'} radius={'none'}>
                 <Logo title={title}/>
-                <SearchContainer><Search background={'#f5f5f5'}/></SearchContainer>
+                <SearchContainer><Search/></SearchContainer>
                 <BadgesContainer>
                     <Menu icon={'store'}>
                         <MenuSelect>(empty) </MenuSelect>

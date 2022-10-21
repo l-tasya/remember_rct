@@ -1,39 +1,5 @@
 import styled from "styled-components";
-//global
-//scroll-------------------------
-export const Scroll = styled.div`
-    overflow-y: scroll;
-    position: absolute;
-    width: 100%;
-    //firefox
-    scrollbar-color: black white;
-    scrollbar-width: thin;
-    //google chrome
-    ::-webkit-scrollbar {
-    height: 10px;
-    width: 5px;
-    background: white;
-    }
-    ::-webkit-scrollbar-thumb {
-    background: black;
-}
-`
-//contentContainer wrap-------------------------
-export const PaddedContentContainer = styled(Scroll)`
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 1fr;
-    grid-column-start: 2;
-    height: 100%;
-
-    
-`
-export const ContentContainerWithoutPadding = styled.div`
-       width: 100%;
-       height: 100%;
-   
-
-`
+import {Paper} from "./mui-styles";
 //paper--------------------------
 type StyledBlockPropsType = {
     radius?: number | 'none' | 'default'
@@ -73,13 +39,13 @@ const borderReducer = (value: number | 'none' | 'default') => {
         }
     }
 }
-export const StyledBlock = styled.div`
-    background: white;
+export const StyledBlock = styled(Paper)`
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     ${(props: StyledBlockPropsType) => props.radius ? borderReducer(props.radius) : borderReducer('default')}
     ${(props: StyledBlockPropsType) => (props.padding === 'none') ? `padding: 0px;` : `padding: 16px;`}
     ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer('default')}
     ${(props: StyledBlockPropsType) => props.post ? 'min-width: 200px; height: 200px; margin-top: 8px;' : ''}
+    
 `
 
 //other-------------------------

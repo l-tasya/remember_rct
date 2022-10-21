@@ -15,6 +15,7 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "./redux/store/store";
 import {ThemesArrayType} from "./redux/reducers/settingsReducer";
 import {ColorModeContext} from "./ToggleColor";
+import {useTheme} from '@mui/material/styles';
 
 
 const Container = styled.div`
@@ -29,20 +30,20 @@ const Content = styled.div`
         grid-column-start: 2;
         grid-column-end: 3;
         //------------
-        height: 100%;      
-        background: #f5f5f5;  
+        height: 100%;       
         position: relative;
     `
 const App = React.memo(() => {
         let themeMode = useContext(ColorModeContext)
         let themes = useSelector<AppStateType, ThemesArrayType>(t => t.settings.themes)
         let active = useSelector<AppStateType, string>(t => t.settings.active)
-        useEffect(() => {
-            let color = themes.find(t => t.id === active)
-            if (color) {
-                themeMode.toggleColorMode(color.first)
-            }
-        }, [themeMode, active, themes])
+    console.log(useTheme())
+    useEffect(() => {
+        let color = themes.find(t => t.id === active)
+        if (color) {
+            themeMode.toggleColorMode(color.first)
+        }
+    }, [themeMode, active, themes])
         return (
             <Container>
                 <Header title={'TASYA NETWORK'}/>

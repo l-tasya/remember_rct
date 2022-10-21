@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {PaddedContentContainer, StyledBlock} from "../../common/styles/styles";
+import {PaddedContentContainer} from "../../common/styles/mui-styles";
+import {StyledBlock} from "../../common/styles/styles";
 
 
 const Container = styled(StyledBlock)`
