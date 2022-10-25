@@ -41,6 +41,7 @@ const Badge = styled(StyledIMGBadge)`
 export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
     let [open, setOpen] = useState(false)
     let profileIMG = defaultUser.photos.large
+
     //styles
 
 

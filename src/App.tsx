@@ -1,7 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 import './App.scss';
-import {Header} from "./components/Header/Header";
 import {Home} from "./components/Home/Home";
 import {Store} from "./components/Store/Store";
 import {Music} from './components/Music/Music';
@@ -11,6 +10,7 @@ import styled from 'styled-components';
 import {NavBar} from './components/NavBar/NavBar';
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {UsersContainer} from './components/Users/UsersContainer';
+import {HeaderContainer} from "./components/Header/HeaderContainer";
 
 
 const Container = styled.div`
@@ -31,7 +31,7 @@ const Content = styled.div`
 const App = React.memo(() => {
         return (
             <Container>
-                <Header title={'TASYA NETWORK'}/>
+                <HeaderContainer title={'TASYA NETWORK'}/>
                 <NavBar/>
                 <Content>
                     <Routes>

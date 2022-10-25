@@ -10,6 +10,9 @@ import PersonIcon from '@mui/icons-material/Person';
 import {NavLink} from "react-router-dom";
 import {useTheme} from '@mui/material/styles';
 import {StyledBlock} from "../../common/styles/styles";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../redux/store/store";
+import {Button} from "../../common/styles/mui-styles";
 
 type HeaderPropsType = {
     title: string
@@ -53,7 +56,8 @@ const LogOut = styled(LogoutIcon)`
 export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
         //styles
         let theme = useTheme()
-        let first = theme.palette.primary.main
+    let first = theme.palette.primary.main
+    let isAuth = useSelector<AppStateType, boolean>(t => t.auth.isAuth)
         return (
             <Container padding={'none'} radius={'none'}>
                 <Logo title={title}/>
@@ -70,12 +74,12 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
                         <MenuSelect>messages</MenuSelect>
                         <MenuSelect>messages</MenuSelect>
                     </Menu>
-                    <Menu icon={'profile'}>
+                    {isAuth ? <Menu icon={'profile'}>
                         <MenuSelect><PersonIcon sx={{color: first}}/><NavLink
                             to={'remember_rct/main/posts'}>Profile</NavLink></MenuSelect>
                         <MenuSelect><Settings/><NavLink to={'remember_rct/Settings'}>Options</NavLink></MenuSelect>
                         <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
-                    </Menu>
+                    </Menu> : <Button variant={'filled'}>login</Button>}
                 </BadgesContainer>
             </Container>
         )
