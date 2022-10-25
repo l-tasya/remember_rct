@@ -1,6 +1,15 @@
-import {changeTotalUsersAC, setUsersAC, UsersStateType, usersReducer, UserType, changeIsFetchingAC, changeCurrentPageAC} from "./usersReducer"
+import {
+    changeCurrentPageAC,
+    changeIsFetchingAC,
+    changeTotalUsersAC,
+    changeUserFollowAC,
+    setUsersAC,
+    usersReducer,
+    UsersStateType,
+    UserType
+} from "./usersReducer"
 
-test('users reducers should set users', ()=>{
+test('users reducers should set users', () => {
     const startState: UsersStateType = {
         users: [],
         pageSize: 12,
@@ -61,4 +70,18 @@ test('users reducer should change currentPage', ()=>{
     const endState: UsersStateType = usersReducer(startState, changeCurrentPageAC(value))
     expect(endState.currentPage).toEqual(value)
 })
-
+test('user reducer should change user follow value ', () => {
+    const startState: UsersStateType = {
+        users: [
+            {id: 3, followed: false, status: '', name: 'name', photo: {}}
+        ],
+        pageSize: 12,
+        totalUsers: 50,
+        currentPage: 2,
+        isFetching: false,
+    }
+    let newValue = true
+    let id = startState.users[0].id
+    const endState: UsersStateType = usersReducer(startState, changeUserFollowAC(id, newValue))
+    expect(endState.users.find(t => t.id === id)?.followed).toBe(newValue)
+})

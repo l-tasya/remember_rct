@@ -10,10 +10,11 @@ export type UserType = {
     followed: boolean
 }
 type ActionsType = ReturnType<typeof setUsersAC>
-|ReturnType<typeof changeTotalUsersAC>
-|ReturnType<typeof changeIsFetchingAC>
-|ReturnType<typeof changeCurrentPageAC>
-|ReturnType<typeof changePageSizeAC>
+    | ReturnType<typeof changeTotalUsersAC>
+    | ReturnType<typeof changeIsFetchingAC>
+    | ReturnType<typeof changeCurrentPageAC>
+    | ReturnType<typeof changePageSizeAC>
+    | ReturnType<typeof changeUserFollowAC>
 export type UsersStateType = {
     users: UserType[]
     pageSize: number
@@ -42,23 +43,28 @@ export const usersReducer = (state: UsersStateType = initialState, action: Actio
             stateCopy.totalUsers = action.newValue
             return stateCopy
         }
-        case "CHANGE-IS-FETCHING":{
+        case "CHANGE-IS-FETCHING": {
             const stateCopy = {...state}
             stateCopy.isFetching = action.newValue
             return stateCopy
         }
-        case "CHANGE-CURRENT-PAGE":{
+        case "CHANGE-CURRENT-PAGE": {
             const stateCopy = {...state}
             stateCopy.currentPage = action.page
             return stateCopy
         }
-        case "CHANGE-PAGE-SIZE":{
+        case "CHANGE-PAGE-SIZE": {
             const stateCopy = {...state}
             stateCopy.pageSize = action.count
             return stateCopy
         }
+        case "CHANGE-USER-FOLLOW": {
+            let stateCopy = {...state}
+            stateCopy.users = stateCopy.users.map(t => t.id === action.userID ? {...t, followed: action.newValue} : t)
+            return stateCopy
+        }
         default: {
-           return state
+            return state
         }
     }
 }
@@ -82,14 +88,21 @@ export const changeIsFetchingAC = (newValue: boolean) =>{
     } as const
 }
 export const changeCurrentPageAC = (page: number) => {
-    return{
+    return {
         type: 'CHANGE-CURRENT-PAGE',
         page,
     } as const
 }
-export const changePageSizeAC = (count: number) =>{
+export const changePageSizeAC = (count: number) => {
     return {
         type: 'CHANGE-PAGE-SIZE',
         count
+    } as const
+}
+export const changeUserFollowAC = (userID: number, newValue: boolean) => {
+    return {
+        type: 'CHANGE-USER-FOLLOW',
+        userID,
+        newValue
     } as const
 }
