@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import {StyledBlock} from "../../../common/styles/styles";
 import PersonIcon from '@mui/icons-material/Person';
@@ -6,6 +6,7 @@ import {Skeleton} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {FollowButton} from '../../../common/styles/mui-styles';
 import useTheme from "@mui/material/styles/useTheme";
+import axios from 'axios';
 
 export type UserPropsType = {
     name: string
@@ -17,6 +18,7 @@ export type UserPropsType = {
     }
     followed: boolean
     loading: boolean
+    changeFollow: (id: number, newValue: boolean) => void
 }
 const Container = styled(StyledBlock)`
     margin: 10px 5px;
@@ -73,12 +75,33 @@ const SubTitle = styled.div`
      
      
 `
-export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id}) => {
-    const [follow, setFollow] = useState<boolean>(followed)
+export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id, changeFollow}) => {
     const theme = useTheme()
-
-
     const img = Boolean(photo?.large || photo?.small) ? <img src={photo?.small} alt=""/> : <PersonIcon/>
+    const follow = () => {
+        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
+            withCredentials: true,
+            headers: {
+                "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
+            }
+        }).then((response: any) => {
+            if (response.data.resultCode === 0) {
+                changeFollow(id, true)
+            }
+        })
+    }
+    const unFollow = () => {
+        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
+            withCredentials: true,
+            headers: {
+                "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
+            }
+        }).then(response => {
+            if (response.data.resultCode === 0) {
+                changeFollow(id, false)
+            }
+        })
+    }
     return loading ? (
             <SkeletonEl height={240}/>
         )
@@ -91,10 +114,9 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
                         <div>{name}</div>
                     </Content>
                 </NavItem>
-                <FollowButton follow={follow} variant='default' onClick={() => setFollow(!follow)}>
-                    {follow ? 'Following' : 'Follow'}
-                </FollowButton>
-
+                {followed ?
+                    <FollowButton follow={followed} variant='default' onClick={unFollow}>Following</FollowButton> :
+                    <FollowButton follow={followed} variant='default' onClick={follow}>Follow</FollowButton>}
                 {status && <SubTitle>{status}</SubTitle>}
             </Container>
         )
