@@ -6,7 +6,7 @@ import {Skeleton} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {FollowButton} from '../../../common/styles/mui-styles';
 import useTheme from "@mui/material/styles/useTheme";
-import axios from 'axios';
+import {usersAPI} from "../../../api/api";
 
 export type UserPropsType = {
     name: string
@@ -79,25 +79,15 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
     const theme = useTheme()
     const img = Boolean(photo?.large || photo?.small) ? <img src={photo?.small} alt=""/> : <PersonIcon/>
     const follow = () => {
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {}, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
-            }
-        }).then((response: any) => {
-            if (response.data.resultCode === 0) {
+        usersAPI.postFollow(id).then(data => {
+            if (data.resultCode === 0) {
                 changeFollow(id, true)
             }
         })
     }
     const unFollow = () => {
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${id}`, {
-            withCredentials: true,
-            headers: {
-                "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
-            }
-        }).then(response => {
-            if (response.data.resultCode === 0) {
+        usersAPI.deleteFollow(id).then(data => {
+            if (data.resultCode === 0) {
                 changeFollow(id, false)
             }
         })
