@@ -4,9 +4,11 @@ import {StyledBlock} from "../../../common/styles/styles";
 import PersonIcon from '@mui/icons-material/Person';
 import {Skeleton} from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {FollowButton} from '../../../common/styles/mui-styles';
+import {Button} from '../../../common/styles/mui-styles';
 import useTheme from "@mui/material/styles/useTheme";
 import {usersAPI} from "../../../api/api";
+import {AppStateType} from "../../../redux/store/store";
+import {useSelector} from "react-redux";
 
 export type UserPropsType = {
     name: string
@@ -19,6 +21,7 @@ export type UserPropsType = {
     followed: boolean
     loading: boolean
     changeFollow: (id: number, newValue: boolean) => void
+    changeIsFollowing: (id: number, newValue: boolean) => void
 }
 const Container = styled(StyledBlock)`
     margin: 10px 5px;
@@ -75,21 +78,26 @@ const SubTitle = styled.div`
      
      
 `
-export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id, changeFollow}) => {
-    const theme = useTheme()
+export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id, changeFollow, changeIsFollowing}) => {
+    const theme = useTheme();
+    const disabled = useSelector<AppStateType, Array<number | undefined>>(t => t.users.followingInProgress);
     const img = Boolean(photo?.large || photo?.small) ? <img src={photo?.small} alt=""/> : <PersonIcon/>
     const follow = () => {
+        changeIsFollowing(id, true)
         usersAPI.postFollow(id).then(data => {
             if (data.resultCode === 0) {
                 changeFollow(id, true)
+                changeIsFollowing(id, false)
             }
         })
     }
     const unFollow = () => {
+        changeIsFollowing(id, true)
         usersAPI.deleteFollow(id).then(data => {
             if (data.resultCode === 0) {
                 changeFollow(id, false)
             }
+            changeIsFollowing(id, false)
         })
     }
     return loading ? (
@@ -105,8 +113,9 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
                     </Content>
                 </NavItem>
                 {followed ?
-                    <FollowButton follow={followed} variant='default' onClick={unFollow}>Following</FollowButton> :
-                    <FollowButton follow={followed} variant='default' onClick={follow}>Follow</FollowButton>}
+                    <Button disabled={disabled.some(t => t === id)} variant='filled'
+                            onClick={unFollow}>Following</Button> :
+                    <Button disabled={disabled.some(t => t === id)} variant='default' onClick={follow}>Follow</Button>}
                 {status && <SubTitle>{status}</SubTitle>}
             </Container>
         )

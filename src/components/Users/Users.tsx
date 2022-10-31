@@ -16,6 +16,7 @@ type UsersPropsType = {
         rows: number
     }
     changeUserFollow: (id: number, newValue: boolean) => void
+    changeIsFollowing: (id: number, newValue: boolean) => void
 }
 const Container = styled.div`
   grid-column-start: 2;
@@ -37,7 +38,8 @@ export const Users: React.FC<UsersPropsType> = React.memo((
         pagesCount,
         changeCurrentPage,
         page,
-        changeUserFollow
+        changeUserFollow,
+        changeIsFollowing
     }
     ) => {
 
@@ -61,6 +63,7 @@ export const Users: React.FC<UsersPropsType> = React.memo((
                                 followed={t.followed}
                                 loading={isFetching}
                                 changeFollow={changeUserFollow}
+                                changeIsFollowing={changeIsFollowing}
                             />)
                         }
                         </UsersContainer>

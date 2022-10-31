@@ -16,6 +16,7 @@ test('users reducers should set users', () => {
         totalUsers: 50,
         currentPage: 2,
         isFetching: false,
+        followingInProgress: []
     }
     let newUsers: UserType[] = [
         {
@@ -34,37 +35,40 @@ test('users reducers should set users', () => {
     expect(Boolean(endState.users.length)).toBe(true)
     expect(endState.users[0].name).toBe(newUsers[0].name)
 })
-test('users reducer should change totalUsers', ()=>{
+test('users reducer should change totalUsers', () => {
     const startState: UsersStateType = {
         users: [],
         pageSize: 12,
         totalUsers: 50,
         currentPage: 2,
         isFetching: false,
+        followingInProgress: []
     }
     let value = 34;
     const endState: UsersStateType = usersReducer(startState, changeTotalUsersAC(value))
     expect(endState.totalUsers).toEqual(value)
 })
-test('users reducer should change isFetching', ()=>{
+test('users reducer should change isFetching', () => {
     const startState: UsersStateType = {
         users: [],
         pageSize: 12,
         totalUsers: 50,
         currentPage: 2,
         isFetching: false,
+        followingInProgress: []
     }
     let value = true;
     const endState: UsersStateType = usersReducer(startState, changeIsFetchingAC(value))
     expect(endState.isFetching).toEqual(value)
 })
-test('users reducer should change currentPage', ()=>{
+test('users reducer should change currentPage', () => {
     const startState: UsersStateType = {
         users: [],
         pageSize: 12,
         totalUsers: 50,
         currentPage: 2,
         isFetching: false,
+        followingInProgress: []
     }
     let value = 3;
     const endState: UsersStateType = usersReducer(startState, changeCurrentPageAC(value))
@@ -79,6 +83,7 @@ test('user reducer should change user follow value ', () => {
         totalUsers: 50,
         currentPage: 2,
         isFetching: false,
+        followingInProgress: []
     }
     let newValue = true
     let id = startState.users[0].id

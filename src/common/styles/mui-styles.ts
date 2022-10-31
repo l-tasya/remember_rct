@@ -82,6 +82,9 @@ export const Button = styled('button')(({theme, variant}: ButtonProps) => {
         },
         ':active': {
             background: theme.palette.primary.light
+        },
+        ':disabled': {
+            opacity: '0.3',
         }
     })
 })
@@ -90,7 +93,7 @@ type FollowButtonProps =
     & ClassAttributes<HTMLButtonElement>
     & ButtonHTMLAttributes<HTMLButtonElement>
     & { theme: Theme }
-    & { follow: boolean };
+    & { follow?: boolean };
 export const FollowButton = styled(Button)(({theme, follow}: FollowButtonProps) => {
     return ({
         background: follow ? theme.palette.primary.main : theme.palette.background.paper,

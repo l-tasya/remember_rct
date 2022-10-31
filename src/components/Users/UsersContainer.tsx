@@ -3,7 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {Users} from './Users';
 import {AppStateType} from '../../redux/store/store';
 import {
-    changeCurrentPageAC,
+    changeCurrentPageAC, changeFollowingProgressAC,
     changeIsFetchingAC,
     changePageSizeAC,
     changeTotalUsersAC,
@@ -39,6 +39,9 @@ export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(({col
     const changeUserFollow = useCallback((id: number, newValue: boolean) => {
         dispatch(changeUserFollowAC(id, newValue))
     }, [dispatch])
+    const changeIsFollowing = useCallback((id: number, newValue: boolean) => {
+        dispatch(changeFollowingProgressAC(id, newValue))
+    }, [dispatch])
     useEffect(() => {
         changeIsFetching(true)
         changePageSize(rows * columns)
@@ -62,6 +65,7 @@ export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(({col
             changeCurrentPage={changeCurrentPage}
             page={{columns, rows}}
             changeUserFollow={changeUserFollow}
+            changeIsFollowing={changeIsFollowing}
         />
     }
 )
