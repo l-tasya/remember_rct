@@ -10,28 +10,28 @@ const Container = styled(StyledBlock)`
 export const Music = React.memo(() => {
     return (
         <PaddedContentContainer>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
-            <Container post>
+            <Container variety="post">
                 music
             </Container>
 

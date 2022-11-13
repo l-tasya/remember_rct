@@ -28,7 +28,7 @@ type UsersContainerProps = {
 const UsersContainer = styled.div`
         display: grid;
         grid-template-columns: repeat(${(props: UsersContainerProps) => props.columns}, 1fr);
-        grid-template-rows: repeat(${(props: UsersContainerProps) => props.rows}, 200px)
+        grid-template-rows: repeat(${(props: UsersContainerProps) => props.rows}, 200px);
 `
 export const Users: React.FC<UsersPropsType> = React.memo((
     {

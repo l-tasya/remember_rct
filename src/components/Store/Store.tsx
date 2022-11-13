@@ -11,16 +11,16 @@ const Container = styled(StyledBlock)`
 export const Store = React.memo(() => {
     return (
         <PaddedContentContainer>
-            <Container post>
+            <Container variety="post">
                 store
             </Container>
-            <Container post>
+            <Container variety="post">
                 заглушки
             </Container>
-            <Container post>
+            <Container variety="post">
                 store
             </Container>
-            <Container post>
+            <Container variety="post">
                 store
             </Container>
         </PaddedContentContainer>

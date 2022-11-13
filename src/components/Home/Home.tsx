@@ -12,19 +12,19 @@ const Container = styled(StyledBlock)`
 export const Home = React.memo(() => {
 
     return (<PaddedContentContainer>
-            <Container post>
+            <Container variety="post">
                 <div>home</div>
             </Container>
-            <Container post>
+            <Container variety="post">
                 <div>home</div>
             </Container>
-            <Container post>
+            <Container variety="post">
                 <div>home</div>
             </Container>
-            <Container post>
+            <Container variety="post">
                 <div>home</div>
             </Container>
-            <Container post>
+            <Container variety="post">
                 <div>home</div>
             </Container>
         </PaddedContentContainer>

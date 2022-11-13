@@ -24,6 +24,17 @@ export const ProfileContainer = React.memo(() => {
                 .then(response => {
                     setUserCallback(response.data)
                 })
+                .catch((error) => {
+                    if (error.response.status) {
+                        setUserCallback({
+                            fullName: `API not working on github.io`,
+                            lookingForAJob: false,
+                            contacts: {},
+                            photos: {},
+                            userId: Number(param.userId)
+                        })
+                    }
+                })
         }
 
     }, [param.userID, user, setUserCallback])

@@ -13,7 +13,7 @@ import {useSelector} from "react-redux";
 export type UserPropsType = {
     name: string
     id: number
-    status: string
+    status?: string
     photo?: {
         large?: string
         small?: string
@@ -24,9 +24,10 @@ export type UserPropsType = {
     changeIsFollowing: (id: number, newValue: boolean) => void
 }
 const Container = styled(StyledBlock)`
+    min-width: 200px;
     margin: 10px 5px;
     display: grid;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 2fr 50px;
     padding: 8px;
     position: relative;
 `
@@ -63,25 +64,40 @@ const Content = styled.div`
     align-items: end;
     color: #3f424b;
     div{
+    font-family: Roboto;
     background: white;
     border-radius: 8px 8px 0 0;
-    padding: 0 8px 10px 8px;
+    padding: 3px 8px 3px 8px;
     font-weight: 700;
+    font-size: 13px;
     }
 `
 const SubTitle = styled.div`
-     color: #3f424b;
-     font-size: 14px;
-     align-self: center;
-     align-items: center;
+     color: #777a87;
+     font-family: Roboto;
+      font-weight: 500;
+     font-size: 11px;
      justify-self: center;
      
      
 `
+const Footer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+button{
+width: 80%;
+}
+`
+const IMG = styled.img`
+  width: 40%;
+  border-radius: 50%;
+  position: absolute;
+`
 export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id, changeFollow, changeIsFollowing}) => {
     const theme = useTheme();
     const disabled = useSelector<AppStateType, Array<number | undefined>>(t => t.users.followingInProgress);
-    const img = Boolean(photo?.large || photo?.small) ? <img src={photo?.small} alt=""/> : <PersonIcon/>
+    const img = Boolean(photo?.large || photo?.small) ? <IMG src={photo?.small || photo?.large} alt=""/> : <PersonIcon/>
     const follow = () => {
         changeIsFollowing(id, true)
         usersAPI.postFollow(id).then(data => {
@@ -112,11 +128,14 @@ export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, f
                         <div>{name}</div>
                     </Content>
                 </NavItem>
-                {followed ?
-                    <Button disabled={disabled.some(t => t === id)} variant='filled'
-                            onClick={unFollow}>Following</Button> :
-                    <Button disabled={disabled.some(t => t === id)} variant='default' onClick={follow}>Follow</Button>}
-                {status && <SubTitle>{status}</SubTitle>}
+                <Footer>
+                    {followed ?
+                        <Button disabled={disabled.some(t => t === id)} variant='filled'
+                                onClick={unFollow}>Following</Button> :
+                        <Button disabled={disabled.some(t => t === id)} variant='default'
+                                onClick={follow}>Follow</Button>}
+                    {status && <SubTitle>{status}</SubTitle>}
+                </Footer>
             </Container>
         )
 })

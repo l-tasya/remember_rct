@@ -4,6 +4,7 @@ import {StyledBlock} from "../../../../common/styles/styles";
 import {NavLink} from "react-router-dom";
 import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
 import {useTheme} from "@mui/material/styles";
+import PersonIcon from '@mui/icons-material/Person';
 
 type UserInfoPropsType = {
     user: ProfileUserType
@@ -92,11 +93,12 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
         background: 'white',
         transition: '0.3s'
     }
+    let img = user.photos.large ? <img src={user.photos.large} alt={'error'}/> : <PersonIcon/>
     return (
         <Container>
             <BackGroundEl background={theme.palette.primary.light}/>
             <UserAvatar>
-                <img src={user.photos.large} alt={'error'}/>
+                {img}
             </UserAvatar>
             <InfoContainer>
                 <Title>{user.fullName}</Title>

@@ -5,7 +5,7 @@ type StyledBlockPropsType = {
     radius?: number | 'none' | 'default'
     padding?: string
     elevation?: 1 | 3 | 'none' | 'default'
-    post?: boolean
+    variety?: 'post' | null
 }
 const elevationReducer = (elevation: 3 | 1 | 'none' | 'default') => {
     switch (elevation) {
@@ -44,7 +44,7 @@ export const StyledBlock = styled(Paper)`
     ${(props: StyledBlockPropsType) => props.radius ? borderReducer(props.radius) : borderReducer('default')}
     ${(props: StyledBlockPropsType) => (props.padding === 'none') ? `padding: 0px;` : `padding: 16px;`}
     ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer('default')}
-    ${(props: StyledBlockPropsType) => props.post ? 'min-width: 200px; height: 200px; margin-top: 8px;' : ''}
+    ${(props: StyledBlockPropsType) => props.variety === 'post' ? 'min-width: 200px; height: 200px; margin-top: 8px;' : ''}
     
 `
 
