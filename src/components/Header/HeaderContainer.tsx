@@ -14,8 +14,6 @@ export const HeaderContainer: React.FC<HeaderContainerProps> = React.memo(({titl
         usersAPI.getUserData().then(data => {
             if (data.resultCode === 0) {
                 dispatch(setUserDataAC(data.data))
-            } else {
-                dispatch(setUserDataAC({email: '', id: 1, login: 'tasya'}))
             }
 
         })
