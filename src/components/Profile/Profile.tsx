@@ -19,7 +19,6 @@ position: absolute;
 height: 100%;
 `
 export const Profile: React.FC<ProfilePropsType> = React.memo(({user}) => {
-
     return (
         <Wrapper>
             <Container>
