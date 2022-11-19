@@ -26,87 +26,87 @@ export type UsersStateType = {
 
 const initialState: UsersStateType = {
     users: [
-        {
-            id: 10001,
-            name: 'Maya Ishita',
-            status: 'Hi i am Alexandra',
-            followed: false,
-            photo: {
-                large: 'https://img.freepik.com/premium-vector/smiling-girl-avatar_102172-32.jpg?w=740'
-            }
-
-        },
-        {
-            id: 10002,
-            name: 'Sridevi Kamakshi',
-            followed: false,
-            photo: {
-                large: 'https://img.freepik.com/premium-vector/asian-girl-face-web-child-avatar-cute-kid-user-picture_622026-83.jpg?w=740'
-            }
-        },
-        {
-            id: 10003,
-            name: 'Marcus Lucile',
-            status: 'Hi i am Alexandra',
-            followed: false,
-            photo: {
-                large: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80'
-            }
-        },
-        {
-            id: 10004,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-        },
-        {
-            id: 10005,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-        },
-        {
-            id: 10006,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-
-        },
-        {
-            id: 10007,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-
-        },
-        {
-            id: 10008,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-
-        },
-        {
-            id: 10009,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-
-        },
-        {
-            id: 10010,
-            name: 'Unknown User',
-            status: 'i am unknown',
-            followed: false,
-            photo: {}
-
-        },
+        // {
+        //     id: 10001,
+        //     name: 'Maya Ishita',
+        //     status: 'Hi i am Alexandra',
+        //     followed: false,
+        //     photo: {
+        //         large: 'https://img.freepik.com/premium-vector/smiling-girl-avatar_102172-32.jpg?w=740'
+        //     }
+        //
+        // },
+        // {
+        //     id: 10002,
+        //     name: 'Sridevi Kamakshi',
+        //     followed: false,
+        //     photo: {
+        //         large: 'https://img.freepik.com/premium-vector/asian-girl-face-web-child-avatar-cute-kid-user-picture_622026-83.jpg?w=740'
+        //     }
+        // },
+        // {
+        //     id: 10003,
+        //     name: 'Marcus Lucile',
+        //     status: 'Hi i am Alexandra',
+        //     followed: false,
+        //     photo: {
+        //         large: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80'
+        //     }
+        // },
+        // {
+        //     id: 10004,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        // },
+        // {
+        //     id: 10005,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        // },
+        // {
+        //     id: 10006,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        //
+        // },
+        // {
+        //     id: 10007,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        //
+        // },
+        // {
+        //     id: 10008,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        //
+        // },
+        // {
+        //     id: 10009,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        //
+        // },
+        // {
+        //     id: 10010,
+        //     name: 'Unknown User',
+        //     status: 'i am unknown',
+        //     followed: false,
+        //     photo: {}
+        //
+        // },
     ],
     pageSize: 12,
     currentPage: 2,
