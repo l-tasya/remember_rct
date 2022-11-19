@@ -13,36 +13,48 @@ import {StyledBlock} from "../../common/styles/styles";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store/store";
 import {Button} from "../../common/styles/mui-styles";
+import {Title} from "../../common/styles/mui-styles";
 
 type HeaderPropsType = {
     title: string
 }
 const Container = styled(StyledBlock)`
-            grid-column-start: 1;
-            grid-column-end: 3;
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            grid-template-rows: 1fr;
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-    z-index: 2;
-    position: fixed; 
-    top: 0; 
-    width: 100%;
-    height: 60px;
-    align-items: center;
+      grid-area: header;
+      position: relative;
+      grid-column-start: 1;
+      grid-column-end: 3;
+      display: grid;
+      grid-template-columns: 65px 1fr;
+      grid-template-rows: 1fr;
+-webkit-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
+-moz-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
+box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
+      align-items: center;
+      z-index: 4;
     `
+const Content = styled.div`
+      display: grid;
+      height: 100%;
+      grid-template-columns: repeat(6, 1fr);
+      padding: 0 30px 0 0;
+`
 const SearchContainer = styled.div`
-    grid-column-start: 4;
-    position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      grid-column-start: 3;
+      grid-column-end:5 ;
+`
+const ContentTitle = styled(Title)`
+      justify-self: flex-start;
+      align-self: center;
 `
 const BadgesContainer = styled.div`
       display: flex;
-      grid-column-start: 7;
-      grid-column-end: 9;
+      grid-column-start: 6;
       align-items: center;
       justify-content: flex-end;
       height: 100%;
-      padding: 0 45px;
       
       
 `
@@ -54,13 +66,15 @@ const LogOut = styled(LogoutIcon)`
     padding-left: 2px;
 `
 export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
-        //styles
-        let theme = useTheme()
+    //styles
+    let theme = useTheme()
     let first = theme.palette.primary.main
     let isAuth = useSelector<AppStateType, boolean>(t => t.auth.isAuth)
-        return (
-            <Container padding={'none'} radius={'none'}>
-                <Logo title={title}/>
+    return (
+        <Container padding={'none'} radius={'none'}>
+            <Logo/>
+            <Content>
+                <ContentTitle value={'main'} sx={{fontWeight: 900, fontSize: 18,}}>{title}</ContentTitle>
                 <SearchContainer><Search/></SearchContainer>
                 <BadgesContainer>
                     <Menu icon={'store'}>
@@ -81,7 +95,8 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
                         <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
                     </Menu> : <Button variant={'filled'}>login</Button>}
                 </BadgesContainer>
-            </Container>
+            </Content>
+        </Container>
         )
     }
 )
