@@ -9,23 +9,21 @@ import {StyledBlock} from "../../common/styles/styles";
 
 type NavbarPropsType = {}
 const Container = styled(StyledBlock)`
+    grid-area: navbar;
     background: white;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: repeat(12, 1fr);
     justify-items: center;
     align-items:center;
- 
-    --tw-border-opacity: 2;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
-    position: fixed; 
-    top: 60px;
-    width: 60px; 
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1); 
     height: 100%;
-    z-index: 1
+    position:relative;
+    z-index: 3;
+    border-right: 0.2px solid gray;
     `
 const LastChild = styled.div`
-    grid-row-start: 11;
+    grid-row-start: 12;
     
     `
 const SettingAnimation = styled(Settings)`
