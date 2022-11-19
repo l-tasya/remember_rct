@@ -17,14 +17,34 @@ type ActionsType= ReturnType<typeof addMessageAC>
 export type StateType = MessagesType;
 const initialState: StateType = {
     [dialogID1]:[
-        {id: v1(), message: 'text1', isMe: true},
-        {id: v1(), message: 'text2', isMe: true},
-        {id: v1(), message: 'text3', isMe: true},
+        {id: v1(), message: 'Дарова', isMe: true},
+        {id: v1(), message: 'Дарова', isMe: false},
+        {id: v1(), message: 'Как дела?', isMe: true},
+        {id: v1(), message: 'Норм, ты че мутишь?', isMe: false},
     ],
-    [dialogID2]:[
-        {id: v1(), message: 'tjk1',isMe: true},
-        {id: v1(), message: 'tjk2',isMe: true},
-        {id: v1(), message: 'tjk3',isMe: true},
+    [dialogID2]: [
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: 'Ответь', isMe: false},
     ]
 }
 export const messagesReducer = (state: StateType = initialState, action: ActionsType): StateType => {

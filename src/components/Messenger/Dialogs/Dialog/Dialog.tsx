@@ -12,6 +12,10 @@ type DialogPropsType = {
 const Container = styled.div`
      display: grid;
      grid-template-columns: 1fr 1fr;
+     padding: 16px;
+     margin-bottom: 1px;
+     background: white;
+     
 `
 const RemoveEl = styled(Remove)`
 `
@@ -28,6 +32,7 @@ export const Dialog: React.FC<DialogPropsType> = React.memo(({id, name, removeDi
     }, [id, navigate, pathname, removeDialog])
 
     return <Container>
-        <NavLink key={id} to={`${id}`}>{name}</NavLink><RemoveEl removeCallback={() => removeCallback()}/>
+        <NavLink key={id} to={`/remember_rct/messenger/${id}`}>{name}</NavLink><RemoveEl
+        removeCallback={() => removeCallback()}/>
     </Container>
 })

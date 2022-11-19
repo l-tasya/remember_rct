@@ -9,12 +9,13 @@ const Container = styled(StyledBlock)`
           width: 100%;
           height: 100%;
           display: grid;
-          grid-template-columns: 1fr 9fr;
+          grid-template-columns: 2fr 6fr;
         `
 const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
 `
 export const Messenger = React.memo(() => {
-        return (
+
+    return (
             <ContainerWithoutPadding>
                 <Container padding={'none'} elevation={'none'} radius={0}>
                     <DialogsContainer/>
