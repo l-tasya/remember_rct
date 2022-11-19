@@ -1,20 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 import {NavLink} from "react-router-dom";
-import {Title} from "../../../common/styles/mui-styles";
 import useTheme from "@mui/material/styles/useTheme";
 
-type LogoPropsType = {
-    title: string
-}
+type LogoPropsType = {}
 const Container = styled(NavLink)`
-    grid-column-start: 1;
-    grid-column-end: 3;
-    display: flex;
-    align-items: center;
-    justify-content: start;
+     width: 100%;
+     height: 100%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     svg{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     }
     `
-export const Logo: React.FC<LogoPropsType> = ({title}) => {
+export const Logo: React.FC<LogoPropsType> = () => {
     let theme = useTheme();
     let first = theme.palette.primary.main
     let second = theme.palette.primary.light
@@ -29,7 +31,7 @@ export const Logo: React.FC<LogoPropsType> = ({title}) => {
                           stroke="none" fill={second}/>
                 </g>
             </svg>
-            <Title value={'main'} sx={{fontWeight: 900, fontSize: 18,}}>{title}</Title>
+
         </Container>
     )
 }
