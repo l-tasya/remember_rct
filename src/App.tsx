@@ -15,9 +15,13 @@ import {HeaderContainer} from "./components/Header/HeaderContainer";
 
 const Container = styled.div`
     display: grid;
-    grid-template-columns: repeat(1, 60px 1fr);
-    grid-template-rows: repeat(1, 60px 1fr);
+    grid-template-columns: 65px 1fr; 
+    grid-template-rows: 65px 1fr; 
     height: 100vh;
+    overflow-y: hidden;
+    grid-template-areas: 
+    "header header"
+    "navbar content"; 
     `
 const Content = styled.div`
         grid-row-start: 2;
