@@ -8,6 +8,7 @@ import {StyledInput} from "../../../../common/components/StyledInput/StyledInput
 type AddDialogPropsType = {
     color: string
     addDialog: (value: string) => void
+
 }
 const Container = styled.div`
     
@@ -29,17 +30,22 @@ const Title = styled.div`
 `
 const Input = styled(StyledInput)`
 `
+
 export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDialog}) => {
-
     const [open, setOpen] = useState(false)
-    const handleClick = () => setOpen(!open)
+    const addDialogCallback = (value: string) => {
+        addDialog(value)
 
+    }
+    const handleClick = () => {
+        setOpen(!open)
+    }
     return <Container>
         <Icon icon={color} onClick={handleClick}/>
         <Dialog open={open} onClose={handleClick}>
             <DialogContainer>
                 <Title>Enter a name for new Dialog:</Title>
-                <Input addItem={addDialog}/>
+                <Input autoFocus pressHandler={handleClick} addItem={addDialogCallback}/>
             </DialogContainer>
         </Dialog>
     </Container>
