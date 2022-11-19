@@ -55,20 +55,38 @@ class MUIStyledCommonProps {
 }
 
 type VariantsType = 'default' | 'filled'
+type SizesType = 'small' | 'medium' | 'large';
 type ButtonProps =
     MUIStyledCommonProps
     & ClassAttributes<HTMLButtonElement>
     & ButtonHTMLAttributes<HTMLButtonElement>
     & { theme: Theme }
-    & { variant: VariantsType };
-export const Button = styled('button')(({theme, variant}: ButtonProps) => {
+    & { variant: VariantsType }
+    & { size?: SizesType }
+export const Button = styled('button')(({theme, variant, size}: ButtonProps) => {
+    let values = {
+        fontSize: '15px',
+        height: '36px',
+        padding: '0 16px',
+    }
+    if (size === 'large') {
+        values.height = '52px';
+        values.padding = '0 32px';
+    }
+    if (size === 'small') {
+        values.fontSize = '14px';
+        values.height = '22px';
+        values.padding = '4px 5px';
+    }
+
     return ({
         background: variant === 'filled' ? theme.palette.primary.main : theme.palette.background.paper,
         color: variant === 'filled' ? theme.palette.background.paper : theme.palette.text.primary,
         fontWeight: 500,
         borderRadius: '4px',
-        height: '27px',
-        padding: '4px 10px',
+        height: values.height,
+        fontSize: values.fontSize,
+        padding: values.padding,
         transition: 'background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
         margin: '5px 5px',
         boxShadow: ' 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)',
