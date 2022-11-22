@@ -1,8 +1,7 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Header} from "./Header";
 import {useDispatch} from "react-redux";
-import {setUserDataAC} from "../../redux/reducers/authReducer";
-import {usersAPI} from '../../api/api';
+import {getUserDataThunkCreator} from "../../redux/reducers/authReducer";
 
 
 type HeaderContainerProps = {
@@ -10,13 +9,11 @@ type HeaderContainerProps = {
 }
 export const HeaderContainer: React.FC<HeaderContainerProps> = React.memo(({title}) => {
     const dispatch = useDispatch()
-    useEffect(() => {
-        usersAPI.getUserData().then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserDataAC(data.data))
-            }
-
-        })
+    const getUserData = useCallback(() => {
+        getUserDataThunkCreator()(dispatch)
     }, [dispatch])
+    useEffect(() => {
+        getUserData()
+    }, [getUserData])
     return <Header title={title}/>
 })
