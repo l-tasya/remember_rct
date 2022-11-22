@@ -45,7 +45,7 @@ const App = React.memo(() => {
                         <Route path={'remember_rct/Store'} element={<Store/>}/>
                         <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
                         <Route path={'remember_rct/Settings'} element={<Settings/>}/>
-                        <Route path={'remember_rct/Users'} element={<UsersContainer columns={4} rows={3}/>}/>
+                        <Route path={'remember_rct/Users'} element={<UsersContainer/>}/>
                     </Routes>
                 </Content>
             </Container>
