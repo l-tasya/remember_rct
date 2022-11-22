@@ -1,5 +1,7 @@
+import {Dispatch} from 'redux';
 import {v1} from 'uuid'
 import ava from '../../common/img/eral.jpg';
+import {profileAPI} from "../../api/api";
 
 type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof removePostAC>
@@ -33,17 +35,17 @@ export type ProfileStateType = {
 const avaIMG = ava
 type StateType = ProfileStateType
 export const defaultUser  = {
-        userId: 333,
-        fullName: 'Temirtas Nursain',
-        photos: {
-            small: avaIMG,
-            large: avaIMG
-        },
-        contacts: {
-            mainLink: '',
-        },
-        lookingForAJob: false
-    }
+    userId: 333,
+    fullName: 'Temirtas Nursain',
+    photos: {
+        small: avaIMG,
+        large: avaIMG
+    },
+    contacts: {
+        mainLink: '',
+    },
+    lookingForAJob: false
+}
 const initialState: StateType = {
     profile: defaultUser,
     posts: [
@@ -157,4 +159,15 @@ export const setProfileAC = (profile: ProfileUserType) => {
         type: 'SET-PROFILE',
         profile
     } as const
+}
+export const getProfileThunkCreator = (id: string | undefined) => {
+    return (dispatch: Dispatch) => {
+        if (id === 'main') {
+            dispatch(setProfileAC(defaultUser))
+        } else {
+            profileAPI.getProfile(id).then(data => {
+                dispatch(setProfileAC(data))
+            })
+        }
+    }
 }
