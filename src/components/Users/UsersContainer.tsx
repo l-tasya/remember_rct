@@ -3,58 +3,32 @@ import {useDispatch, useSelector} from "react-redux";
 import {Users} from './Users';
 import {AppStateType} from '../../redux/store/store';
 import {
-    changeCurrentPageAC, changeFollowingProgressAC,
-    changeIsFetchingAC,
-    changePageSizeAC,
-    changeTotalUsersAC,
-    changeUserFollowAC,
-    setUsersAC,
-    UsersStateType,
-    UserType
+    changeCurrentPageAC,
+    followThunkCreator,
+    getUsersThunkCreator,
+    unFollowThunkCreator,
+    UsersStateType
 } from '../../redux/reducers/usersReducer';
-import {usersAPI} from '../../api/api';
 
-type UserContainerPropsType = {
-    columns: number
-    rows: number
-}
-export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(({columns, rows}) => {
-    const dispatch = useDispatch()
-    const users = useSelector<AppStateType, UsersStateType>(t => t.users)
-    const changeIsFetching = useCallback((value: boolean) => {
-        dispatch(changeIsFetchingAC(value))
-    }, [dispatch])
-    const changePageSize = useCallback((value: number) => {
-        dispatch(changePageSizeAC(value))
-    }, [dispatch])
-    const changeTotalUsers = useCallback((value: number) => {
-        dispatch(changeTotalUsersAC(value))
-    }, [dispatch])
-    const setUsers = useCallback((users: UserType[]) => {
-        dispatch(setUsersAC(users))
-    }, [dispatch])
-    const changeCurrentPage = useCallback((page: number) => {
-        dispatch(changeCurrentPageAC(page))
-    }, [dispatch])
-    const changeUserFollow = useCallback((id: number, newValue: boolean) => {
-        dispatch(changeUserFollowAC(id, newValue))
-    }, [dispatch])
-    const changeIsFollowing = useCallback((id: number, newValue: boolean) => {
-        dispatch(changeFollowingProgressAC(id, newValue))
-    }, [dispatch])
-    useEffect(() => {
-        changeIsFetching(true)
-        changePageSize(rows * columns)
+type UserContainerPropsType = {}
+export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(() => {
+        const users = useSelector<AppStateType, UsersStateType>(t => t.users)
+        const dispatch = useDispatch()
+        //async
+        const getUsers = useCallback((currentPage: number, pageSize: number) =>
+                getUsersThunkCreator(currentPage, pageSize)(dispatch)
+            , [dispatch])
+        useEffect(() => {
+            getUsers(users.currentPage, users.pageSize)
+        }, [users.currentPage, users.pageSize, getUsers])
+        //callbacks
+        const userFollow = useCallback((id: number) => followThunkCreator(id)(dispatch), [dispatch])
 
-        usersAPI.getUsers(users.currentPage, users.pageSize).then(data => {
-            setUsers(data.items)
-            setTimeout(() => {
-                changeIsFetching(false)
-            }, 900)
-            changeTotalUsers(data.totalCount)
+        const userUnFollow = useCallback((id: number) => unFollowThunkCreator(id)(dispatch), [dispatch])
 
-        })
-    }, [users.currentPage, changeIsFetching, changeCurrentPage, changePageSize, changeTotalUsers, columns, rows, setUsers, users.pageSize])
+        const changeCurrentPage = useCallback((page: number) => {
+            dispatch(changeCurrentPageAC(page))
+        }, [dispatch])
 
         let pagesCount = Math.ceil(users.totalUsers / users.pageSize)
         return <Users
@@ -63,9 +37,8 @@ export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(({col
             currentPage={users.currentPage}
             pagesCount={pagesCount}
             changeCurrentPage={changeCurrentPage}
-            page={{columns, rows}}
-            changeUserFollow={changeUserFollow}
-            changeIsFollowing={changeIsFollowing}
+            userFollow={userFollow}
+            userUnFollow={userUnFollow}
         />
     }
 )
