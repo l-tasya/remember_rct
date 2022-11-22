@@ -14,13 +14,20 @@ export const usersAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
         return instance.get(baseURL + `users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
     },
-    getUserData: () => {
-        return instance.get(baseURL + `auth/me`).then(response => response.data)
-    },
     deleteFollow: (id: number) => {
         return instance.delete(baseURL + `follow/${id}`).then(response => response.data)
     },
     postFollow: (id: number) => {
         return instance.post(baseURL + `follow/${id}`).then(response => response.data)
     },
+}
+export const authAPI = {
+    getUserData: () => {
+        return instance.get(baseURL + `auth/me`).then(response => response.data)
+    },
+}
+export const profileAPI = {
+    getProfile: (userID: string | undefined) => {
+        return instance.get(baseURL + `profile/${userID}`).then(response => response.data)
+    }
 }
