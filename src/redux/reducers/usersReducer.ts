@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../../api/api";
+
 export type UserType = {
     name: string
     id: number
@@ -202,4 +205,40 @@ export const changeFollowingProgressAC = (userID: number, isFetching: boolean) =
         isFetching,
         userID
     } as const
+}
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changeIsFetchingAC(true))
+
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(setUsersAC(data.items))
+            setTimeout(() => {
+                dispatch(changeIsFetchingAC(false))
+            }, 900)
+            dispatch(changeTotalUsersAC(data.totalCount))
+
+        })
+    }
+}
+export const followThunkCreator = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changeFollowingProgressAC(id, true))
+        usersAPI.postFollow(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(changeUserFollowAC(id, true))
+                dispatch(changeFollowingProgressAC(id, false))
+            }
+        })
+    }
+}
+export const unFollowThunkCreator = (id: number) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changeFollowingProgressAC(id, true))
+        usersAPI.deleteFollow(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(changeUserFollowAC(id, false))
+            }
+            dispatch(changeFollowingProgressAC(id, false))
+        })
+    }
 }
