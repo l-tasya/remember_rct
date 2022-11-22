@@ -1,3 +1,6 @@
+import {Dispatch} from "redux"
+import {authAPI} from "../../api/api";
+
 export type AuthStateType = {
     id?: number
     email?: string
@@ -39,4 +42,11 @@ export const setUserDataAC = (data: ResponseType) => {
         type: 'SET-USER-DATA',
         data,
     } as const
+}
+export const getUserDataThunkCreator = () => (dispatch: Dispatch) => {
+    authAPI.getUserData().then(data => {
+        if (data.resultCode === 0) {
+            dispatch(setUserDataAC(data.data))
+        }
+    })
 }
