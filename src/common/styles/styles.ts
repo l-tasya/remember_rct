@@ -35,7 +35,7 @@ const borderReducer = (value: number | 'none' | 'default') => {
             return `border-radius: 4px;`
         }
         default: {
-            return `border-radius: ${value};`
+            return `border-radius: ${value}px;`
         }
     }
 }
