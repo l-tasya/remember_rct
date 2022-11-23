@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store/store";
 import {Button} from "../../common/styles/mui-styles";
 import {Title} from "../../common/styles/mui-styles";
+import {AuthStateType} from "../../redux/reducers/authReducer";
 
 type HeaderPropsType = {
     title: string
@@ -69,7 +70,7 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
     //styles
     let theme = useTheme()
     let first = theme.palette.primary.main
-    let isAuth = useSelector<AppStateType, boolean>(t => t.auth.isAuth)
+    let auth = useSelector<AppStateType, AuthStateType>(t => t.auth)
     return (
         <Container padding={'none'} radius={'none'}>
             <Logo/>
@@ -88,10 +89,10 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
                         <MenuSelect>messages</MenuSelect>
                         <MenuSelect>messages</MenuSelect>
                     </Menu>
-                    {isAuth ? <Menu icon={'profile'}>
+                    {auth.isAuth ? <Menu icon={'profile'}>
                         <MenuSelect><PersonIcon sx={{color: first}}/><NavLink
-                            to={'remember_rct/main/posts'}>Profile</NavLink></MenuSelect>
-                        <MenuSelect><Settings/><NavLink to={'remember_rct/Settings'}>Options</NavLink></MenuSelect>
+                            to={`remember_rct/main/posts`}>{auth.login}</NavLink></MenuSelect>
+                        <MenuSelect><Settings/><NavLink to={`remember_rct/Settings`}>Options</NavLink></MenuSelect>
                         <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
                     </Menu> : <Button variant={'filled'}>login</Button>}
                 </BadgesContainer>
