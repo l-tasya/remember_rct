@@ -11,6 +11,7 @@ import {NavBar} from './components/NavBar/NavBar';
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {UsersContainer} from './components/Users/UsersContainer';
 import {HeaderContainer} from "./components/Header/HeaderContainer";
+import {Login} from './components/Login/Login';
 
 
 const Container = styled.div`
@@ -45,6 +46,7 @@ const App = React.memo(() => {
                         <Route path={'remember_rct/Store'} element={<Store/>}/>
                         <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
                         <Route path={'remember_rct/Settings'} element={<Settings/>}/>
+                        <Route path={'remember_rct/Login'} element={<Login/>}/>
                         <Route path={'remember_rct/Users'} element={<UsersContainer/>}/>
                     </Routes>
                 </Content>
