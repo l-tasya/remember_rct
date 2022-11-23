@@ -94,7 +94,7 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
                             to={`remember_rct/main/posts`}>{auth.login}</NavLink></MenuSelect>
                         <MenuSelect><Settings/><NavLink to={`remember_rct/Settings`}>Options</NavLink></MenuSelect>
                         <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
-                    </Menu> : <Button variant={'filled'}>login</Button>}
+                    </Menu> : <NavLink to={'remember_rct/login'}><Button variant={'filled'}>login</Button></NavLink>}
                 </BadgesContainer>
             </Content>
         </Container>
