@@ -17,12 +17,11 @@ const MenuContent = styled(StyledBlock)`
     padding: 8px;
     border: 1px solid #f1f3f4;
     border-radius: 4px;
-    width: 250px;
-    top: 40px;
-    left: -50%;
     font-size: 14px;
+    top: 110%;
+    left: -40%;
     box-shadow: rgba(0, 0, 0, 0.1) 0 10px 25px -5px, rgba(0, 0, 0, 0.04) 0px 13px 10px -5px;
-    transition:3s ease
+    transition:3s ease;
    
     
 `

@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {ContentContainerWithoutPadding} from "../../common/styles/mui-styles";
 import {StyledBlock} from '../../common/styles/styles';
+import {useDispatch} from "react-redux";
+import {setUserDataAC} from "../../redux/reducers/authReducer";
 
 const Container = styled(ContentContainerWithoutPadding)`
 
@@ -26,12 +28,14 @@ const Title = styled.div`
   font-weight: 600;
 `
 export const Login: React.FC = React.memo(() => {
+    const dispatch = useDispatch()
     return <Container>
         <Block elevation={3} radius={13}>
             <Title>Login</Title>
             <input type="text" placeholder={'Login'}/>
             <input type="password" placeholder={'Password'}/>
-            don't work
+            <button onClick={() => dispatch(setUserDataAC({id: 1337, login: 'BETA', email: 'dalionfull'}))}>don't work
+            </button>
         </Block>
     </Container>;
 

@@ -12,9 +12,9 @@ import {useTheme} from '@mui/material/styles';
 import {StyledBlock} from "../../common/styles/styles";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store/store";
-import {Button} from "../../common/styles/mui-styles";
-import {Title} from "../../common/styles/mui-styles";
+import {Button, Title} from "../../common/styles/mui-styles";
 import {AuthStateType} from "../../redux/reducers/authReducer";
+import {DialogType} from "../../redux/reducers/dialogsReducer";
 
 type HeaderPropsType = {
     title: string
@@ -67,37 +67,39 @@ const LogOut = styled(LogoutIcon)`
     padding-left: 2px;
 `
 export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
-    //styles
-    let theme = useTheme()
-    let first = theme.palette.primary.main
-    let auth = useSelector<AppStateType, AuthStateType>(t => t.auth)
-    return (
-        <Container padding={'none'} radius={'none'}>
-            <Logo/>
-            <Content>
-                <ContentTitle value={'main'} sx={{fontWeight: 900, fontSize: 18,}}>{title}</ContentTitle>
-                <SearchContainer><Search/></SearchContainer>
-                <BadgesContainer>
-                    <Menu icon={'store'}>
-                        <MenuSelect>(empty) </MenuSelect>
-                    </Menu>
-                    <Menu icon={'notifications'}>
-                        <MenuSelect>notifications: 15</MenuSelect>
-                    </Menu>
-                    <Menu icon={'messages'}>
-                        <MenuSelect>messages</MenuSelect>
-                        <MenuSelect>messages</MenuSelect>
-                        <MenuSelect>messages</MenuSelect>
-                    </Menu>
-                    {auth.isAuth ? <Menu icon={'profile'}>
-                        <MenuSelect><PersonIcon sx={{color: first}}/><NavLink
-                            to={`remember_rct/main/posts`}>{auth.login}</NavLink></MenuSelect>
-                        <MenuSelect><Settings/><NavLink to={`remember_rct/Settings`}>Options</NavLink></MenuSelect>
-                        <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
-                    </Menu> : <NavLink to={'remember_rct/login'}><Button variant={'filled'}>login</Button></NavLink>}
-                </BadgesContainer>
-            </Content>
-        </Container>
+        //styles
+        let theme = useTheme()
+        let first = theme.palette.primary.main
+        let auth = useSelector<AppStateType, AuthStateType>(t => t.auth)
+        let dialogs = useSelector<AppStateType, DialogType[]>(t => t.dialogs.dialogs)
+
+
+        return (
+            <Container padding={'none'} radius={'none'}>
+
+                <Logo/>
+                <Content>
+                    <ContentTitle value={'main'} sx={{fontWeight: 900, fontSize: 18,}}>{title}</ContentTitle>
+                    <SearchContainer><Search/></SearchContainer>
+                    <BadgesContainer>
+                        <Menu icon={'store'}>
+                            <MenuSelect>(empty) </MenuSelect>
+                        </Menu>
+                        <Menu icon={'notifications'}>
+                            <MenuSelect>notifications: 15</MenuSelect>
+                        </Menu>
+                        <Menu icon={'messages'}>
+                            {dialogs.map(d => <MenuSelect><NavLink to={`remember_rct/messenger/${d.id}`}>{d.name}</NavLink></MenuSelect>)}
+                        </Menu>
+                        {auth.isAuth ? <Menu icon={'profile'}>
+                            <MenuSelect><PersonIcon sx={{color: first}}/><NavLink
+                                to={`remember_rct/auth/posts`}>{auth.login}</NavLink></MenuSelect>
+                            <MenuSelect><Settings/><NavLink to={`remember_rct/Settings`}>Options</NavLink></MenuSelect>
+                            <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
+                        </Menu> : <NavLink to={'remember_rct/login'}><Button variant={'filled'}>login</Button></NavLink>}
+                    </BadgesContainer>
+                </Content>
+            </Container>
         )
     }
 )

@@ -229,6 +229,11 @@ export const followThunkCreator = (id: number) => {
                 dispatch(changeFollowingProgressAC(id, false))
             }
         })
+            .catch(t => {
+                if (t.request.status === 401) {
+                    throw new Error('You need to login')
+                }
+            })
     }
 }
 export const unFollowThunkCreator = (id: number) => {

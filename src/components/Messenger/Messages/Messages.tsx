@@ -4,6 +4,9 @@ import {MessageType} from '../../../redux/reducers/messagesReducer';
 import styled from "styled-components";
 import {useTheme} from '@mui/material/styles';
 import {Scroll} from '../../../common/styles/mui-styles';
+import {AppStateType} from "../../../redux/store/store";
+import {useSelector} from "react-redux";
+import {DialogType} from '../../../redux/reducers/dialogsReducer';
 
 type MessagesPropsType = {
     dialogID: string
@@ -110,10 +113,11 @@ export const Messages: React.FC<MessagesPropsType> = ({messages, addMessage, dia
     const addMessageCallback = useCallback((value: string) => {
         addMessage(dialogID, value, true)
     }, [addMessage, dialogID])
+    const dialogs = useSelector<AppStateType, DialogType[]>(t => t.dialogs.dialogs)
     //TODO: style of Messages, use isMe variable
     let theme = useTheme()
     return (<Container>
-            <Header>Name</Header>
+            <Header>{dialogs.find(t => t.id === dialogID)?.name}</Header>
             <List>
                 {dialogID ? messages.map(t => t.isMe ?
                     <MessageSent color={theme.palette.primary.main} key={t.id}>{t.message}</MessageSent> :
