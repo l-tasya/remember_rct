@@ -1,16 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
-import styled from "styled-components";
-import ChatIcon from '@mui/icons-material/Chat';
-import {ProfileBadge, StyledIMGBadge} from "../../styles/mui-styles";
-import {defaultUser} from "../../../redux/reducers/profileReducer";
-import {StyledBlock} from "../../styles/styles";
+import React, {useEffect, useRef, useState} from 'react';
+import styled from 'styled-components';
+import {StyledIMGBadge} from '../../styles/mui-styles';
+import {StyledBlock} from '../../styles/styles';
 
-type BadgeType = 'profile' | 'notifications' | 'store' | 'messages'
 type MenuPropsType = {
-    icon: BadgeType
     children: React.ReactNode
+    svg: React.ReactNode | null;
 }
 const MenuContent = styled(StyledBlock)`
     position: absolute;
@@ -37,9 +32,9 @@ const Badge = styled(StyledIMGBadge)`
     margin: 0 10px;
     border-radius: 50%;
 `
-export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
+export const Menu: React.FC<MenuPropsType> = ({children, svg}) => {
     let [open, setOpen] = useState(false)
-    let profileIMG = defaultUser.photos.large
+
 
     //styles
 
@@ -57,38 +52,38 @@ export const Menu: React.FC<MenuPropsType> = ({children, icon}) => {
             }
 
             // Bind the event listener
-            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener('mousedown', handleClickOutside);
             return () => {
                 // Unbind the event listener on clean up
-                document.removeEventListener("mousedown", handleClickOutside);
+                document.removeEventListener('mousedown', handleClickOutside);
             };
         }, [ref]);
     }
 
     const wrapperRef = useRef(null);
     useOutsideAlerter(wrapperRef);
-
-    let iconEl = () => {
-        switch (icon) {
-            case 'profile': {
-                return <ProfileBadge src={profileIMG}/>
-            }
-            case 'notifications': {
-                return <NotificationsIcon/>
-            }
-            case 'store': {
-                return <LocalGroceryStoreIcon/>
-            }
-            case 'messages': {
-                return <ChatIcon/>
-            }
-            default: {
-                throw new Error(`dont understand icon${icon}`)
-            }
-        }
-    }
+    //
+    // let iconEl = () => {
+    //     switch (icon) {
+    //         case 'profile': {
+    //             return /><ProfileBadge src={profileIMG}
+    //         }
+    //         case 'notifications': {
+    //             return <NotificationsIcon/>
+    //         }
+    //         case 'store': {
+    //             return <LocalGroceryStoreIcon/>
+    //         }
+    //         case 'messages': {
+    //             return <ChatIcon/>
+    //         }
+    //         default: {
+    //             throw new Error(`dont understand icon${icon}`)
+    //         }
+    //     }
+    // }
     return <MenuContainer ref={wrapperRef}>
-        <Badge onClick={() => setOpen(!open)}>{iconEl()}</Badge>
+        <Badge onClick={() => setOpen(!open)}>{svg}</Badge>
         {open ? <MenuContent onClick={() => setOpen(false)}>{children}</MenuContent> : ''}
     </MenuContainer>
 }

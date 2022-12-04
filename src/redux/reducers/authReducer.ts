@@ -1,5 +1,5 @@
-import {Dispatch} from "redux"
-import {authAPI} from "../../api/api";
+import {Dispatch} from 'redux'
+import {authAPI} from '../../api/api';
 
 export type AuthStateType = {
     id?: number
@@ -24,7 +24,7 @@ const initialState: AuthStateType = {
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionType): AuthStateType => {
     switch (action.type) {
-        case "SET-USER-DATA": {
+        case 'SET-USER-DATA': {
             const stateCopy = {...state}
             stateCopy.id = action.data.id
             stateCopy.email = action.data.email
@@ -44,9 +44,10 @@ export const setUserDataAC = (data: ResponseType) => {
     } as const
 }
 export const getUserDataThunkCreator = () => (dispatch: Dispatch) => {
-    authAPI.getUserData().then(data => {
-        if (data.resultCode === 0) {
-            dispatch(setUserDataAC(data.data))
-        }
-    })
+    authAPI.getUserData()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserDataAC(data.data))
+            }
+        })
 }

@@ -1,11 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import {NavLink, NavLinkProps} from 'react-router-dom';
+import styled from 'styled-components';
 
 
-type MenuSelectPropsType = {
+type MenuSelectPropsType = NavLinkProps & {
     children: any
+
 }
-const StyledItem = styled.div`
+const StyledItem = styled(NavLink)`
     padding: 4px 6px;
     transition: 3s;
     display: flex;
@@ -15,9 +17,9 @@ const StyledItem = styled.div`
     font-size: 20px;
     }
 `
-export const MenuSelect: React.FC<MenuSelectPropsType> = ({children}) => {
+export const MenuSelect: React.FC<MenuSelectPropsType> = ({children, ...rests}) => {
 
-    return <StyledItem>
+    return <StyledItem {...rests}>
         {children}
     </StyledItem>
 }

@@ -5,6 +5,7 @@ export type MessageType = {
     id: string
     message: string
     isMe: boolean
+    time: string
 }
 export type MessagesType = {
     [key: string]: MessageType[]
@@ -16,35 +17,18 @@ type ActionsType= ReturnType<typeof addMessageAC>
     |ReturnType<typeof removeDialogAC>
 export type StateType = MessagesType;
 const initialState: StateType = {
-    [dialogID1]:[
-        {id: v1(), message: 'Дарова', isMe: true},
-        {id: v1(), message: 'Дарова', isMe: false},
-        {id: v1(), message: 'Как дела?', isMe: true},
-        {id: v1(), message: 'Норм, ты че мутишь?', isMe: false},
+    [dialogID1]: [
+        {id: v1(), message: 'Дарова', isMe: true, time: '13:30'},
+        {id: v1(), message: 'Дарова', isMe: false, time: '13:30'},
+        {id: v1(), message: 'Как дела?', isMe: true, time: '13:30'},
+        {id: v1(), message: 'Норм, ты че мутишь?', isMe: false, time: '13:30'},
     ],
     [dialogID2]: [
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
-        {id: v1(), message: 'Ответь', isMe: false},
+        {id: v1(), message: '...', isMe: false, time: '13:30'},
+        {id: v1(), message: '...', isMe: true, time: '13:30'},
+        {id: v1(), message: '...', isMe: false, time: '13:30'},
+        {id: v1(), message: '...', isMe: true, time: '13:30'},
+        {id: v1(), message: '...', isMe: false, time: '13:30'},
     ]
 }
 export const messagesReducer = (state: StateType = initialState, action: ActionsType): StateType => {
@@ -55,6 +39,7 @@ export const messagesReducer = (state: StateType = initialState, action: Actions
                 id:v1(),
                 message: action.newValue,
                 isMe: action.isMe,
+                time: action.time
             }
             stateCopy[action.dialogID] =[...stateCopy[action.dialogID], newMessage]
             return stateCopy
@@ -75,10 +60,12 @@ export const messagesReducer = (state: StateType = initialState, action: Actions
     }
 }
 export const addMessageAC = (dialogID: string, newValue: string, isMe: boolean) =>{
+    const time = new Date()
     return {
         type: "ADD-MESSAGE",
         dialogID,
         newValue,
         isMe,
+        time: `${time.getHours()}:${time.getMinutes()}`
     } as const
 }

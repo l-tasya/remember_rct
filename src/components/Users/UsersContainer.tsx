@@ -20,6 +20,8 @@ export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(() =>
             , [dispatch])
         useEffect(() => {
             getUsers(users.currentPage, users.pageSize)
+            return () => {
+            }
         }, [users.currentPage, users.pageSize, getUsers])
         //callbacks
         const userFollow = useCallback((id: number) => followThunkCreator(id)(dispatch), [dispatch])

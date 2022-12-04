@@ -14,6 +14,8 @@ export const ProfileContainer = React.memo(() => {
     const getProfile = useCallback((id: string | undefined) => getProfileThunkCreator(id)(dispatch), [dispatch])
     useEffect(() => {
         getProfile(param.userID)
+        return () => {
+        }
 
     }, [param.userID, getProfile])
     return <Profile user={user}/>

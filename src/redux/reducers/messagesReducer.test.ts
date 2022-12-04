@@ -4,15 +4,15 @@ import {addDialogAC, removeDialogAC} from "./dialogsReducer";
 
 test('messagesReducer should add message',()=>{
     const startState: StateType = {
-        ['1']:[
-            {id: v1(), message: 'text1', isMe: true},
-            {id: v1(), message: 'text1', isMe: true},
-            {id: v1(), message: 'text1', isMe: true},
+        ['1']: [
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
         ],
-        ['2']:[
-            {id: v1(), message: 'text2', isMe: true},
-            {id: v1(), message: 'text2', isMe: true},
-            {id: v1(), message: 'text2', isMe: true},
+        ['2']: [
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
         ]
     }
     let newValue = 'tasta'
@@ -23,15 +23,15 @@ test('messagesReducer should add message',()=>{
 })
 test('messageReducer should add new messages array when dialog is added', ()=>{
     const startState: StateType = {
-        ['1']:[
-            {id: v1(), message: 'text1', isMe: true},
-            {id: v1(), message: 'text1', isMe: true},
-            {id: v1(), message: 'text1', isMe: true},
+        ['1']: [
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
         ],
-        ['2']:[
-            {id: v1(), message: 'text2', isMe: true},
-            {id: v1(), message: 'text2', isMe: true},
-            {id: v1(), message: 'text2', isMe: true},
+        ['2']: [
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
         ]
     }
     let title = 'nomatter'
@@ -46,15 +46,15 @@ test('messageReducer should add new messages array when dialog is added', ()=>{
 })
 test('messageReducer should remove messages array when dialog is removed', ()=>{
     const startState: StateType = {
-        ['1']:[
-            {id: v1(), message: 'text1', isMe: true},
-            {id: v1(), message: 'text1', isMe: true},
-            {id: v1(), message: 'text1', isMe: true},
+        ['1']: [
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text1', isMe: true, time: '4:20'},
         ],
-        ['2']:[
-            {id: v1(), message: 'text2', isMe: true},
-            {id: v1(), message: 'text2', isMe: true},
-            {id: v1(), message: 'text2', isMe: true},
+        ['2']: [
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
+            {id: v1(), message: 'text2', isMe: true, time: '4:20'},
         ]
     }
 

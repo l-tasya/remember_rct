@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
-import {usersAPI} from "../../api/api";
+import {Dispatch} from 'redux';
+import {usersAPI} from '../../api/api';
 
 export type UserType = {
     name: string
@@ -120,37 +120,37 @@ const initialState: UsersStateType = {
 
 export const usersReducer = (state: UsersStateType = initialState, action: ActionsType): UsersStateType => {
     switch (action.type) {
-        case "SET-USERS": {
+        case 'SET-USERS': {
             const stateCopy = {...state}
             stateCopy.users = [...action.users]
             return stateCopy
         }
-        case "CHANGE-TOTAL-USERS": {
+        case 'CHANGE-TOTAL-USERS': {
             const stateCopy = {...state}
             stateCopy.totalUsers = action.newValue
             return stateCopy
         }
-        case "CHANGE-IS-FETCHING": {
+        case 'CHANGE-IS-FETCHING': {
             const stateCopy = {...state}
             stateCopy.isFetching = action.newValue
             return stateCopy
         }
-        case "CHANGE-CURRENT-PAGE": {
+        case 'CHANGE-CURRENT-PAGE': {
             const stateCopy = {...state}
             stateCopy.currentPage = action.page
             return stateCopy
         }
-        case "CHANGE-PAGE-SIZE": {
+        case 'CHANGE-PAGE-SIZE': {
             const stateCopy = {...state}
             stateCopy.pageSize = action.count
             return stateCopy
         }
-        case "CHANGE-USER-FOLLOW": {
+        case 'CHANGE-USER-FOLLOW': {
             let stateCopy = {...state}
             stateCopy.users = stateCopy.users.map(t => t.id === action.userID ? {...t, followed: action.newValue} : t)
             return stateCopy
         }
-        case "CHANGE-FOLLOWING-PROGRESS": {
+        case 'CHANGE-FOLLOWING-PROGRESS': {
             const stateCopy = {...state}
             let newID = action.userID
             action.isFetching ? stateCopy.followingInProgress = [...stateCopy.followingInProgress, newID] : stateCopy.followingInProgress = [...stateCopy.followingInProgress.filter(t => t !== action.userID)]
@@ -170,7 +170,7 @@ export const setUsersAC = (users: UserType[]) => {
 }
 export const changeTotalUsersAC = (newValue: number) => {
     return {
-        type: "CHANGE-TOTAL-USERS",
+        type: 'CHANGE-TOTAL-USERS',
         newValue,
     } as const
 }
@@ -210,40 +210,45 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
         dispatch(changeIsFetchingAC(true))
 
-        usersAPI.getUsers(currentPage, pageSize).then(data => {
-            dispatch(setUsersAC(data.items))
-            setTimeout(() => {
-                dispatch(changeIsFetchingAC(false))
-            }, 900)
-            dispatch(changeTotalUsersAC(data.totalCount))
-
-        })
+        usersAPI.getUsers(currentPage, pageSize)
+            .then(data => {
+                dispatch(setUsersAC(data.items))
+                let timeOutID = setTimeout(() => {
+                    dispatch(changeIsFetchingAC(false))
+                }, 1000)
+                dispatch(changeTotalUsersAC(data.totalCount))
+                return () => {
+                    clearTimeout(timeOutID)
+                }
+            })
+            .catch((error) => {
+                throw new Error(error.errorText)
+            })
     }
 }
 export const followThunkCreator = (id: number) => {
     return (dispatch: Dispatch) => {
         dispatch(changeFollowingProgressAC(id, true))
-        usersAPI.postFollow(id).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(changeUserFollowAC(id, true))
-                dispatch(changeFollowingProgressAC(id, false))
-            }
-        })
-            .catch(t => {
-                if (t.request.status === 401) {
-                    throw new Error('You need to login')
+        usersAPI.postFollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(changeUserFollowAC(id, true))
+                    dispatch(changeFollowingProgressAC(id, false))
                 }
             })
+            .catch(error => console.log(error)
+            )
     }
 }
 export const unFollowThunkCreator = (id: number) => {
     return (dispatch: Dispatch) => {
         dispatch(changeFollowingProgressAC(id, true))
-        usersAPI.deleteFollow(id).then(data => {
-            if (data.resultCode === 0) {
-                dispatch(changeUserFollowAC(id, false))
-            }
-            dispatch(changeFollowingProgressAC(id, false))
-        })
+        usersAPI.deleteFollow(id)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(changeUserFollowAC(id, false))
+                }
+                dispatch(changeFollowingProgressAC(id, false))
+            })
     }
 }

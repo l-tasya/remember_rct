@@ -14,6 +14,7 @@ type ProfilePropsType = {
     user: ProfileUserType
 }
 const Container = styled.div`
+margin-top: 5px;
 grid-column-start: 2;
 `
 const Wrapper = styled(PaddedContentContainer)`
@@ -24,9 +25,6 @@ export const Profile: React.FC<ProfilePropsType> = React.memo(({user}) => {
     const isAuth = useSelector<AppStateType, boolean>(t => t.auth.isAuth);
     const navigate = useNavigate();
     useEffect(() => {
-        if (!isAuth) {
-            navigate('/remember_rct/login')
-        }
     }, [navigate, isAuth])
 
 

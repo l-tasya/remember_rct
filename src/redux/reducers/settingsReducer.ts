@@ -20,12 +20,13 @@ export type ThemeColorType = {
 const initialState: StateType = {
     active: 'default',
     themes:  [
-        {id: 'default', first: '#8d59ac',},
+        {id: v1(), first: '#8d59ac',},
         {id: v1(), first: '#198219',},
-        {id: v1(), first: "#004080",},
+        {id: v1(), first: '#004080',},
         {id: v1(), first: '#1a74ed',},
         {id: v1(), first: '#dc2121',},
         {id: v1(), first: '#ff0084',},
+        {id: 'default', first: '#0055ff',},
     ]
 }
 export const settingsReducer = (state: StateType = initialState, action: ActionsType): StateType => {

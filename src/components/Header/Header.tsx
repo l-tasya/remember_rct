@@ -1,20 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Logo} from "./Logo/Logo";
-import {Search} from "../../common/components/Search/Search";
-import {Menu} from "../../common/components/Menu/Menu";
+import {Logo} from './Logo/Logo';
+import {Search} from '../../common/components/Search/Search';
+import {Menu} from '../../common/components/Menu/Menu';
 import {MenuSelect} from '../../common/components/Menu/MenuItem';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import ChatIcon from '@mui/icons-material/Chat';
 import PersonIcon from '@mui/icons-material/Person';
-import {NavLink} from "react-router-dom";
+import {NavLink} from 'react-router-dom';
 import {useTheme} from '@mui/material/styles';
-import {StyledBlock} from "../../common/styles/styles";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store/store";
-import {Button, Title} from "../../common/styles/mui-styles";
-import {AuthStateType} from "../../redux/reducers/authReducer";
-import {DialogType} from "../../redux/reducers/dialogsReducer";
+import {StyledBlock} from '../../common/styles/styles';
+import {useSelector} from 'react-redux';
+import {AppStateType} from '../../redux/store/store';
+import {ProfileBadge, Title} from '../../common/styles/mui-styles';
+import {AuthStateType} from '../../redux/reducers/authReducer';
+import {DialogType} from '../../redux/reducers/dialogsReducer';
+import {defaultUser} from '../../redux/reducers/profileReducer';
+import Button from '@mui/material/Button/Button';
 
 type HeaderPropsType = {
     title: string
@@ -27,9 +32,9 @@ const Container = styled(StyledBlock)`
       display: grid;
       grid-template-columns: 65px 1fr;
       grid-template-rows: 1fr;
--webkit-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
--moz-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
+      -webkit-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
+      -moz-box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
+      box-shadow: 3px 2px 8px -5px rgba(34, 60, 80, 0.6);
       align-items: center;
       z-index: 4;
     `
@@ -49,16 +54,17 @@ const SearchContainer = styled.div`
 const ContentTitle = styled(Title)`
       justify-self: flex-start;
       align-self: center;
+      font-weight: 900;
+      font-size: 19px;
 `
-const BadgesContainer = styled.div`
+const Navigation = styled.div`
       display: flex;
       grid-column-start: 6;
       align-items: center;
       justify-content: flex-end;
       height: 100%;
-      
-      
 `
+
 const Settings = styled(SettingsIcon)`
     color: gray;
 `
@@ -67,37 +73,48 @@ const LogOut = styled(LogoutIcon)`
     padding-left: 2px;
 `
 export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
-        //styles
         let theme = useTheme()
+
         let first = theme.palette.primary.main
         let auth = useSelector<AppStateType, AuthStateType>(t => t.auth)
         let dialogs = useSelector<AppStateType, DialogType[]>(t => t.dialogs.dialogs)
 
-
+    let profileIMG = defaultUser.photos.large
         return (
             <Container padding={'none'} radius={'none'}>
-
                 <Logo/>
+
                 <Content>
-                    <ContentTitle value={'main'} sx={{fontWeight: 900, fontSize: 18,}}>{title}</ContentTitle>
+                    <ContentTitle value={'main'}>{title}</ContentTitle>
                     <SearchContainer><Search/></SearchContainer>
-                    <BadgesContainer>
-                        <Menu icon={'store'}>
-                            <MenuSelect>(empty) </MenuSelect>
+                    <Navigation>
+                        <Menu svg={<LocalGroceryStoreIcon/>}>
+                            <MenuSelect to={''}>
+                                (empty)
+                            </MenuSelect>
                         </Menu>
-                        <Menu icon={'notifications'}>
-                            <MenuSelect>notifications: 15</MenuSelect>
+                        <Menu svg={<NotificationsIcon/>}>
+                            <MenuSelect to={''}>notifications: 15</MenuSelect>
                         </Menu>
-                        <Menu icon={'messages'}>
-                            {dialogs.map(d => <MenuSelect><NavLink to={`remember_rct/messenger/${d.id}`}>{d.name}</NavLink></MenuSelect>)}
+                        <Menu svg={<ChatIcon/>}>
+                            {dialogs.map(d => <MenuSelect to={`remember_rct/messenger/${d.id}`}
+                                                          key={d.id}>{d.name}</MenuSelect>)}
                         </Menu>
-                        {auth.isAuth ? <Menu icon={'profile'}>
-                            <MenuSelect><PersonIcon sx={{color: first}}/><NavLink
-                                to={`remember_rct/auth/posts`}>{auth.login}</NavLink></MenuSelect>
-                            <MenuSelect><Settings/><NavLink to={`remember_rct/Settings`}>Options</NavLink></MenuSelect>
-                            <MenuSelect><LogOut sx={{fontSize: 20}}/>Log Out</MenuSelect>
-                        </Menu> : <NavLink to={'remember_rct/login'}><Button variant={'filled'}>login</Button></NavLink>}
-                    </BadgesContainer>
+                        {
+                            auth.isAuth ?
+                                <Menu svg={<ProfileBadge src={profileIMG}/>}>
+                                    <MenuSelect to={`remember_rct/${auth.id}/posts`}>
+                                        <PersonIcon sx={{color: first}}/>{auth.login}</MenuSelect>
+                                    <MenuSelect to={`remember_rct/Settings`}><Settings/>Options</MenuSelect>
+                                    <MenuSelect to={'remember_rct/login'}><LogOut sx={{fontSize: 20}}/>Log
+                                        Out</MenuSelect>
+                                </Menu>
+                                :
+                                <NavLink to={'remember_rct/login'}>
+                                    <Button size={'small'} variant={'contained'}>login</Button>
+                                </NavLink>
+                        }
+                    </Navigation>
                 </Content>
             </Container>
         )

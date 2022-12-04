@@ -1,14 +1,24 @@
 import React, {useState} from 'react';
-import styled from "styled-components";
+import styled from 'styled-components';
 import Dialog from '@mui/material/Dialog';
-import {Button, RemoveButton} from '../../styles/mui-styles';
-import {StyledBlock} from "../../styles/styles";
+import {RemoveButton} from '../../styles/mui-styles';
+import {StyledBlock} from '../../styles/styles';
+import Button from '@mui/material/Button/Button';
 
 
 type RemovePropsType = {
     removeCallback: () => void
 }
 const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+  button{
+  margin: 0 10px 10px 10px;
+  }
+`
+const Content = styled(StyledBlock)`
+padding: 3px;
+
 `
 const Container = styled.div`
         justify-self: flex-end;
@@ -18,7 +28,7 @@ const Container = styled.div`
 const Title = styled.div`
         grid-column-end: 3;
         grid-column-start: 1;
-        font-size: 20px;
+        font-size: 23px;
         margin: 5px 10px;
 `
 export const Remove: React.FC<RemovePropsType> = React.memo(({removeCallback}) => {
@@ -28,13 +38,13 @@ export const Remove: React.FC<RemovePropsType> = React.memo(({removeCallback}) =
 
         return <Container onClick={handleClick}><RemoveButton/>
             <Dialog onClose={handleClick} open={open}>
-                <StyledBlock padding={'none'}>
+                <Content padding={'none'}>
                     <Title>Do you really want to delete this item?</Title>
                     <ButtonContainer>
-                        <Button variant={'filled'} onClick={() => removeCallback()}>Confirm</Button>
-                        <Button variant={'filled'} onClick={handleClick}>Cancel</Button>
+                        <Button variant={'contained'} size={'small'} onClick={() => removeCallback()}>Confirm</Button>
+                        <Button variant={'contained'} size={'small'} onClick={handleClick}>Cancel</Button>
                     </ButtonContainer>
-                </StyledBlock>
+                </Content>
             </Dialog>
         </Container>
     }
