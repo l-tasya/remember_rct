@@ -45,9 +45,9 @@ export const setUserDataAC = (data: ResponseType) => {
 }
 export const getUserDataThunkCreator = () => (dispatch: Dispatch) => {
     authAPI.getUserData()
-        .then(data => {
-            if (data.resultCode === 0) {
-                dispatch(setUserDataAC(data.data))
+        .then(response => {
+            if (response.resultCode === 0) {
+                dispatch(setUserDataAC(response.data))
             }
         })
 }

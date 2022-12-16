@@ -165,9 +165,9 @@ export const getProfileThunkCreator = (id: string | undefined) => {
         if (id === 'main') {
             dispatch(setProfileAC(defaultUser))
         } else {
-            profileAPI.getProfile(id).then(data => {
-                dispatch(setProfileAC(data))
-            })
+            profileAPI.getProfile(id).then(response => {
+                dispatch(setProfileAC(response.data))
+            }).catch(() => console.log("getProfile thunk"))
         }
     }
 }

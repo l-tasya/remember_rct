@@ -78,7 +78,6 @@ export const Header: React.FC<HeaderPropsType> = React.memo(({title}) => {
         let first = theme.palette.primary.main
         let auth = useSelector<AppStateType, AuthStateType>(t => t.auth)
         let dialogs = useSelector<AppStateType, DialogType[]>(t => t.dialogs.dialogs)
-
     let profileIMG = defaultUser.photos.large
         return (
             <Container padding={'none'} radius={'none'}>

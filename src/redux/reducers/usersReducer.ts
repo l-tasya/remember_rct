@@ -211,18 +211,17 @@ export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
         dispatch(changeIsFetchingAC(true))
 
         usersAPI.getUsers(currentPage, pageSize)
-            .then(data => {
-                dispatch(setUsersAC(data.items))
+            .then(response => {
+                dispatch(setUsersAC(response.data.items))
                 let timeOutID = setTimeout(() => {
                     dispatch(changeIsFetchingAC(false))
                 }, 1000)
-                dispatch(changeTotalUsersAC(data.totalCount))
+                dispatch(changeTotalUsersAC(response.data.totalCount))
                 return () => {
                     clearTimeout(timeOutID)
                 }
             })
-            .catch((error) => {
-                throw new Error(error.errorText)
+            .catch(() => {
             })
     }
 }
@@ -230,13 +229,15 @@ export const followThunkCreator = (id: number) => {
     return (dispatch: Dispatch) => {
         dispatch(changeFollowingProgressAC(id, true))
         usersAPI.postFollow(id)
-            .then(data => {
-                if (data.resultCode === 0) {
+            .then(response => {
+                if (response.data.resultCode === 0) {
                     dispatch(changeUserFollowAC(id, true))
                     dispatch(changeFollowingProgressAC(id, false))
                 }
             })
-            .catch(error => console.log(error)
+            .catch(error => {
+                    console.warn(error.request.statusText)
+                }
             )
     }
 }
@@ -244,11 +245,13 @@ export const unFollowThunkCreator = (id: number) => {
     return (dispatch: Dispatch) => {
         dispatch(changeFollowingProgressAC(id, true))
         usersAPI.deleteFollow(id)
-            .then(data => {
-                if (data.resultCode === 0) {
+            .then(response => {
+                if (response.data.resultCode === 0) {
                     dispatch(changeUserFollowAC(id, false))
                 }
                 dispatch(changeFollowingProgressAC(id, false))
             })
+            .catch(error => console.warn(error.request.statusText)
+            )
     }
 }

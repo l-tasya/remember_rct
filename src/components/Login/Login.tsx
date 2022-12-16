@@ -32,11 +32,11 @@ export const Login: React.FC = React.memo(() => {
     return <Container>
         <Block elevation={3} radius={13}>
             <Title>Login</Title>
-            <input type="text" placeholder={'Login'}/>
-            <input type="password" placeholder={'Password'}/>
-            <button onClick={() => dispatch(setUserDataAC({id: 1337, login: 'BETA', email: 'dalionfull'}))}>don't work
+            <input type="text" placeholder={"Login"}/>
+            <input type="password" placeholder={"Password"}/>
+            <button onClick={() => dispatch(setUserDataAC({id: 1337, login: "BETA", email: "dalionfull"}))}>don't work
             </button>
         </Block>
-    </Container>;
+    </Container>
 
 })
