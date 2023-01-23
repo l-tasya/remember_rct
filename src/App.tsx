@@ -18,7 +18,7 @@ const Container = styled.div`
     display: grid;
     grid-template-columns: 65px 1fr; 
     grid-template-rows: 65px 1fr; 
-    height: 100vh;
+    height: 100vh; 
     overflow-y: hidden;
     grid-template-areas: 
     "header header"
@@ -40,14 +40,15 @@ const App = React.memo(() => {
                 <NavBar/>
                 <Content>
                     <Routes>
-                        <Route path={'remember_rct/'} element={<Home/>}/>
-                        <Route path={'remember_rct/:userID/*'} element={<ProfileContainer/>}/>
-                        <Route path={'remember_rct/Music'} element={<Music/>}/>
-                        <Route path={'remember_rct/Store'} element={<Store/>}/>
-                        <Route path={'remember_rct/Messenger/*'} element={<Messenger/>}/>
-                        <Route path={'remember_rct/Settings'} element={<Settings/>}/>
-                        <Route path={'remember_rct/Login'} element={<Login/>}/>
-                        <Route path={'remember_rct/Users'} element={<UsersContainer/>}/>
+                        <Route path={"remember_rct/"} element={<Home/>}/>
+                        <Route path={"remember_rct/home"} element={<Home/>}/>
+                        <Route path={"remember_rct/:userID/*"} element={<ProfileContainer/>}/>
+                        <Route path={"remember_rct/Music"} element={<Music/>}/>
+                        <Route path={"remember_rct/Store"} element={<Store/>}/>
+                        <Route path={"remember_rct/Messenger/*"} element={<Messenger/>}/>
+                        <Route path={"remember_rct/Settings"} element={<Settings/>}/>
+                        <Route path={"remember_rct/Login"} element={<Login/>}/>
+                        <Route path={"remember_rct/Users"} element={<UsersContainer/>}/>
                     </Routes>
                 </Content>
             </Container>

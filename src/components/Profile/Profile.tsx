@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Route, Routes, useNavigate} from "react-router-dom";
+import React from "react";
+import {Route, Routes} from "react-router-dom";
 import {Groups} from "./Groups/Groups";
 import {UserInfo} from "./User/UserInfo/UserInfo";
 import {PostsContainer} from "./Posts/PostsContainer";
@@ -7,8 +7,6 @@ import {ProfileUserType} from "../../redux/reducers/profileReducer";
 import {Friends} from "./Friends/Friends";
 import {PaddedContentContainer} from "../../common/styles/mui-styles";
 import styled from "styled-components";
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store/store";
 
 type ProfilePropsType = {
     user: ProfileUserType
@@ -22,12 +20,6 @@ position: absolute;
 height: 100%;
 `
 export const Profile: React.FC<ProfilePropsType> = React.memo(({user}) => {
-    const isAuth = useSelector<AppStateType, boolean>(t => t.auth.isAuth);
-    const navigate = useNavigate();
-    useEffect(() => {
-    }, [navigate, isAuth])
-
-
     return (
         <Wrapper>
             <Container>

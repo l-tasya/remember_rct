@@ -1,12 +1,10 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from "styled-components";
 import {ContentContainerWithoutPadding} from "../../common/styles/mui-styles";
 import {StyledBlock} from "../../common/styles/styles";
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
 import {MessagesContainer} from "./Messages/MessagesContainer";
-import {AppStateType} from "../../redux/store/store";
-import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {withAuthRedirect} from "../../common/hoc/WithAuthRedirect";
 
 const Container = styled(StyledBlock)`
           width: 100%;
@@ -16,21 +14,14 @@ const Container = styled(StyledBlock)`
         `
 const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
 `
-export const Messenger = React.memo(() => {
-        const isAuth = useSelector<AppStateType, boolean>(t => t.auth.isAuth);
-        const navigate = useNavigate();
-        useEffect(() => {
-            if (!isAuth) {
-                navigate('/remember_rct/login')
-            }
-        }, [navigate, isAuth])
+export const Messenger = React.memo(withAuthRedirect(() => {
         return (
             <ContainerWithoutPadding>
-                <Container padding={'none'} elevation={'none'} radius={0}>
+                <Container padding={"none"} elevation={"none"} radius={0}>
                     <DialogsContainer/>
                     <MessagesContainer/>
                 </Container>
             </ContainerWithoutPadding>
         )
     }
-)
+))

@@ -150,18 +150,23 @@ export const Title = styled('div')(({theme, value}: TitleProps) => {
 
 export const StyledIMGBadge = styled('div')(({theme}) => ({
     background: theme.palette.divider,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    'svg': {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    "svg": {
         color: theme.palette.primary.main,
-        fontSize: '24px',
+        fontSize: "24px",
     },
-    ':hover': {
+    ":hover": {
         background: theme.palette.primary.light,
-        color: theme.palette.background.paper,
-        'svg': {
-            color: theme.palette.background.paper
+        "svg": {
+            color: "white"
+        }
+    },
+    ":active": {
+        background: theme.palette.divider,
+        "svg": {
+            color: theme.palette.primary.dark
         }
     }
 }))

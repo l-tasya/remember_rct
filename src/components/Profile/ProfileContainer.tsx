@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useParams} from "react-router-dom";
 import {getProfileThunkCreator, ProfileUserType} from "../../redux/reducers/profileReducer";
 import {AppStateType} from "../../redux/store/store";
+import {withAuthRedirect} from "../../common/hoc/WithAuthRedirect";
 
 
 export const ProfileContainer = React.memo(() => {
@@ -18,5 +19,6 @@ export const ProfileContainer = React.memo(() => {
         }
 
     }, [param.userID, getProfile])
-    return <Profile user={user}/>
+    const Element = withAuthRedirect(Profile)
+    return <Element user={user}/>
 })

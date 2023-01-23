@@ -18,7 +18,7 @@ const initialState: AuthStateType = {
     id: undefined,
     email: undefined,
     login: undefined,
-    isAuth: false
+    isAuth: false,
 }
 
 

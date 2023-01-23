@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
-import Dialog from '@mui/material/Dialog';
-import {RemoveButton} from '../../styles/mui-styles';
-import {StyledBlock} from '../../styles/styles';
-import Button from '@mui/material/Button/Button';
+import React, {useState} from "react";
+import styled from "styled-components";
+import Dialog from "@mui/material/Dialog";
+import {RemoveButton} from "../../styles/mui-styles";
+import {StyledBlock} from "../../styles/styles";
+import Button from "@mui/material/Button/Button";
 
 
 type RemovePropsType = {
@@ -17,7 +17,7 @@ const ButtonContainer = styled.div`
   }
 `
 const Content = styled(StyledBlock)`
-padding: 3px;
+  padding: 3px;
 
 `
 const Container = styled.div`
@@ -29,7 +29,7 @@ const Title = styled.div`
         grid-column-end: 3;
         grid-column-start: 1;
         font-size: 23px;
-        margin: 5px 10px;
+        margin: 5px 10px 20px 10px;
 `
 export const Remove: React.FC<RemovePropsType> = React.memo(({removeCallback}) => {
         let [open, setOpen] = useState(false)
@@ -38,11 +38,11 @@ export const Remove: React.FC<RemovePropsType> = React.memo(({removeCallback}) =
 
         return <Container onClick={handleClick}><RemoveButton/>
             <Dialog onClose={handleClick} open={open}>
-                <Content padding={'none'}>
+                <Content padding={"none"}>
                     <Title>Do you really want to delete this item?</Title>
                     <ButtonContainer>
-                        <Button variant={'contained'} size={'small'} onClick={() => removeCallback()}>Confirm</Button>
-                        <Button variant={'contained'} size={'small'} onClick={handleClick}>Cancel</Button>
+                        <Button variant={"contained"} size={"small"} onClick={() => removeCallback()}>Confirm</Button>
+                        <Button variant={"contained"} size={"small"} onClick={handleClick}>Cancel</Button>
                     </ButtonContainer>
                 </Content>
             </Dialog>

@@ -9,12 +9,12 @@ type MenuPropsType = {
 }
 const MenuContent = styled(StyledBlock)`
     position: absolute;
-    padding: 8px;
+    padding: 5px 0;
     border: 1px solid #f1f3f4;
     border-radius: 4px;
     font-size: 14px;
-    top: 110%;
-    left: -40%;
+    top: 140%;
+    align-self: center;
     box-shadow: rgba(0, 0, 0, 0.1) 0 10px 25px -5px, rgba(0, 0, 0, 0.04) 0px 13px 10px -5px;
     transition:3s ease;
    
@@ -84,6 +84,6 @@ export const Menu: React.FC<MenuPropsType> = ({children, svg}) => {
     // }
     return <MenuContainer ref={wrapperRef}>
         <Badge onClick={() => setOpen(!open)}>{svg}</Badge>
-        {open ? <MenuContent onClick={() => setOpen(false)}>{children}</MenuContent> : ''}
+        {open ? <MenuContent padding={"none"} onClick={() => setOpen(false)}>{children}</MenuContent> : ""}
     </MenuContainer>
 }
