@@ -27,13 +27,15 @@ export const ContentContainerWithoutPadding = styled('div')(() => ({
     height: '100%',
 }))
 export const PaddedContentContainer = styled(Scroll)(({theme}) => ({
-    display: 'grid',
-    gridTemplateColumns: '1fr 4fr 1fr',
-    gridTemplateRows: '1fr',
-    gridColumnStart: 2,
-    height: '100%',
-    backgroundColor: (theme.palette.mode === "dark") ? '#242424' : '#f5f5f5',
+    display: "grid",
+    gridTemplateColumns: "1fr 4fr 1fr",
+    gridTemplateRows: "1fr",
 
+    height: "100%",
+    backgroundColor: (theme.palette.mode === "dark") ? "#242424" : "#f5f5f5",
+    ".container": {
+        gridColumnStart: 2,
+    }
 }))
 //common
 export const ProfileBadge = styled('img')(() => ({

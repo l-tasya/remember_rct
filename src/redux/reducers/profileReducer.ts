@@ -18,10 +18,11 @@ export type PostType = {
 }
 export type ProfileUserType = {
     userId: number
-    lookingForAJob?: boolean
+    aboutMe?: string | null
+    lookingForAJob: boolean
     fullName: string
     contacts: {
-        mainLink?: string
+        mainLink: string
     }
     photos: {
         small?: string
@@ -36,13 +37,14 @@ const avaIMG = ava
 type StateType = ProfileStateType
 export const defaultUser  = {
     userId: 333,
-    fullName: 'Temirtas Nursain',
+    fullName: "Temirtas Nursain",
+    aboutMe: "I am front-end developer",
     photos: {
         small: avaIMG,
         large: avaIMG
     },
     contacts: {
-        mainLink: '',
+        mainLink: "",
     },
     lookingForAJob: false
 }

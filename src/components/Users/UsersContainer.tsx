@@ -8,7 +8,8 @@ import {
     getUsersThunkCreator,
     unFollowThunkCreator,
     UsersStateType
-} from '../../redux/reducers/usersReducer';
+} from "../../redux/reducers/usersReducer";
+import {PaddedContentContainer} from "../../common/styles/mui-styles";
 
 type UserContainerPropsType = {}
 export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(() => {
@@ -18,6 +19,7 @@ export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(() =>
         const getUsers = useCallback((currentPage: number, pageSize: number) =>
                 getUsersThunkCreator(currentPage, pageSize)(dispatch)
             , [dispatch])
+
         useEffect(() => {
             getUsers(users.currentPage, users.pageSize)
             return () => {
@@ -33,14 +35,15 @@ export const UsersContainer: React.FC<UserContainerPropsType> = React.memo(() =>
         }, [dispatch])
 
         let pagesCount = Math.ceil(users.totalUsers / users.pageSize)
-        return <Users
-            users={users.users}
-            isFetching={users.isFetching}
-            currentPage={users.currentPage}
-            pagesCount={pagesCount}
-            changeCurrentPage={changeCurrentPage}
-            userFollow={userFollow}
-            userUnFollow={userUnFollow}
-        />
+    return <PaddedContentContainer><Users
+        users={users.users}
+        isFetching={users.isFetching}
+        currentPage={users.currentPage}
+        pagesCount={pagesCount}
+        changeCurrentPage={changeCurrentPage}
+        userFollow={userFollow}
+        userUnFollow={userUnFollow}
+    />
+    </PaddedContentContainer>
     }
 )

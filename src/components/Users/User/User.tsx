@@ -11,12 +11,9 @@ import {useSelector} from "react-redux";
 
 //styles
 const Container = styled(StyledBlock)`
-    min-width: 200px;
-    margin: 10px 5px;
     display: grid;
-    grid-template-rows: 2fr 50px;
+    grid-template-rows: 2fr 1fr;
     padding: 8px;
-    position: relative;
 `
 const Background = styled.div`
     display: flex;
@@ -27,10 +24,7 @@ const Background = styled.div`
     background: ${(props: { color: string }) => props.color}
 `
 const SkeletonEl = styled(Skeleton)`
-       margin: 10px 5px;
-    padding: 8px;
-    position: relative;
-    top: -45px;
+  
 `
 const NavItem = styled(NavLink)`
     position: relative;
@@ -94,22 +88,28 @@ export type UserPropsType = {
 }
 export const User: React.FC<UserPropsType> = React.memo(({photo, name, status, followed, loading, id, follow, unFollow}) => {
     const theme = useTheme();
+    const style = {
+        webkitTransform: "none",
+        transform: "none",
+    }
     //array of disabled buttons
     const array = useSelector<AppStateType, Array<number | undefined>>(t => t.users.followingInProgress);
     //user IMG
     const img = Boolean(photo?.large || photo?.small) ? <IMG src={photo?.small || photo?.large} alt=""/> : <PersonIcon/>
 
-    return loading ? <SkeletonEl height={240}/> : <Container>
-        <NavItem hover={theme.palette.primary.light} to={`/remember_rct/${id}`}>
-            <Background color={theme.palette.primary.light}>
-                {
-                    img
-                }
-            </Background>
-            <Content id={'content'}>
-                <div>{name}</div>
-            </Content>
-        </NavItem>
+    return loading ? <SkeletonEl style={style}/>
+        :
+        <Container>
+            <NavItem hover={theme.palette.primary.light} to={`/remember_rct/${id}`}>
+                <Background color={theme.palette.primary.light}>
+                    {
+                        img
+                    }
+                </Background>
+                <Content id={"content"}>
+                    <div>{name}</div>
+                </Content>
+            </NavItem>
         <Footer>
             {followed ?
                 <Button

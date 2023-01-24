@@ -1,10 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import {StyledBlock} from "../../../../common/styles/styles";
 import {NavLink} from "react-router-dom";
 import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
 import {useTheme} from "@mui/material/styles";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
+import {EditableTitle} from "../../../../common/components/EditableTitle/EditableTitle";
 
 type UserInfoPropsType = {
     user: ProfileUserType
@@ -88,12 +89,15 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
 
     let style = (props: { isActive: boolean }) => props.isActive ? {
         borderBottom: `4px solid ${theme.palette.primary.main}`,
-        transition: '0.3s'
+        transition: "0.3s"
     } : {
-        background: 'white',
-        transition: '0.3s'
+        background: "white",
+        transition: "0.3s"
     }
-    let img = user.photos.large ? <img src={user.photos.large} alt={'error'}/> : <PersonIcon/>
+    let img = user.photos.large ? <img src={user.photos.large} alt={"error"}/> : <PersonIcon/>
+    let [title, setTitle] = useState("I am front-end developer")
+
+
     return (
         <Container>
             <BackGroundEl background={theme.palette.primary.light}/>
@@ -102,12 +106,20 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
             </UserAvatar>
             <InfoContainer>
                 <Title>{user.fullName}</Title>
-                <SubTitle>{user.contacts.mainLink}</SubTitle>
+                <SubTitle>
+                    {
+                        user.aboutMe ?
+                            <EditableTitle title={title} c1={setTitle}/>
+                            :
+                            "Add information about you"
+
+                    }
+                </SubTitle>
             </InfoContainer>
             <Footer>
-                <NavLink style={style} to={'posts'}>Posts</NavLink>
-                <NavLink style={style} to={'friends'}>Friends</NavLink>
-                <NavLink style={style} to={'groups'}>Groups</NavLink>
+                <NavLink style={style} to={"posts"}>Posts</NavLink>
+                <NavLink style={style} to={"friends"}>Friends</NavLink>
+                <NavLink style={style} to={"groups"}>Groups</NavLink>
             </Footer>
 
         </Container>)
