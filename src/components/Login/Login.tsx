@@ -34,7 +34,9 @@ export const Login: React.FC = React.memo(() => {
             <Title>Login</Title>
             <input type="text" placeholder={"Login"}/>
             <input type="password" placeholder={"Password"}/>
-            <button onClick={() => dispatch(setUserDataAC({id: 1337, login: "BETA", email: "dalionfull"}))}>don't work
+            <button onClick={() => dispatch(setUserDataAC({id: 1337, login: "BETA", email: "dalionfull"}))}>
+                don't work <br/>
+                <b>click for auto login</b>
             </button>
         </Block>
     </Container>

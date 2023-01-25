@@ -1,33 +1,42 @@
 import styled from "styled-components";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {StyledBlock} from "../../../common/styles/styles";
 
 
 const Container = styled.nav`
 grid-column-start: 1;
 display: grid;
 margin-top: 8px;
-grid-auto-rows: minmax(30px, 50px);
-grid-gap: 8px;
+grid-auto-rows: 30px;
+grid-gap:16px;
 justify-content: flex-end;
-`
-const NavItem = styled(StyledBlock)`
-    background: red;
-    padding: 2px 8px;
-    height: 30px;
-    margin-right: 8px;
-    border-radius: 0.3rem;
+a{
     display: flex;
     align-items: center;
-    
+    justify-content: center;
+    height: 30px;
+    margin-right: 8px;
+    text-align: center;
+}
 `
 export const SettingsNavBar: React.FC = React.memo(() => {
-        //TODO: active styles for navItem
+        let nonActive = {
+            boxShadow: "none",
+            borderRadius: "0.3rem",
+            background: "transparent",
+            transition: "0.3s",
+            padding: "2px 8px",
+        }
+        let active = {
+            boxShadow: "0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12)",
+            borderRadius: "0.3rem",
+            padding: "2px 8px",
+            background: "white",
+            transition: "0.3s",
+        }
         return <Container>
-            <NavItem><NavLink to={"theme"}>Theme</NavLink></NavItem>
-            <NavItem><NavLink to={"personal-info"}>Personal Info</NavLink></NavItem>
-
+            <NavLink style={({isActive}) => isActive ? active : nonActive} to={"theme"}>Theme</NavLink>
+            <NavLink style={({isActive}) => isActive ? active : nonActive} to={"personal-info"}>Personal Info</NavLink>
         </Container>
     }
 )

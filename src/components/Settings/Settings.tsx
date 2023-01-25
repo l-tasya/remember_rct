@@ -8,7 +8,8 @@ import {StyledBlock} from "../../common/styles/styles";
 
 type SettingsPropsType = {}
 export const Settings: React.FC<SettingsPropsType> = React.memo(({}) => {
-        //TODO: Personal Info Component
+
+    //TODO: Personal Info Component
         return <PaddedContentContainer>
             <SettingsNavBar/>
             <StyledBlock id={"container"} variety="post">
