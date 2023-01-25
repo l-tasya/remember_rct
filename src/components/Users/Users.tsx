@@ -49,7 +49,7 @@ export const Users: React.FC<UsersPropsType> = React.memo(({users, isFetching, c
         })
 
         return (
-            <Container className={"container"}>
+            <Container id={"container"}>
                 <UsersContainer>
                     {usersItems}
                 </UsersContainer>
