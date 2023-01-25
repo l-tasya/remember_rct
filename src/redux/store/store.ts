@@ -18,7 +18,7 @@ const reducers = combineReducers({
     messages: messagesReducer,
     users: usersReducer,
 })
-
+//TODO: add localStorage util
 export const store = createStore(reducers, applyMiddleware(thunk))
 // @ts-ignore
 window.store = store
