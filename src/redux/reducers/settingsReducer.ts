@@ -2,16 +2,16 @@ import {v1} from "uuid";
 
 export type SettingsStateType = {
     active: string
-    themes: ThemesArrayType
+    themes: ThemesType
 
 }
 export type ThemeType = {
     id: string
     first: string
 }
-export type ThemesArrayType = ThemeType[]
+export type ThemesType = ThemeType[]
 type ActionsType = ReturnType<typeof setColorAC>
-| ReturnType<typeof addThemeAC>
+    | ReturnType<typeof addThemeAC>
 type StateType = SettingsStateType
 export type ThemeColorType = {
     first: string
