@@ -6,7 +6,6 @@ import {NavLink} from "react-router-dom";
 const Container = styled.nav`
 grid-column-start: 1;
 display: grid;
-margin-top: 8px;
 grid-auto-rows: 30px;
 grid-gap:16px;
 justify-content: flex-end;
@@ -35,6 +34,8 @@ export const SettingsNavBar: React.FC = React.memo(() => {
             transition: "0.3s",
         }
         return <Container>
+            <NavLink style={({isActive}) => isActive ? active : nonActive} end
+                     to={"/remember_rct/settings"}>Home</NavLink>
             <NavLink style={({isActive}) => isActive ? active : nonActive} to={"theme"}>Theme</NavLink>
             <NavLink style={({isActive}) => isActive ? active : nonActive} to={"personal-info"}>Personal Info</NavLink>
         </Container>
