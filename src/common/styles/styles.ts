@@ -41,11 +41,10 @@ const borderReducer = (value: number | 'none' | 'default') => {
 }
 export const StyledBlock = styled(Paper)`
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    ${(props: StyledBlockPropsType) => props.radius ? borderReducer(props.radius) : borderReducer('default')}
-    ${(props: StyledBlockPropsType) => (props.padding === 'none') ? `padding: 0px;` : `padding: 16px;`}
-    ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer('default')}
-    ${(props: StyledBlockPropsType) => props.variety === 'post' ? 'min-width: 200px; height: 200px; margin-top: 8px;' : ''}
-    
+    ${(props: StyledBlockPropsType) => props.radius ? borderReducer(props.radius) : borderReducer("default")}
+    ${(props: StyledBlockPropsType) => (props.padding === "none") ? `padding: 0px;` : `padding: 16px;`}
+    ${(props: StyledBlockPropsType) => props.elevation ? elevationReducer(props.elevation) : elevationReducer("default")}
+    ${(props: StyledBlockPropsType) => props.variety === "post" ? "min-width: 200px; height: 200px; margin-bottom: 8px;" : ""}
 `
 
 //other-------------------------
