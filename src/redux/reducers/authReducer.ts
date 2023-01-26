@@ -7,11 +7,7 @@ export type AuthStateType = {
     login?: string
     isAuth: boolean
 }
-export type ResponseType = {
-    id?: number
-    email?: string
-    login?: string
-}
+
 type ActionType = ReturnType<typeof setUserDataAC>
 
 const initialState: AuthStateType = {
@@ -42,6 +38,11 @@ export const setUserDataAC = (data: ResponseType) => {
         type: 'SET-USER-DATA',
         data,
     } as const
+}
+export type ResponseType = {
+    id?: number
+    email?: string
+    login?: string
 }
 export const getUserDataThunkCreator = () => (dispatch: Dispatch) => {
     authAPI.getUserData()
