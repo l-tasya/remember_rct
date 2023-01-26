@@ -14,15 +14,17 @@ test('correct post should be added', () =>{
     const startState: ProfileStateType = {
         profile: {
             userId: 333,
-            fullName: 'Temirtas Nursain',
+            fullName: "Temirtas Nursain",
             photos: {
-                small: 'avaIMG',
-                large: 'avaIMG'
+                small: "avaIMG",
+                large: "avaIMG"
             },
-            contacts:{
-                mainLink: '',
+            contacts: {
+                mainLink: "",
             },
-            lookingForAJob: false
+            lookingForAJob: false,
+            lookingForAJobDescription: "blank",
+            aboutMe: "i am front"
         },
         posts: [
             {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
@@ -40,15 +42,17 @@ test('correct post should be removed', () =>{
     const startState: ProfileStateType = {
         profile: {
             userId: 333,
-            fullName: 'Temirtas Nursain',
+            fullName: "Temirtas Nursain",
             photos: {
-                small: 'avaIMG',
-                large: 'avaIMG'
+                small: "avaIMG",
+                large: "avaIMG"
             },
-            contacts:{
-                mainLink: '',
+            contacts: {
+                mainLink: "",
             },
-            lookingForAJob: false
+            lookingForAJob: false,
+            lookingForAJobDescription: "blank",
+            aboutMe: "i am front"
         },
         posts: [
             {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
@@ -65,15 +69,17 @@ test('correct post isLiked should change value and likeCount should increase', (
     const startState: ProfileStateType = {
         profile: {
             userId: 333,
-            fullName: 'Temirtas Nursain',
+            fullName: "Temirtas Nursain",
             photos: {
-                small: 'avaIMG',
-                large: 'avaIMG'
+                small: "avaIMG",
+                large: "avaIMG"
             },
-            contacts:{
-                mainLink: '',
+            contacts: {
+                mainLink: "",
             },
-            lookingForAJob: false
+            lookingForAJob: false,
+            lookingForAJobDescription: "blank",
+            aboutMe: "i am front"
         },
         posts: [
             {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
@@ -91,15 +97,17 @@ test('reducer should set a new user of profilePage', ()=>{
     const startState: ProfileStateType = {
         profile: {
             userId: 333,
-            fullName: 'Temirtas Nursain',
+            fullName: "Temirtas Nursain",
             photos: {
-                small: 'avaIMG',
-                large: 'avaIMG'
+                small: "avaIMG",
+                large: "avaIMG"
             },
-            contacts:{
-                mainLink: '',
+            contacts: {
+                mainLink: "",
             },
-            lookingForAJob: false
+            lookingForAJob: false,
+            lookingForAJobDescription: "blank",
+            aboutMe: "i am front"
         },
         posts: [
             {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
@@ -109,7 +117,7 @@ test('reducer should set a new user of profilePage', ()=>{
         ]
     }
     let newProfile: ProfileUserType = {
-        fullName: 'Yuriy',
+        fullName: "Yuriy",
         photos: {
             large: undefined,
             small: undefined,
@@ -117,8 +125,10 @@ test('reducer should set a new user of profilePage', ()=>{
         userId: 222,
         lookingForAJob: false,
         contacts: {
-            mainLink: 'vk.com'
-        }
+            mainLink: "vk.com"
+        },
+        lookingForAJobDescription: "blank",
+        aboutMe: "i am front"
     }
 
     const endState: ProfileStateType = profileReducer(startState, setProfileAC(newProfile))
