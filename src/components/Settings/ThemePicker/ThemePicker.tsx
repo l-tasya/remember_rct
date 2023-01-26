@@ -13,10 +13,6 @@ const ColorRadio = styled.div`
     grid-template-columns: repeat(25, 1fr);
 `
 const ColorPicker = styled.div`
-display: grid;
-height: 100%;
-grid-template-rows: 1fr 1fr 1fr;
-    align-items: center;
 `
 type ThemePickerPropsType = {
     themes: ThemesType

@@ -12,6 +12,7 @@ type UserInfoPropsType = {
 }
 const Container = styled(StyledBlock)`
       padding: 0;
+      overflow: hidden;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr; 
       grid-template-rows: repeat(6,1fr);
