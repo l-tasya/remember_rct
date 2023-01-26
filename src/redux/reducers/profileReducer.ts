@@ -18,8 +18,9 @@ export type PostType = {
 }
 export type ProfileUserType = {
     userId: number
-    aboutMe?: string | null
+    aboutMe: string
     lookingForAJob: boolean
+    lookingForAJobDescription: string
     fullName: string
     contacts: {
         mainLink: string
@@ -35,8 +36,8 @@ export type ProfileStateType = {
 }
 const avaIMG = ava
 type StateType = ProfileStateType
-export const defaultUser  = {
-    userId: 333,
+export const defaultUser: ProfileUserType = {
+    userId: 1,
     fullName: "Temirtas Nursain",
     aboutMe: "I am front-end developer",
     photos: {
@@ -46,7 +47,8 @@ export const defaultUser  = {
     contacts: {
         mainLink: "",
     },
-    lookingForAJob: false
+    lookingForAJob: false,
+    lookingForAJobDescription: "___"
 }
 const initialState: StateType = {
     profile: defaultUser,
@@ -164,12 +166,21 @@ export const setProfileAC = (profile: ProfileUserType) => {
 }
 export const getProfileThunkCreator = (id: string | undefined) => {
     return (dispatch: Dispatch) => {
-        if (id === 'main') {
+        if (id === "main") {
             dispatch(setProfileAC(defaultUser))
         } else {
             profileAPI.getProfile(id).then(response => {
                 dispatch(setProfileAC(response.data))
             }).catch(() => console.log("getProfile thunk"))
         }
+    }
+}
+export const changeProfileThunkCreator = (profile: ProfileUserType) => {
+    return () => {
+        profileAPI.changeProfile(profile).then((res) => {
+            if (res.resultCode === 0) {
+                alert("done")
+            }
+        })
     }
 }
