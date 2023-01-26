@@ -1,14 +1,17 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components";
-import {StyledBlock} from "../../../../common/styles/styles";
+import {StyledBlock} from "../../../common/styles/styles";
 import {NavLink} from "react-router-dom";
-import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
+import {ProfileUserType} from "../../../redux/reducers/profileReducer";
 import {useTheme} from "@mui/material/styles";
 import PersonIcon from "@mui/icons-material/Person";
-import {EditableTitle} from "../../../../common/components/EditableTitle/EditableTitle";
+import {EditableTitle} from "../../../common/components/EditableTitle/EditableTitle";
 
-type UserInfoPropsType = {
+type ProfileInfoPropsType = {
     user: ProfileUserType
+    isMyStatus: boolean
+    status: string
+    setStatus: (status: string) => void
 }
 const Container = styled(StyledBlock)`
       padding: 0;
@@ -83,22 +86,9 @@ const Footer = styled.div`
       align-items: center;
     }
 `
-
-
-export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
-    let theme = useTheme()
-
-    let style = (props: { isActive: boolean }) => props.isActive ? {
-        borderBottom: `4px solid ${theme.palette.primary.main}`,
-        transition: "0.3s"
-    } : {
-        background: "white",
-        transition: "0.3s"
-    }
+export const ProfileInfo: React.FC<ProfileInfoPropsType> = React.memo(({user, isMyStatus, status, setStatus}) => {
     let img = user.photos.large ? <img src={user.photos.large} alt={"error"}/> : <PersonIcon/>
-    let [title, setTitle] = useState("I am front-end developer")
-
-
+    let theme = useTheme();
     return (
         <Container>
             <BackGroundEl background={theme.palette.primary.light}/>
@@ -109,18 +99,24 @@ export const UserInfo: React.FC<UserInfoPropsType> = React.memo(({user}) => {
                 <Title>{user.fullName}</Title>
                 <SubTitle>
                     {
-                        user.aboutMe ?
-                            <EditableTitle title={title} c1={setTitle}/>
+                        isMyStatus ?
+                            <EditableTitle title={status} c1={setStatus}/>
                             :
-                            "Add information about you"
+                            status ? status : "(empty)"
 
                     }
                 </SubTitle>
             </InfoContainer>
             <Footer>
-                <NavLink style={style} to={"posts"}>Posts</NavLink>
-                <NavLink style={style} to={"friends"}>Friends</NavLink>
-                <NavLink style={style} to={"groups"}>Groups</NavLink>
+                <NavLink
+                    style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}
+                    to={"posts"}>Posts</NavLink>
+                <NavLink
+                    style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}
+                    to={"friends"}>Friends</NavLink>
+                <NavLink
+                    style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}
+                    to={"groups"}>Groups</NavLink>
             </Footer>
 
         </Container>)
