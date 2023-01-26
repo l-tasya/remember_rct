@@ -33,7 +33,8 @@ export const PaddedContentContainer = styled(Scroll)(() => ({
     "#container": {
         gridColumnStart: 2,
     },
-    marginBottom: "8px"
+    padding: "8px 0 8px 0;",
+
 }))
 //common
 export const ProfileBadge = styled("img")(() => ({
