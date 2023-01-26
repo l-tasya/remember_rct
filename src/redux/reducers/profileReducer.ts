@@ -7,6 +7,7 @@ type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof removePostAC>
     | ReturnType<typeof likeClickAC>
     | ReturnType<typeof setProfileAC>
+    | ReturnType<typeof setStatusAC>
 
 
 export type PostType = {
@@ -33,6 +34,7 @@ export type ProfileUserType = {
 export type ProfileStateType = {
     profile: ProfileUserType,
     posts: PostType[],
+    status: string
 }
 const avaIMG = ava
 type StateType = ProfileStateType
@@ -52,12 +54,13 @@ export const defaultUser: ProfileUserType = {
 }
 const initialState: StateType = {
     profile: defaultUser,
+    status: "blank",
     posts: [
         {
             id: v1(),
             isLiked: false,
-            message: 'States want to correct their votes, which they now know were based on irregularities and fraud, plus corrupt process never received legislative approval.  All Mike Pence has to do is send them back to the States, AND WE WIN. Do it Mike, this is a time for extreme courage!',
-            time: 'Nov 12 at 07:00',
+            message: "States want to correct their votes, which they now know were based on irregularities and fraud, plus corrupt process never received legislative approval.  All Mike Pence has to do is send them back to the States, AND WE WIN. Do it Mike, this is a time for extreme courage!",
+            time: "Nov 12 at 07:00",
             likeCount: 3
         },
         {
@@ -135,6 +138,12 @@ export const profileReducer = (state: StateType = initialState, action: ActionsT
 
             return stateCopy
         }
+        case "SET-STATUS": {
+            return {
+                ...state,
+                status: action.status
+            }
+        }
         default: {
             return state
         }
@@ -154,19 +163,25 @@ export const removePostAC = (postID: string) => {
 }
 export const likeClickAC = (postID: string) => {
     return {
-        type: 'LIKE',
+        type: "LIKE",
         postID
     } as const
 }
 export const setProfileAC = (profile: ProfileUserType) => {
     return {
-        type: 'SET-PROFILE',
+        type: "SET-PROFILE",
         profile
     } as const
 }
-export const getProfileThunkCreator = (id: string | undefined) => {
+export const setStatusAC = (status: string) => {
+    return {
+        type: "SET-STATUS",
+        status
+    } as const
+}
+export const getProfileThunkCreator = (id: number) => {
     return (dispatch: Dispatch) => {
-        if (id === "main") {
+        if (id === 1010101) {
             dispatch(setProfileAC(defaultUser))
         } else {
             profileAPI.getProfile(id).then(response => {
@@ -180,6 +195,23 @@ export const changeProfileThunkCreator = (profile: ProfileUserType) => {
         profileAPI.changeProfile(profile).then((res) => {
             if (res.resultCode === 0) {
                 alert("done")
+            }
+        })
+    }
+}
+export const getStatusThunkCreator = (id: number) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getStatus(id)
+            .then(response => {
+                dispatch(setStatusAC(response.data))
+            }).catch(() => console.log("getProfile thunk"))
+    }
+}
+export const updateStatusThunkCreator = (status: string) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.updateStatus(status).then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatusAC(status))
             }
         })
     }
