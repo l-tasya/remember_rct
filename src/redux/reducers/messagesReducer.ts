@@ -19,17 +19,18 @@ export type StateType = MessagesType;
 const initialState: StateType = {
     [dialogID1]: [
         {id: v1(), message: 'Дарова', isMe: true, time: '13:30'},
-        {id: v1(), message: 'Дарова', isMe: false, time: '13:30'},
-        {id: v1(), message: 'Как дела?', isMe: true, time: '13:30'},
-        {id: v1(), message: 'Норм, ты че мутишь?', isMe: false, time: '13:30'},
+        {id: v1(), message: "Дарова", isMe: false, time: "13:30"},
+        {id: v1(), message: "Как дела?", isMe: true, time: "13:30"},
+        {id: v1(), message: "Норм, ты че мутишь?", isMe: false, time: "13:30"},
     ],
     [dialogID2]: [
-        {id: v1(), message: '...', isMe: false, time: '13:30'},
-        {id: v1(), message: '...', isMe: true, time: '13:30'},
-        {id: v1(), message: '...', isMe: false, time: '13:30'},
-        {id: v1(), message: '...', isMe: true, time: '13:30'},
-        {id: v1(), message: '...', isMe: false, time: '13:30'},
-    ]
+        {id: v1(), message: "...", isMe: false, time: "13:30"},
+        {id: v1(), message: "...", isMe: true, time: "13:30"},
+        {id: v1(), message: "...", isMe: false, time: "13:30"},
+        {id: v1(), message: "...", isMe: true, time: "13:30"},
+        {id: v1(), message: "...", isMe: false, time: "13:30"},
+    ],
+    ["3"]: []
 }
 export const messagesReducer = (state: StateType = initialState, action: ActionsType): StateType => {
     switch (action.type) {
