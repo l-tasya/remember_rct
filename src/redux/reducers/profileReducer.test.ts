@@ -25,12 +25,12 @@ test('correct post should be added', () =>{
             lookingForAJob: false,
             lookingForAJobDescription: "blank",
             aboutMe: "i am front"
-        },
+        }, status: "",
         posts: [
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
         ]
     }
     let newPostMessage = 'nomatter'
@@ -53,12 +53,12 @@ test('correct post should be removed', () =>{
             lookingForAJob: false,
             lookingForAJobDescription: "blank",
             aboutMe: "i am front"
-        },
+        }, status: "",
         posts: [
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: '4', time: '22:22',likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "4", time: "22:22", likeCount: 3, isLiked: false},
         ]
     }
     let removeID = startState.posts[2].id
@@ -80,12 +80,12 @@ test('correct post isLiked should change value and likeCount should increase', (
             lookingForAJob: false,
             lookingForAJobDescription: "blank",
             aboutMe: "i am front"
-        },
+        }, status: "",
         posts: [
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
         ]
     }
     const postID = startState.posts[2].id
@@ -108,12 +108,12 @@ test('reducer should set a new user of profilePage', ()=>{
             lookingForAJob: false,
             lookingForAJobDescription: "blank",
             aboutMe: "i am front"
-        },
+        }, status: "",
         posts: [
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: 'someText', time: '22:22',likeCount: 3, isLiked: false},
-            {id: v1(), message: '4', time: '22:22',likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
+            {id: v1(), message: "4", time: "22:22", likeCount: 3, isLiked: false},
         ]
     }
     let newProfile: ProfileUserType = {
