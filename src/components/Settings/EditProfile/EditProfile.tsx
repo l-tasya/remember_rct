@@ -8,7 +8,8 @@ import {ProfileUserType} from "../../../redux/reducers/profileReducer";
 
 type EditProfilePropsType = {
     user: ProfileUserType
-    saveChanges: (user: ProfileUserType) => void
+    saveChanges: (user: ProfileUserType, status: string) => void
+    status: string
 }
 const Header = styled.div`
   grid-column: 1 / -1;
@@ -58,12 +59,14 @@ const Info = styled(Title)`
   font-weight: 700;
   font-size: 20px;
 `
-export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, saveChanges}) => {
+export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, saveChanges, status}) => {
     let initialName = user.fullName.split(" ")[0]
     let initialSurname = user.fullName.split(" ")[1]
+
     let [name, setName] = useState<string>(initialName)
     let [surname, setSurname] = useState<string>(initialSurname)
     let [about, setAbout] = useState<string>(user.aboutMe)
+    let [statusText, setStatus] = useState<string>(status)
 
 
     const saveChangesCallback = () => {
@@ -76,7 +79,7 @@ export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, sa
             lookingForAJob: user.lookingForAJob,
             photos: {}
         }
-        saveChanges(item)
+        saveChanges(item, statusText)
     }
 
 
@@ -104,6 +107,10 @@ export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, sa
             <Item>
                 <label>About me</label>
                 <input value={about} onChange={(e) => setAbout(e.currentTarget.value)} type="text"/>
+            </Item>
+            <Item>
+                <label>Status</label>
+                <input value={statusText} onChange={(e) => setStatus(e.currentTarget.value)} type="text"/>
             </Item>
         </Form>
         <Footer>
