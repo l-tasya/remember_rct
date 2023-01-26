@@ -16,13 +16,7 @@ const initialState: StateType = {
     dialogs: [
         {id: dialogID1, name: "Tasya"},
         {id: dialogID2, name: "Tima"},
-        {id: "3", name: "user"},
-        {id: "4", name: "user"},
-        {id: "5", name: "user"},
-        {id: "6", name: "user"},
-        {id: "7", name: "user"},
-        {id: "8", name: "user"},
-        {id: "9", name: "Tima"},
+        {id: "3", name: "User"}
     ],
 }
 export const dialogsReducer = (state: StateType = initialState, action: ActionsType): StateType => {
