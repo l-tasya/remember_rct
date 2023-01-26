@@ -3,7 +3,7 @@ import {ProfileUserType} from "../redux/reducers/profileReducer";
 
 const baseURL = "https://social-network.samuraijs.com/api/1.0/";
 
-
+//TODO: add types
 const instance = axios.create({
     baseURL: baseURL,
     withCredentials: true,
@@ -35,7 +35,7 @@ type ResponseType<D = {}> = {
     data: D
 }
 export const profileAPI = {
-    getProfile: (userID: string | undefined) => {
+    getProfile: (userID: number) => {
         return instance.get(baseURL + `profile/${userID}`)
     },
     changeProfile: (profile: ProfileUserType) => {
