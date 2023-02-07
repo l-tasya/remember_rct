@@ -1,8 +1,8 @@
 import React, {useCallback} from "react";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
-import {UserType} from "../../redux/reducers/usersReducer";
 import {User} from "./User/User";
+import {IUser} from "../../common/types/types";
 //styles
 const UsersContainer = styled.div`
         display: grid;
@@ -10,8 +10,19 @@ const UsersContainer = styled.div`
         gap: 16px;
         grid-auto-rows: minmax(150px, 200px);
 `
-type UsersPropsType = {
-    users: UserType[]
+
+const Footer = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`
+const Wrapper = styled.div`
+display: grid;
+grid-template-rows: 1fr 50px;
+`
+
+interface IProps {
+    users: IUser[]
     isFetching: boolean
     currentPage: number
     pagesCount: number
@@ -19,26 +30,18 @@ type UsersPropsType = {
     userFollow: (id: number) => void
     userUnFollow: (id: number) => void
 }
-const Footer = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-`
-const Container = styled.div`
-display: grid;
-grid-template-rows: 1fr 50px;
-`
-export const Users: React.FC<UsersPropsType> = React.memo(({users, isFetching, currentPage, pagesCount, changeCurrentPage, userFollow, userUnFollow}) => {
 
-        const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
-            changeCurrentPage(value);
-        }, [changeCurrentPage]);
+export const Users: React.FC<IProps> = React.memo(({users, isFetching, currentPage, pagesCount, changeCurrentPage, userFollow, userUnFollow}) => {
 
-        const usersItems = users.map(t => {
-            return <User
-                key={t.id}
-                id={t.id}
-                name={t.name}
+    const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
+        changeCurrentPage(value);
+    }, [changeCurrentPage]);
+
+    const usersItems = users.map(t => {
+        return <User
+            key={t.id}
+            id={t.id}
+            name={t.name}
                 status={t.status}
                 photo={t.photo}
                 followed={t.followed}
@@ -49,14 +52,14 @@ export const Users: React.FC<UsersPropsType> = React.memo(({users, isFetching, c
         })
 
         return (
-            <Container id={"container"}>
+            <Wrapper id={"container"}>
                 <UsersContainer>
                     {usersItems}
                 </UsersContainer>
                 <Footer>
                     <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
                 </Footer>
-            </Container>
+            </Wrapper>
         )
     }
 )

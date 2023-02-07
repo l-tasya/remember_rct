@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Title} from "../../../common/styles/mui-styles";
+import {StyledTitle} from "../../../common/styles/mui-styles";
 import {RadioButton} from "../../../common/components/Radio/Radio";
 import {AddTheme} from "./AddTheme";
 import Button from "@mui/material/Button/Button";
@@ -26,7 +26,7 @@ export const ThemePicker: React.FC<ThemePickerPropsType> = React.memo(({themes, 
             setColor(activeID)
         }
         return <ColorPicker>
-            <Title value={"default"} style={{fontSize: 20}}>Select app theme</Title>
+            <StyledTitle value={"default"} style={{fontSize: 20}}>Select app theme</StyledTitle>
             <ColorRadio>
                 {themes.map(t => <RadioButton
                         key={t.id}

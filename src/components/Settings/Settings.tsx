@@ -9,9 +9,8 @@ import {StyledBlock} from "../../common/styles/styles";
 import {Main} from "./SettingsMain/Main";
 
 
-type SettingsPropsType = {}
 const Content = styled(StyledBlock)``
-export const Settings: React.FC<SettingsPropsType> = React.memo(({}) => {
+export const Settings: React.FC = () => {
     return <PaddedContentContainer style={{height: "auto", gridTemplateColumns: "1fr 3fr 2fr"}}>
         <SettingsNavBar/>
         <Content id={"container"}>
@@ -22,5 +21,4 @@ export const Settings: React.FC<SettingsPropsType> = React.memo(({}) => {
             </Routes>
         </Content>
     </PaddedContentContainer>
-    }
-)
+}
