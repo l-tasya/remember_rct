@@ -1,18 +1,13 @@
-import React, {useCallback} from 'react';
-import {StyledInput} from '../../../common/components/StyledInput/StyledInput';
-import {MessageType} from '../../../redux/reducers/messagesReducer';
-import styled from 'styled-components';
-import {useTheme} from '@mui/material/styles';
-import {Scroll, Title} from '../../../common/styles/mui-styles';
-import {AppStateType} from '../../../redux/store/store';
-import {useSelector} from 'react-redux';
-import {DialogType} from '../../../redux/reducers/dialogsReducer';
+import React, {useCallback} from "react";
+import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
+import {MessageType} from "../../../redux/reducers/messagesReducer";
+import styled from "styled-components";
+import {useTheme} from "@mui/material/styles";
+import {Scroll, StyledTitle} from "../../../common/styles/mui-styles";
+import {AppStateType} from "../../../redux/store/store";
+import {useSelector} from "react-redux";
+import {DialogType} from "../../../redux/reducers/dialogsReducer";
 
-type MessagesPropsType = {
-    dialogID: string
-    messages: MessageType[]
-    addMessage: (dialogID: string, value: string, isMe: boolean) => void
-}
 const Container = styled.div`
     display: grid;
     height: 100%;
@@ -20,7 +15,7 @@ const Container = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 10% 1fr 10%;
 `
-const Header = styled(Title)`
+const Header = styled(StyledTitle)`
 height: 100%;
 
 padding: 0 16px;
@@ -117,7 +112,14 @@ text-align: center;
 color: gray;
 font-weight: 600;
 `
-export const Messages: React.FC<MessagesPropsType> = ({messages, addMessage, dialogID}) => {
+
+interface IProps {
+    dialogID: string
+    messages: MessageType[]
+    addMessage: (dialogID: string, value: string, isMe: boolean) => void
+}
+
+export const Messages: React.FC<IProps> = ({messages, addMessage, dialogID}) => {
 
     const addMessageCallback = useCallback((value: string) => {
         addMessage(dialogID, value, true)
@@ -125,8 +127,8 @@ export const Messages: React.FC<MessagesPropsType> = ({messages, addMessage, dia
     const dialogs = useSelector<AppStateType, DialogType[]>(t => t.dialogs.dialogs)
     let theme = useTheme()
     return (<Container>
-            <Header sx={{display: 'flex', alignItems: 'center'}}
-                    value={'main'}>{dialogs.find(t => t.id === dialogID)?.name}</Header>
+            <Header sx={{display: "flex", alignItems: "center"}}
+                    value={"main"}>{dialogs.find(t => t.id === dialogID)?.name}</Header>
             <List>
                 {dialogID ? messages.map(t => t.isMe ?
                     <MessageSent color={theme.palette.primary.main}
@@ -135,7 +137,7 @@ export const Messages: React.FC<MessagesPropsType> = ({messages, addMessage, dia
                     <AlertMessage>Select Dialog</AlertMessage>}
             </List>
             <Footer>
-                {dialogID ? <StyledInput addItem={addMessageCallback}/> : ''}
+                {dialogID ? <StyledInput addItem={addMessageCallback}/> : ""}
             </Footer>
         </Container>
     )
