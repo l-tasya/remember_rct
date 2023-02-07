@@ -7,7 +7,6 @@ import useTheme from "@mui/material/styles/useTheme";
 import {StyledBlock} from "../../common/styles/styles";
 
 
-type NavbarPropsType = {}
 const Container = styled(StyledBlock)`
     grid-area: navbar;
     background: white;
@@ -41,7 +40,7 @@ const SettingAnimation = styled(Settings)`
     animation-timing-function: linear;
     }
 `
-export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
+export const NavBar: React.FC = () => {
     let theme = useTheme()
     let style = (props: { isActive: boolean }) => props.isActive ? {
         color: theme.palette.primary.main,
@@ -60,4 +59,4 @@ export const NavBar: React.FC<NavbarPropsType> = React.memo(() => {
                 size={30}/></NavLink></LastChild>
         </Container>
     )
-})
+}
