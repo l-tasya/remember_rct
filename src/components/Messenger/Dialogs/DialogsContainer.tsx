@@ -1,21 +1,23 @@
-import React, {useCallback} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store/store";
-import {addDialogAC, DialogType, removeDialogAC} from '../../../redux/reducers/dialogsReducer';
+import React, {useCallback} from "react";
+import {addDialogAC, removeDialogAC} from "../../../redux/reducers/dialogsReducer";
 import {Dialogs} from "./Dialogs";
+import {useAppDispatch, useAppSelector} from "../../../common/hook/hooks";
 
-export const DialogsContainer: React.FC = React.memo(() => {
-    let dialogs = useSelector<AppStateType, DialogType[]>(t => t.dialogs.dialogs)
-    const dispatch = useDispatch()
+export const DialogsContainer: React.FC = () => {
+    let dialogs = useAppSelector(t => t.dialogs.dialogs)
+    const dispatch = useAppDispatch()
+
     const addDialog = useCallback((newValue: string) => {
         dispatch(addDialogAC(newValue))
     }, [dispatch])
+
     const removeDialog = useCallback((dialogID: string) => {
         dispatch(removeDialogAC(dialogID))
     }, [dispatch])
+
     return <Dialogs
         dialogs={dialogs}
         addDialog={addDialog}
         removeDialog={removeDialog}
     />
-})
+}
