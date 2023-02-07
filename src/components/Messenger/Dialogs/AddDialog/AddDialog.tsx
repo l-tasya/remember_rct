@@ -5,17 +5,11 @@ import Dialog from '@mui/material/Dialog';
 import {StyledInput} from "../../../../common/components/StyledInput/StyledInput";
 
 
-type AddDialogPropsType = {
-    color: string
+interface IProps {
     addDialog: (value: string) => void
 
 }
-const Container = styled.div`
-    
-`
-const Icon = styled(LibraryAddIcon)`
-    color: ${(props: { icon: string }) => props.icon}
-`
+
 const DialogContainer = styled.div`
     height: 100px;
     width: 250px;
@@ -25,13 +19,8 @@ const DialogContainer = styled.div`
     flex-direction: column;
     
 `
-const Title = styled.div`
-    text-align: center;
-`
-const Input = styled(StyledInput)`
-`
 
-export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDialog}) => {
+export const AddDialog: React.FC<IProps> = React.memo(({addDialog}) => {
     const [open, setOpen] = useState(false)
     const addDialogCallback = (value: string) => {
         addDialog(value)
@@ -40,13 +29,13 @@ export const AddDialog: React.FC<AddDialogPropsType> = React.memo(({color, addDi
     const handleClick = () => {
         setOpen(!open)
     }
-    return <Container>
-        <Icon icon={color} onClick={handleClick}/>
+    return <div>
+        <LibraryAddIcon sx={{color: (theme) => theme.palette.primary.main}} onClick={handleClick}/>
         <Dialog open={open} onClose={handleClick}>
             <DialogContainer>
-                <Title>Enter a name for new Dialog:</Title>
-                <Input autoFocus pressHandler={handleClick} addItem={addDialogCallback}/>
+                <div>Enter a name for new Dialog:</div>
+                <StyledInput autoFocus pressHandler={handleClick} addItem={addDialogCallback}/>
             </DialogContainer>
         </Dialog>
-    </Container>
+    </div>
 })
