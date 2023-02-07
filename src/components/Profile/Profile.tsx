@@ -7,7 +7,6 @@ import {PaddedContentContainer} from "../../common/styles/mui-styles";
 import styled from "styled-components";
 import {ProfileInfoContainer} from "./ProfileInfo/ProfileInfoContainer";
 
-type ProfilePropsType = {}
 const Container = styled.div`
 margin-top: 5px;
 grid-column-start: 2;
@@ -16,7 +15,7 @@ const Wrapper = styled(PaddedContentContainer)`
 position: absolute;
 height: 100%;
 `
-export const Profile: React.FC<ProfilePropsType> = React.memo(() => {
+export const Profile: React.FC = () => {
     return (
         <Wrapper>
             <Container>
@@ -30,4 +29,4 @@ export const Profile: React.FC<ProfilePropsType> = React.memo(() => {
             </Container>
         </Wrapper>
     )
-})
+}
