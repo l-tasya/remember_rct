@@ -1,8 +1,9 @@
-import {Dispatch} from 'redux'
-import {authAPI} from '../../api/api';
+import {authAPI} from "../../api/api";
+import {getProfileThunkCreator} from "./profileReducer";
+import {AppThunkDispatchType} from "../../common/hook/hooks";
 
 export type AuthStateType = {
-    id?: number
+    id: number
     email?: string
     login?: string
     isAuth: boolean
@@ -11,7 +12,7 @@ export type AuthStateType = {
 type ActionType = ReturnType<typeof setUserDataAC>
 
 const initialState: AuthStateType = {
-    id: undefined,
+    id: 0,
     email: undefined,
     login: undefined,
     isAuth: false,
@@ -20,7 +21,7 @@ const initialState: AuthStateType = {
 
 export const authReducer = (state: AuthStateType = initialState, action: ActionType): AuthStateType => {
     switch (action.type) {
-        case 'SET-USER-DATA': {
+        case "SET-USER-DATA": {
             const stateCopy = {...state}
             stateCopy.id = action.data.id
             stateCopy.email = action.data.email
@@ -35,12 +36,12 @@ export const authReducer = (state: AuthStateType = initialState, action: ActionT
 }
 export const setUserDataAC = (data: ResponseType) => {
     return {
-        type: 'SET-USER-DATA',
+        type: "SET-USER-DATA",
         data,
     } as const
 }
 export type ResponseType = {
-    id?: number
+    id: number
     email?: string
     login?: string
 }
