@@ -45,11 +45,14 @@ export type ResponseType = {
     email?: string
     login?: string
 }
-export const getUserDataThunkCreator = () => (dispatch: Dispatch) => {
+export const fetchLoginTC = () => (dispatch: AppThunkDispatchType) => {
+
     authAPI.getUserData()
         .then(response => {
-            if (response.resultCode === 0) {
-                dispatch(setUserDataAC(response.data))
+            if (response.data.resultCode === 0) {
+                dispatch(setUserDataAC(response.data.data))
+                dispatch(getProfileThunkCreator(response.data.data.id))
             }
         })
+
 }
