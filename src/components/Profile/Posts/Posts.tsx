@@ -1,49 +1,38 @@
 import React from "react";
 import {Post} from "./Post/Post";
-import {PostType} from "../../../redux/reducers/profileReducer";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
 import styled from "styled-components";
-import {StyledBlock} from "../../../common/styles/styles";
-import {Title} from "../../../common/styles/mui-styles";
+import {About} from "./About/About";
+import {IPost} from "../../../common/types/types";
 
 
-const Input = styled(StyledBlock)`
-      border-radius: 8px;
-      margin: 10px 0 ;
-      display: flex;
-      justify-content: center;
-`
 const Container = styled.div`
     transition: 3s linear;
     display: grid;
+    grid-gap: 10px;
+    margin: 10px 0;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
 `
 const Content = styled.div`
-    margin-top: 10px;
+display: grid;
+grid-gap: 10px;
 `
-const About = styled(StyledBlock)`
-    display: block;
-    margin: 20px 0 20px 20px;
-    height: 300px;
-    min-width: 200px;
-`
-type PostsPropsType = {
-    posts: PostType[]
+
+
+interface IProps {
+    posts: IPost[]
     addPost: (value: string) => void
     removePost: (postID: string) => void
     likeCallback: (postID: string) => void
 }
-export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost, removePost, likeCallback}) => {
-    console.log('Posts')
 
-
+export const Posts: React.FC<IProps> = React.memo(({posts, addPost, removePost, likeCallback}) => {
+    console.log("Posts")
     return (
         <Container>
             <Content>
-                <Input>
-                    <StyledInput addItem={addPost}/>
-                </Input>
+                <StyledInput withButton={"+"} addItem={addPost}/>
                 {posts.map(t => <Post
                     removePost={removePost}
                     key={t.id}
@@ -56,14 +45,7 @@ export const Posts: React.FC<PostsPropsType> = React.memo(({posts, addPost, remo
                 )
                 }
             </Content>
-            <About>
-                <Title value={'main'} sx={{fontWeight: 700}}>About:</Title>
-                <div>Friends: <Title value={'light'}>5,344+</Title></div>
-                <div>Groups: <Title value={'light'}>344</Title></div>
-                <div>Live in: <Title value={'light'}>...</Title></div>
-                <div>From: <Title value={'light'}>...</Title></div>
-                <div>Followers: <Title value={'light'}>999,999+</Title></div>
-            </About>
+            <About/>
         </Container>
     )
 })
