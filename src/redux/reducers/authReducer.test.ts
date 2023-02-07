@@ -2,7 +2,7 @@ import {authReducer, AuthStateType, setUserDataAC} from "./authReducer";
 
 test('auth reducer should set user data', () => {
     const startState: AuthStateType = {
-        id: undefined,
+        id: 0,
         email: undefined,
         login: undefined,
         isAuth: false,
