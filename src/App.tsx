@@ -1,20 +1,12 @@
 import React from "react";
-import {Route, Routes} from "react-router-dom";
 import "./App.scss";
-import {Home} from "./components/Home/Home";
-import {Store} from "./components/Store/Store";
-import {Music} from "./components/Music/Music";
-import {Messenger} from "./components/Messenger/Messenger";
 import styled from "styled-components";
 import {NavBar} from "./components/NavBar/NavBar";
-import {ProfileContainer} from "./components/Profile/ProfileContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
-import {Login} from "./components/Login/Login";
-import {SettingsContainer} from "./components/Settings/SettingsContainer";
+import {Content} from "./components/Content/Content";
 
 
-const Container = styled.div`
+const Wrapper = styled.div`
     display: grid;
     grid-template-columns: 65px 1fr; 
     grid-template-rows: 65px 1fr; 
@@ -24,36 +16,15 @@ const Container = styled.div`
     "header header"
     "navbar content"; 
     `
-const Content = styled.div`
-        grid-row-start: 2;
-        grid-row-end: 3;
-        grid-column-start: 2;
-        grid-column-end: 3;
-        //------------
-        height: 100%;       
-        position: relative;
-    `
-const App = React.memo(() => {
-        return (
-            <Container>
-                <HeaderContainer title={"TASYA NETWORK"}/>
-                <NavBar/>
-                <Content>
-                    <Routes>
-                        <Route path={"remember_rct/"} element={<Home/>}/>
-                        <Route path={"remember_rct/home"} element={<Home/>}/>
-                        <Route path={"remember_rct/:userID/*"} element={<ProfileContainer/>}/>
-                        <Route path={"remember_rct/Music"} element={<Music/>}/>
-                        <Route path={"remember_rct/Store"} element={<Store/>}/>
-                        <Route path={"remember_rct/Messenger/*"} element={<Messenger/>}/>
-                        <Route path={"remember_rct/Settings/*"} element={<SettingsContainer/>}/>
-                        <Route path={"remember_rct/Login"} element={<Login/>}/>
-                        <Route path={"remember_rct/Users"} element={<UsersContainer/>}/>
-                    </Routes>
-                </Content>
-            </Container>
-        );
-    }
-)
+
+const App: React.FC = () => {
+    return (
+        <Wrapper>
+            <HeaderContainer/>
+            <NavBar/><Content/>
+        </Wrapper>
+    );
+}
+
 
 export default App;
