@@ -1,19 +1,11 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import {DialogType} from '../../../redux/reducers/dialogsReducer';
+import {DialogType} from "../../../redux/reducers/dialogsReducer";
 import {AddDialog} from "./AddDialog/AddDialog";
 import {Dialog} from "./Dialog/Dialog";
-import {StyledBlock} from '../../../common/styles/styles';
-import {useTheme} from '@mui/material';
-import {Scroll} from '../../../common/styles/mui-styles';
+import {StyledBlock} from "../../../common/styles/styles";
+import {Scroll} from "../../../common/styles/mui-styles";
 
-
-type DialogPropsType = {
-    dialogs: DialogType[]
-    addDialog: (newValue: string) => void
-    removeDialog: (dialogID: string) => void
-
-}
 
 const Container = styled.div`
 width: 100%;
@@ -45,18 +37,22 @@ z-index: 2;
 background: #f1f1f1;
 
 `
-export const Dialogs: React.FC<DialogPropsType> = React.memo(({dialogs, addDialog, removeDialog}) => {
-    let color = useTheme()
+
+interface IProps {
+    dialogs: DialogType[]
+    addDialog: (newValue: string) => void
+    removeDialog: (dialogID: string) => void
+
+}
+
+export const Dialogs: React.FC<IProps> = React.memo(({dialogs, addDialog, removeDialog}) => {
     return (
         <Container>
-            <Header radius={'none'} elevation={'none'} padding='none'>
+            <Header radius={"none"} elevation={"none"} padding='none'>
                 <b>Chats</b>
-                <AddDialog
-                    addDialog={addDialog}
-                    color={color.palette.primary.main}
-                />
+                <AddDialog addDialog={addDialog}/>
             </Header>
-            <List id={'list'}>
+            <List id={"list"}>
                 {
                     dialogs.map(t => <Dialog key={t.id} removeDialog={removeDialog} id={t.id}
                                              name={t.name}/>)
