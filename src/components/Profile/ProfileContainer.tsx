@@ -1,29 +1,22 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useEffect} from "react";
 import {Profile} from "./Profile";
-import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 import {getProfileThunkCreator, getStatusThunkCreator} from "../../redux/reducers/profileReducer";
+import {useAppDispatch} from "../../common/hook/hooks";
 
 
 export const ProfileContainer = React.memo(() => {
     let param = useParams()
-    let dispatch = useDispatch()
-
-    const getProfile = useCallback((id: number) => {
-        getProfileThunkCreator(id)(dispatch)
-    }, [dispatch])
-    const getStatus = useCallback((id: number) => {
-        getStatusThunkCreator(id)(dispatch)
-    }, [dispatch])
+    let dispatch = useAppDispatch()
     useEffect(() => {
         if (param) {
             let id = Number(param.userID)
-            getProfile(id)
-            getStatus(id)
+            dispatch(getProfileThunkCreator(id))
+            dispatch(getStatusThunkCreator(id))
         }
         return () => {
         }
 
-    }, [param.userID, getProfile, getStatus,])
+    }, [param, dispatch])
     return <Profile/>
 })
