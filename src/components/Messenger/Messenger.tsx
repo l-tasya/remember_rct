@@ -6,22 +6,20 @@ import {DialogsContainer} from "./Dialogs/DialogsContainer";
 import {MessagesContainer} from "./Messages/MessagesContainer";
 import {withAuthRedirect} from "../../common/hoc/WithAuthRedirect";
 
-const Container = styled(StyledBlock)`
+const Wrapper = styled(StyledBlock)`
           width: 100%;
           height: 100%;
           display: grid;
           grid-template-columns: 2fr 6fr;
         `
-const ContainerWithoutPadding = styled(ContentContainerWithoutPadding)`
-`
-export const Messenger = React.memo(withAuthRedirect(() => {
+export const Messenger = withAuthRedirect(() => {
         return (
-            <ContainerWithoutPadding>
-                <Container padding={"none"} elevation={"none"} radius={0}>
+            <ContentContainerWithoutPadding>
+                <Wrapper padding={"none"} elevation={"none"} radius={0}>
                     <DialogsContainer/>
                     <MessagesContainer/>
-                </Container>
-            </ContainerWithoutPadding>
+                </Wrapper>
+            </ContentContainerWithoutPadding>
         )
     }
-))
+)
