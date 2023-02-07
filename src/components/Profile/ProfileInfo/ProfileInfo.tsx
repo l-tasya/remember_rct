@@ -2,13 +2,13 @@ import React from "react";
 import styled from "styled-components";
 import {StyledBlock} from "../../../common/styles/styles";
 import {NavLink} from "react-router-dom";
-import {ProfileUserType} from "../../../redux/reducers/profileReducer";
 import {useTheme} from "@mui/material/styles";
 import PersonIcon from "@mui/icons-material/Person";
 import {EditableTitle} from "../../../common/components/EditableTitle/EditableTitle";
+import {IProfile} from "../../../common/types/types";
 
-type ProfileInfoPropsType = {
-    user: ProfileUserType
+interface IProps {
+    user: IProfile
     isMyStatus: boolean
     status: string
     setStatus: (status: string) => void
@@ -86,7 +86,7 @@ const Footer = styled.div`
       align-items: center;
     }
 `
-export const ProfileInfo: React.FC<ProfileInfoPropsType> = React.memo(({user, isMyStatus, status, setStatus}) => {
+export const ProfileInfo: React.FC<IProps> = React.memo(({user, isMyStatus, status, setStatus}) => {
     let img = user.photos.large ? <img src={user.photos.large} alt={"error"}/> : <PersonIcon/>
     let theme = useTheme();
     return (
