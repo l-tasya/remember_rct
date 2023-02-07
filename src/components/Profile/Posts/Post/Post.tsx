@@ -1,15 +1,13 @@
 import React, {useCallback} from "react";
 import styled from "styled-components";
-import {ProfileBadge, Title} from "../../../../common/styles/mui-styles";
+import {ProfileBadge, StyledTitle} from "../../../../common/styles/mui-styles";
 import {StyledBlock} from "../../../../common/styles/styles";
-import CommentIcon from '@mui/icons-material/Comment';
-import ShareIcon from '@mui/icons-material/Share';
-import {useSelector} from "react-redux";
-import {AppStateType} from "../../../../redux/store/store";
+import CommentIcon from "@mui/icons-material/Comment";
+import ShareIcon from "@mui/icons-material/Share";
 import {Like} from "../../../../common/components/Like/Like";
 import {Remove} from "../../../../common/components/Remove/Remove";
-import {ProfileUserType} from "../../../../redux/reducers/profileReducer";
 import useTheme from "@mui/material/styles/useTheme";
+import {useAppSelector} from "../../../../common/hook/hooks";
 
 
 const Badge = styled.div`
@@ -44,7 +42,6 @@ const RemoveEl = styled(Remove)`
     grid-row-start: 1;
 `
 const Container = styled(StyledBlock)`
-    margin: 20px 0;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 50px auto 1fr;
@@ -94,7 +91,7 @@ const Footer = styled.div`
      grid-template-rows: 1fr 1fr;
      
 `
-const SubTitle = styled(Title)`
+const SubTitle = styled(StyledTitle)`
     grid-column-start: 2;
     grid-column-end: 4;
     grid-row-start: 2;
@@ -107,7 +104,8 @@ const UserIMG = styled(ProfileBadge)`
     justify-self: center;
     
 `
-export type PostPropsType = {
+
+interface IProps {
     id: string
     message: string
     time: string
@@ -116,22 +114,24 @@ export type PostPropsType = {
     likeCallback: (postID: string) => void
     isLiked: boolean
 }
-export const Post: React.FC<PostPropsType> = React.memo(({id, message, time, removePost, likeCount, isLiked, likeCallback}) => {
-    console.log('Post')
+
+export const Post: React.FC<IProps> = React.memo(({id, message, time, removePost, likeCount, isLiked, likeCallback}) => {
+    console.log("Post")
     const removeCallback = useCallback(() => {
         removePost(id)
     }, [removePost, id])
     const like = useCallback(() => {
         likeCallback(id)
     }, [likeCallback, id])
-    const user = useSelector<AppStateType, ProfileUserType>(t => t.profile.profile)
+    const user = useAppSelector(t => t.profile.profile)
     const theme = useTheme()
+    let avatar: string | undefined = user.photos.small ? user.photos.small : ""
     return (
         <Container>
             <Header>
-                <UserIMG src={user.photos.large}/>
-                <Title value={'default'}>Nursain Temirtas</Title>
-                <SubTitle value={'gray'}>{time}</SubTitle>
+                <UserIMG src={avatar}/>
+                <StyledTitle value={"default"}>Nursain Temirtas</StyledTitle>
+                <SubTitle value={"gray"}>{time}</SubTitle>
                 <RemoveEl removeCallback={removeCallback}/>
             </Header>
 
