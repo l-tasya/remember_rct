@@ -1,32 +1,17 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {EditProfile} from "./EditProfile";
 import {withAuthRedirect} from "../../../common/hoc/WithAuthRedirect";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../../redux/store/store";
-import {
-    changeProfileThunkCreator,
-    getProfileThunkCreator, getStatusThunkCreator,
-    ProfileUserType, updateStatusThunkCreator
-} from "../../../redux/reducers/profileReducer";
+import {changeProfileThunkCreator} from "../../../redux/reducers/profileReducer";
+import {useAppDispatch, useAppSelector} from "../../../common/hook/hooks";
+import {IProfile} from "../../../common/types/types";
 
 
 export const EditProfileContainer: React.FC = React.memo(() => {
-    let authID = useSelector<AppStateType, any>(t => t.auth.id)
-    const profile = useSelector<AppStateType, ProfileUserType>(t => t.profile.profile)
-    const status = useSelector<AppStateType, string>(t => t.profile.status)
-    const dispatch = useDispatch()
-    useEffect(() => {
-        if (profile.userId !== authID) {
-            getProfileThunkCreator(authID)(dispatch)
-            getStatusThunkCreator(authID)(dispatch)
-        }
-    }, [authID, profile.userId, dispatch])
-
-
-    const saveProfile = (profile: ProfileUserType, status: string) => {
-        changeProfileThunkCreator(profile)()
-        updateStatusThunkCreator(status)(dispatch)
+    const profile = useAppSelector(t => t.profile.profile)
+    const dispatch = useAppDispatch()
+    const saveProfile = (profile: IProfile) => {
+        dispatch(changeProfileThunkCreator(profile))
     }
     const Element = withAuthRedirect(EditProfile)
-    return <Element user={profile} saveChanges={saveProfile} status={status}/>
+    return <Element profile={profile} saveChanges={saveProfile}/>
 })
