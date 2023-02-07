@@ -1,19 +1,17 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from "react";
 import {Header} from "./Header";
-import {useDispatch} from "react-redux";
-import {getUserDataThunkCreator} from "../../redux/reducers/authReducer";
+import {fetchLoginTC} from "../../redux/reducers/authReducer";
+import {useAppDispatch} from "../../common/hook/hooks";
 
+const title = "TASYA NETWORK"
 
-type HeaderContainerProps = {
-    title: string
-}
-export const HeaderContainer: React.FC<HeaderContainerProps> = React.memo(({title}) => {
-    const dispatch = useDispatch()
-    const getUserData = useCallback(() => {
-        getUserDataThunkCreator()(dispatch)
-    }, [dispatch])
+export const HeaderContainer: React.FC = React.memo(() => {
+    const dispatch = useAppDispatch()
     useEffect(() => {
-        getUserData()
-    }, [getUserData])
+        dispatch(fetchLoginTC())
+
+    }, [dispatch]);
+
+
     return <Header title={title}/>
 })
