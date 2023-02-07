@@ -1,9 +1,8 @@
-import axios from "axios";
-import {ProfileUserType} from "../redux/reducers/profileReducer";
+import axios, {AxiosResponse} from "axios";
+import {IProfile, IUser} from "../common/types/types";
 
 const baseURL = "https://social-network.samuraijs.com/api/1.0/";
 
-//TODO: add types
 const instance = axios.create({
     baseURL: baseURL,
     withCredentials: true,
@@ -11,40 +10,43 @@ const instance = axios.create({
         "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
     }
 });
+
 export const usersAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
-        return instance.get(baseURL + `users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<{ items: IUser[], totalCount: number }>(baseURL + `users?page=${currentPage}&count=${pageSize}`)
     },
     deleteFollow: (id: number) => {
-        return instance.delete(baseURL + `follow/${id}`)
+        return instance.delete<ResponseType>(baseURL + `follow/${id}`)
     },
     postFollow: (id: number) => {
-        return instance.post(baseURL + `follow/${id}`)
+        return instance.post<ResponseType>(baseURL + `follow/${id}`)
     },
 }
+type AuthResponse = ResponseType<{ id: number, login: string, email: string }>
 export const authAPI = {
     getUserData: () => {
-        return instance.get(baseURL + `auth/me`)
-            .then(response => response.data)
+        return instance.get<AuthResponse>(baseURL + `auth/me`)
     },
 }
 
-type ResponseType<D = {}> = {
-    resultCode: number
-    messages: string[]
-    data: D
-}
+
 export const profileAPI = {
     getProfile: (userID: number) => {
-        return instance.get(baseURL + `profile/${userID}`)
+        return instance.get<IProfile>(baseURL + `profile/${userID}`)
     },
-    changeProfile: (profile: ProfileUserType) => {
-        return instance.put<ResponseType>(baseURL + `profile`, {...profile}).then((res) => res.data)
+    changeProfile: (profile: IProfile) => {
+        return instance.put<IProfile, AxiosResponse<ResponseType>>(baseURL + `profile`, profile)
     },
     getStatus: (userID: number) => {
-        return instance.get(baseURL + `profile/status/${userID}`)
+        return instance.get<string>(baseURL + `profile/status/${userID}`)
     },
     updateStatus: (status: string) => {
-        return instance.put<ResponseType>(baseURL + `profile/status`, {status: status})
+        return instance.put<{ status: string }, AxiosResponse<ResponseType>>(baseURL + `profile/status`, {status: status})
     }
+}
+
+type ResponseType<D = {}> = {
+    messages: string[]
+    data: D
+    resultCode: number
 }
