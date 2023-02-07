@@ -1,14 +1,15 @@
-import {applyMiddleware, combineReducers, createStore} from "redux"
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux"
 import {dialogsReducer} from "../reducers/dialogsReducer";
 import {profileReducer} from "../reducers/profileReducer"
 import {settingsReducer} from "../reducers/settingsReducer";
 import {messagesReducer} from "../reducers/messagesReducer";
 import {usersReducer} from "../reducers/usersReducer";
 import {authReducer} from "../reducers/authReducer";
-import thunk from 'redux-thunk';
+import thunk from "redux-thunk";
 
 
 export type AppStateType = ReturnType<typeof reducers>
+
 
 const reducers = combineReducers({
     auth: authReducer,
@@ -19,6 +20,6 @@ const reducers = combineReducers({
     users: usersReducer,
 })
 //TODO: add localStorage util
-export const store = createStore(reducers, applyMiddleware(thunk))
+export const store = legacy_createStore(reducers, applyMiddleware(thunk))
 // @ts-ignore
 window.store = store
