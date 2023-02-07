@@ -1,16 +1,16 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import {StyledIMGBadge, Title} from "../../../common/styles/mui-styles";
+import {StyledIMGBadge, StyledTitle} from "../../../common/styles/mui-styles";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Button from "@mui/material/Button/Button";
-import {ProfileUserType} from "../../../redux/reducers/profileReducer";
+import {IProfile} from "../../../common/types/types";
 
-type EditProfilePropsType = {
-    user: ProfileUserType
-    saveChanges: (user: ProfileUserType, status: string) => void
-    status: string
+interface IProps {
+    profile: IProfile
+    saveChanges: (user: IProfile) => void
 }
+
 const Header = styled.div`
   grid-column: 1 / -1;
   display: flex;
@@ -55,31 +55,33 @@ grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
 grid-column-gap: 16px
 
 `
-const Info = styled(Title)`
+const Info = styled(StyledTitle)`
   font-weight: 700;
   font-size: 20px;
 `
-export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, saveChanges, status}) => {
-    let initialName = user.fullName.split(" ")[0]
-    let initialSurname = user.fullName.split(" ")[1]
+export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges}) => {
+    let initialName = profile.fullName.split(" ")[0]
+    let initialSurname = profile.fullName.split(" ")[1]
 
     let [name, setName] = useState<string>(initialName)
     let [surname, setSurname] = useState<string>(initialSurname)
-    let [about, setAbout] = useState<string>(user.aboutMe)
-    let [statusText, setStatus] = useState<string>(status)
+    let [about, setAbout] = useState<string>(profile.aboutMe)
 
 
     const saveChangesCallback = () => {
-        let item: ProfileUserType = {
+        let item: IProfile = {
             fullName: `${name} ${surname}`,
             aboutMe: about,
-            userId: user.userId,
-            lookingForAJobDescription: user.lookingForAJobDescription,
-            contacts: user.contacts,
-            lookingForAJob: user.lookingForAJob,
-            photos: {}
+            userId: profile.userId,
+            lookingForAJobDescription: profile.lookingForAJobDescription,
+            contacts: profile.contacts,
+            lookingForAJob: profile.lookingForAJob,
+            photos: {
+                small: null,
+                large: null
+            }
         }
-        saveChanges(item, statusText)
+        saveChanges(item)
     }
 
 
@@ -91,7 +93,7 @@ export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, sa
             </Avatar>
             <div>
                 <Info value={"gray"}>{name} {surname}</Info>
-                <div>ID: {user.userId} <ContentCopyIcon
+                <div>ID: {profile.userId} <ContentCopyIcon
                     sx={{fontSize: 12, color: theme => theme.palette.primary.main}}/></div>
             </div>
         </Header>
@@ -107,10 +109,6 @@ export const EditProfile: React.FC<EditProfilePropsType> = React.memo(({user, sa
             <Item>
                 <label>About me</label>
                 <input value={about} onChange={(e) => setAbout(e.currentTarget.value)} type="text"/>
-            </Item>
-            <Item>
-                <label>Status</label>
-                <input value={statusText} onChange={(e) => setStatus(e.currentTarget.value)} type="text"/>
             </Item>
         </Form>
         <Footer>
