@@ -2,16 +2,15 @@ import {
     addPostAC,
     likeClickAC,
     profileReducer,
-    ProfileStateType,
-    ProfileUserType,
     removePostAC,
     setProfileAC
 } from "./profileReducer";
 import {v1} from "uuid";
+import {IProfile, ProfileReducerType} from "../../common/types/types";
 
 
 test('correct post should be added', () =>{
-    const startState: ProfileStateType = {
+    const startState: ProfileReducerType = {
         profile: {
             userId: 333,
             fullName: "Temirtas Nursain",
@@ -33,13 +32,13 @@ test('correct post should be added', () =>{
             {id: v1(), message: "someText", time: "22:22", likeCount: 3, isLiked: false},
         ]
     }
-    let newPostMessage = 'nomatter'
-    const endState: ProfileStateType = profileReducer(startState, addPostAC(newPostMessage))
+    let newPostMessage = "nomatter"
+    const endState: ProfileReducerType = profileReducer(startState, addPostAC(newPostMessage))
     expect(endState.posts.length).toEqual(5)
     expect(endState.posts[0].message).toBe(newPostMessage)
 })
 test('correct post should be removed', () =>{
-    const startState: ProfileStateType = {
+    const startState: ProfileReducerType = {
         profile: {
             userId: 333,
             fullName: "Temirtas Nursain",
@@ -62,11 +61,11 @@ test('correct post should be removed', () =>{
         ]
     }
     let removeID = startState.posts[2].id
-    const endState: ProfileStateType = profileReducer(startState, removePostAC(removeID))
+    const endState: ProfileReducerType = profileReducer(startState, removePostAC(removeID))
     expect(endState.posts[2].message).toBe('4')
 })
 test('correct post isLiked should change value and likeCount should increase', () =>{
-    const startState: ProfileStateType = {
+    const startState: ProfileReducerType = {
         profile: {
             userId: 333,
             fullName: "Temirtas Nursain",
@@ -94,7 +93,7 @@ test('correct post isLiked should change value and likeCount should increase', (
     expect(endState.posts.find(t=>t.id === postID)?.likeCount).toBe(4)
 })
 test('reducer should set a new user of profilePage', ()=>{
-    const startState: ProfileStateType = {
+    const startState: ProfileReducerType = {
         profile: {
             userId: 333,
             fullName: "Temirtas Nursain",
@@ -104,6 +103,7 @@ test('reducer should set a new user of profilePage', ()=>{
             },
             contacts: {
                 mainLink: "",
+
             },
             lookingForAJob: false,
             lookingForAJobDescription: "blank",
@@ -116,11 +116,11 @@ test('reducer should set a new user of profilePage', ()=>{
             {id: v1(), message: "4", time: "22:22", likeCount: 3, isLiked: false},
         ]
     }
-    let newProfile: ProfileUserType = {
+    let newProfile: IProfile = {
         fullName: "Yuriy",
         photos: {
-            large: undefined,
-            small: undefined,
+            large: null,
+            small: null,
         },
         userId: 222,
         lookingForAJob: false,
@@ -131,7 +131,7 @@ test('reducer should set a new user of profilePage', ()=>{
         aboutMe: "i am front"
     }
 
-    const endState: ProfileStateType = profileReducer(startState, setProfileAC(newProfile))
+    const endState: ProfileReducerType = profileReducer(startState, setProfileAC(newProfile))
     expect(endState.profile.fullName).toEqual(newProfile.fullName)
     expect(endState.profile.userId).toEqual(newProfile.userId)
     expect(endState.profile.contacts.mainLink).toEqual(newProfile.contacts.mainLink)
