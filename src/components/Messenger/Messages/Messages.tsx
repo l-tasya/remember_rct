@@ -2,11 +2,11 @@ import React, {useCallback} from "react";
 import {StyledInput} from "../../../common/components/StyledInput/StyledInput";
 import {MessageType} from "../../../redux/reducers/messagesReducer";
 import styled from "styled-components";
-import {useTheme} from "@mui/material/styles";
 import {Scroll, StyledTitle} from "../../../common/styles/mui-styles";
 import {AppStateType} from "../../../redux/store/store";
 import {useSelector} from "react-redux";
-import {DialogType} from "../../../redux/reducers/dialogsReducer";
+import {DialogType} from '../../../redux/reducers/dialogsReducer';
+import useTheme from '@mui/material/styles/useTheme';
 
 const Container = styled.div`
     display: grid;
