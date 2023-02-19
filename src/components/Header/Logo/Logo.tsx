@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import {NavLink} from "react-router-dom";
-import useTheme from "@mui/material/styles/useTheme";
+import useTheme from '@mui/material/styles/useTheme';
+import {NavLink} from 'react-router-dom';
 
 type LogoPropsType = {}
 const Container = styled(NavLink)`
