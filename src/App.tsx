@@ -1,9 +1,11 @@
-import React from "react";
-import "./App.scss";
-import styled from "styled-components";
-import {NavBar} from "./components/NavBar/NavBar";
-import {HeaderContainer} from "./components/Header/HeaderContainer";
-import {Content} from "./components/Content/Content";
+import React, {useEffect} from 'react';
+import './App.scss';
+import styled from 'styled-components';
+import {NavBar} from './components/NavBar/NavBar';
+import {HeaderContainer} from './components/Header/HeaderContainer';
+import {Content} from './components/Content/Content';
+import {fetchLoginTC} from './redux/reducers/authReducer';
+import {useAppDispatch} from './common/hook/hooks';
 
 
 const Wrapper = styled.div`
@@ -18,6 +20,11 @@ const Wrapper = styled.div`
     `
 
 const App: React.FC = () => {
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(fetchLoginTC())
+
+    }, []);
     return (
         <Wrapper>
             <HeaderContainer/>
