@@ -30,12 +30,12 @@ const initialState: StateType = {
         {id: v1(), message: "...", isMe: true, time: "13:30"},
         {id: v1(), message: "...", isMe: false, time: "13:30"},
     ],
-    ["3"]: []
 }
 export const messagesReducer = (state: StateType = initialState, action: ActionsType): StateType => {
     switch (action.type) {
         case "ADD-MESSAGE":{
             const stateCopy = {...state};
+
             let newMessage: MessageType = {
                 id:v1(),
                 message: action.newValue,
@@ -60,13 +60,14 @@ export const messagesReducer = (state: StateType = initialState, action: Actions
         }
     }
 }
-export const addMessageAC = (dialogID: string, newValue: string, isMe: boolean) =>{
-    const time = new Date()
+export const addMessageAC = (dialogID: string, newValue: string, isMe: boolean) => {
+    let date = new Date();
+    let time = `${date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`
     return {
-        type: "ADD-MESSAGE",
+        type: 'ADD-MESSAGE',
         dialogID,
         newValue,
         isMe,
-        time: `${time.getHours()}:${time.getMinutes()}`
+        time,
     } as const
 }
