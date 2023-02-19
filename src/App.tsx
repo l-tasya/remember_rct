@@ -2,10 +2,10 @@ import React, {useEffect} from 'react';
 import './App.scss';
 import styled from 'styled-components';
 import {NavBar} from './components/NavBar/NavBar';
-import {HeaderContainer} from './components/Header/HeaderContainer';
 import {Content} from './components/Content/Content';
 import {fetchLoginTC} from './redux/reducers/authReducer';
 import {useAppDispatch} from './common/hook/hooks';
+import {Header} from './components/Header/Header';
 
 
 const Wrapper = styled.div`
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     "header header"
     "navbar content"; 
     `
-
+const title = 'TASYA NETWORK'
 const App: React.FC = () => {
     const dispatch = useAppDispatch()
     useEffect(() => {
@@ -27,7 +27,7 @@ const App: React.FC = () => {
     }, []);
     return (
         <Wrapper>
-            <HeaderContainer/>
+            <Header title={title}/>
             <NavBar/><Content/>
         </Wrapper>
     );
