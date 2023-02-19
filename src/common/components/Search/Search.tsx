@@ -1,26 +1,27 @@
-import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import {InputBase, styled} from "@mui/material";
+import React from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+import styled from '@mui/material/styles/styled';
+import InputBase from '@mui/material/InputBase/InputBase';
 
 type SearchPropsType = {}
-const SearchContainer = styled("div")`
+const SearchContainer = styled('div')`
       display: flex;
       justify-content: center;
       align-items: center;
 `
 export const Search: React.FC<SearchPropsType> = React.memo(() => {
-        const Search = styled("div")(({theme}) => ({
-            position: "relative",
-            borderRadius: theme.shape.borderRadius,
-            background: theme.palette.divider,
-            "&:hover": {
-                backgroundColor: theme.palette.primary.light,
-                color: "white",
-            },
+    const Search = styled('div')(({theme}) => ({
+        position: 'relative',
+        borderRadius: theme.shape.borderRadius,
+        background: theme.palette.divider,
+        '&:hover': {
+            backgroundColor: theme.palette.primary.light,
+            color: 'white',
+        },
+        marginLeft: 0,
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
             marginLeft: 0,
-            width: "100%",
-            [theme.breakpoints.up("sm")]: {
-                marginLeft: 0,
                 width: "auto",
             },
             color: theme.palette.primary.light,

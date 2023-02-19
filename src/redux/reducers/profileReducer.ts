@@ -76,12 +76,10 @@ export const profileReducer = (state: ProfileReducerType = initialState, action:
     switch (action.type) {
         case "ADD-POST": {
             const stateCopy = {...state}
-            const time = `${new Date}`.split(" ").filter((t, i) => [1, 2, 4].some(j => j === i)).join(" ").slice(0, 12).split(" ")
-            const resultTime = `${time[0]} ${time[1]} at ${time[2]}`
             const newItem: IPost = {
                 id: v1(),
                 message: action.newValue,
-                time: resultTime,
+                time: action.time,
                 likeCount: 0,
                 isLiked: false
             }
@@ -121,9 +119,12 @@ export const profileReducer = (state: ProfileReducerType = initialState, action:
     }
 }
 export const addPostAC = (newValue: string) => {
+    let date = new Date()
+    let time = `${date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`
     return {
-        type: "ADD-POST",
+        type: 'ADD-POST',
         newValue,
+        time,
     } as const
 }
 export const removePostAC = (postID: string) => {
@@ -151,12 +152,11 @@ export const setStatusAC = (status: string) => {
     } as const
 }
 export const getProfileThunkCreator = (id: number) => {
+
     return (dispatch: Dispatch) => {
-        {
             profileAPI.getProfile(id).then(response => {
                 dispatch(setProfileAC(response.data))
             }).catch(() => console.log("getProfile thunk"))
-        }
     }
 }
 export const changeProfileThunkCreator = (profile: IProfile) => {

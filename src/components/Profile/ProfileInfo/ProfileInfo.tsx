@@ -1,11 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import {StyledBlock} from "../../../common/styles/styles";
-import {NavLink} from "react-router-dom";
-import {useTheme} from "@mui/material/styles";
-import PersonIcon from "@mui/icons-material/Person";
-import {EditableTitle} from "../../../common/components/EditableTitle/EditableTitle";
-import {IProfile} from "../../../common/types/types";
+import React from 'react';
+import styled from 'styled-components';
+import {StyledBlock} from '../../../common/styles/styles';
+import useTheme from '@mui/material/styles/useTheme';
+import PersonIcon from '@mui/icons-material/Person';
+import {EditableTitle} from '../../../common/components/EditableTitle/EditableTitle';
+import {IProfile} from '../../../common/types/types';
 
 interface IProps {
     user: IProfile
@@ -13,20 +12,19 @@ interface IProps {
     status: string
     setStatus: (status: string) => void
 }
+
 const Container = styled(StyledBlock)`
       padding: 0;
       overflow: hidden;
       display: grid;
       grid-template-columns: 1fr 1fr 1fr; 
-      grid-template-rows: repeat(6,1fr);
+      grid-template-rows: repeat(4,1fr);
       height: 400px;
       min-width: 585px
     `
 const BackGroundEl = styled.div`
-        grid-column-start: 1;
-        grid-column-end: 4;
-        grid-row-start: 1;
-        grid-row-end: 4;
+        grid-column: 1 / -1;
+        grid-row: 1 / 3;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -72,23 +70,10 @@ const Title = styled.div`
         text-transform: capitalize;
         font-weight: 600;
     `
-const Footer = styled.div`
-    grid-column-start: 1;
-    grid-column-end: 4;
-    grid-row-start: 6;
-    grid-row-end: 7;
-    display: grid;
-    margin: 0 5px;
-    grid-template-columns: repeat(10, 1fr);
-    a{
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-`
 export const ProfileInfo: React.FC<IProps> = React.memo(({user, isMyStatus, status, setStatus}) => {
-    let img = user.photos.large ? <img src={user.photos.large} alt={"error"}/> : <PersonIcon/>
+    let img = user.photos.large ? <img src={user.photos.large} alt={'error'}/> : <PersonIcon/>
     let theme = useTheme();
+
     return (
         <Container>
             <BackGroundEl background={theme.palette.primary.light}/>
@@ -102,22 +87,23 @@ export const ProfileInfo: React.FC<IProps> = React.memo(({user, isMyStatus, stat
                         isMyStatus ?
                             <EditableTitle title={status} c1={setStatus}/>
                             :
-                            status ? status : "(empty)"
+                            status ? status : '(empty)'
 
                     }
                 </SubTitle>
             </InfoContainer>
-            <Footer>
-                <NavLink
-                    style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}
-                    to={"posts"}>Posts</NavLink>
-                <NavLink
-                    style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}
-                    to={"friends"}>Friends</NavLink>
-                <NavLink
-                    style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}
-                    to={"groups"}>Groups</NavLink>
-            </Footer>
+            {/*<Footer>*/}
+            {/*    <NavLink*/}
+            {/*        style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}*/}
+            {/*        to={"posts"}>Posts</NavLink>*/}
+            {/*    <NavLink*/}
+            {/*        style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}*/}
+            {/*        to={"friends"}>Friends</NavLink>*/}
+            {/*    <NavLink*/}
+            {/*        style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}*/}
+            {/*        to={"groups"}>Groups</NavLink>*/}
+            {/*</Footer>*/}
+
 
         </Container>)
 })

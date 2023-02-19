@@ -47,3 +47,30 @@ export type ProfileReducerType = {
     posts: IPost[],
 
 }
+export type AuthReducerType = {
+    id?: number
+    email?: string
+    login?: string
+    isAuth: boolean
+    profile?: IProfile | null
+}
+
+//enums
+
+export enum ResultCodes {
+    Success = 0,
+    Error = 1,
+
+}
+
+export enum ResultCodesForCaptcha {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
+
+export type ResponseType<D = {}, R = ResultCodes> = {
+    messages: string[]
+    data: D
+    resultCode: R
+}

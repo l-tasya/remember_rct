@@ -10,7 +10,6 @@ const Container = styled.div`
     transition: 3s linear;
     display: grid;
     grid-gap: 10px;
-    margin: 10px 0;
     grid-template-columns: 2fr 1fr;
     grid-template-rows: 1fr;
 `

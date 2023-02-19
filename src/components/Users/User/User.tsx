@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import {StyledBlock} from "../../../common/styles/styles";
+import {StyledBlock} from '../../../common/styles/styles';
 import PersonIcon from '@mui/icons-material/Person';
-import {Skeleton} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import Skeleton from '@mui/material/Skeleton/Skeleton';
+import {NavLink} from 'react-router-dom';
 import {Button} from '../../../common/styles/mui-styles';
-import useTheme from "@mui/material/styles/useTheme";
-import {AppStateType} from "../../../redux/store/store";
-import {useSelector} from "react-redux";
+import useTheme from '@mui/material/styles/useTheme';
+import {AppStateType} from '../../../redux/store/store';
+import {useSelector} from 'react-redux';
 
 //styles
 const Container = styled(StyledBlock)`
