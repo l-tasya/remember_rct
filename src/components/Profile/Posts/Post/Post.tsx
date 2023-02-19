@@ -7,7 +7,6 @@ import ShareIcon from "@mui/icons-material/Share";
 import {Like} from "../../../../common/components/Like/Like";
 import {Remove} from "../../../../common/components/Remove/Remove";
 import useTheme from "@mui/material/styles/useTheme";
-import {useAppSelector} from "../../../../common/hook/hooks";
 
 
 const Badge = styled.div`
@@ -123,14 +122,12 @@ export const Post: React.FC<IProps> = React.memo(({id, message, time, removePost
     const like = useCallback(() => {
         likeCallback(id)
     }, [likeCallback, id])
-    const user = useAppSelector(t => t.profile.profile)
     const theme = useTheme()
-    let avatar: string | undefined = user.photos.small ? user.photos.small : ""
     return (
         <Container>
             <Header>
-                <UserIMG src={avatar}/>
-                <StyledTitle value={"default"}>Nursain Temirtas</StyledTitle>
+                <UserIMG src={''}/>
+                <StyledTitle value={'default'}>Nursain Temirtas</StyledTitle>
                 <SubTitle value={"gray"}>{time}</SubTitle>
                 <RemoveEl removeCallback={removeCallback}/>
             </Header>
