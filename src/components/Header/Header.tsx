@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import {Logo} from "./Logo/Logo";
-import {Search} from "../../common/components/Search/Search";
-import {StyledTitle} from "../../common/styles/mui-styles";
-import {Paper} from "@mui/material";
-import {UserMenu} from "./Badges/User/UserMenu";
-import {Cart} from "./Badges/Cart/Cart";
-import {Notifications} from "./Badges/Notifications/Notifications";
+import React from 'react';
+import styled from 'styled-components';
+import {Logo} from './Logo/Logo';
+import {Search} from '../../common/components/Search/Search';
+import {StyledTitle} from '../../common/styles/mui-styles';
+import {UserMenu} from './Badges/UserMenu';
+import {Cart} from './Badges/Cart';
+import Paper from '@mui/material/Paper/Paper';
+import {Notifications} from './Badges/Notifications';
 
 interface IProps {
     title: string
@@ -26,6 +26,7 @@ const Title = styled(StyledTitle)`
       font-weight: 900;
       font-size: 19px;
 `
+
 const Navigation = styled.div`
       display: flex;
       align-items: center;
@@ -35,12 +36,11 @@ const Navigation = styled.div`
      
 `
 export const Header: React.FC<IProps> = React.memo(({title}) => {
-
     return (
         <Wrapper square={true}>
             <Logo/>
 
-            <Title value={"main"}>{title}</Title>
+            <Title value={'main'}>{title}</Title>
 
             <Search/>
 

@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "../../../common/hook/hooks";
 import {IProfile} from "../../../common/types/types";
 
 
-export const EditProfileContainer: React.FC = React.memo(() => {
+export const EditProfileContainer: React.FC = () => {
     const profile = useAppSelector(t => t.auth.profile)
     const dispatch = useAppDispatch()
     const saveProfile = (profile: IProfile) => {
@@ -14,4 +14,4 @@ export const EditProfileContainer: React.FC = React.memo(() => {
     }
     const Element = withAuthRedirect(EditProfile)
     return <Element profile={profile} saveChanges={saveProfile}/>
-})
+}
