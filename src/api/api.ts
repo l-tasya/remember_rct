@@ -1,5 +1,5 @@
-import axios, {AxiosResponse} from "axios";
-import {IProfile, IUser} from "../common/types/types";
+import axios, {AxiosResponse} from 'axios';
+import {IProfile, IUser, ResponseType, ResultCodesForCaptcha} from '../common/types/types';
 
 const baseURL = "https://social-network.samuraijs.com/api/1.0/";
 
@@ -22,11 +22,31 @@ export const usersAPI = {
         return instance.post<ResponseType>(baseURL + `follow/${id}`)
     },
 }
-type AuthResponse = ResponseType<{ id: number, login: string, email: string }>
+
+
+type AuthResponse = ResponseType<{ id: number, email: string, login: string }>
+type RequestProperties = { email: string, password: string, rememberMe: boolean }
+type LoginResponse = ResponseType<{ userId: number }, ResultCodesForCaptcha>
+
+
 export const authAPI = {
+
     getUserData: () => {
         return instance.get<AuthResponse>(baseURL + `auth/me`)
     },
+
+    logIn: (email: string, password: string, rememberMe: boolean = false) => {
+        return instance.post<RequestProperties, AxiosResponse<LoginResponse>>(baseURL + `auth/login`, {
+            email,
+            password,
+            rememberMe
+        })
+    },
+
+    logOut: () => {
+        return instance.delete<ResponseType>(baseURL + `auth/login`)
+    }
+
 }
 
 
@@ -45,8 +65,4 @@ export const profileAPI = {
     }
 }
 
-type ResponseType<D = {}> = {
-    messages: string[]
-    data: D
-    resultCode: number
-}
+
