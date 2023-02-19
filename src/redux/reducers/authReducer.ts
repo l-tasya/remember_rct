@@ -1,58 +1,96 @@
-import {authAPI} from "../../api/api";
-import {getProfileThunkCreator} from "./profileReducer";
-import {AppThunkDispatchType} from "../../common/hook/hooks";
-
-export type AuthStateType = {
-    id: number
-    email?: string
-    login?: string
-    isAuth: boolean
-}
+import {authAPI, profileAPI} from '../../api/api';
+import {AppThunkDispatchType} from '../../common/hook/hooks';
+import {AuthReducerType, IProfile, ResultCodes, ResultCodesForCaptcha} from '../../common/types/types';
+import {Dispatch} from 'redux';
 
 type ActionType = ReturnType<typeof setUserDataAC>
+    | ReturnType<typeof setAuthProfileAC>
 
-const initialState: AuthStateType = {
-    id: 0,
+const initialState: AuthReducerType = {
+    id: undefined,
     email: undefined,
     login: undefined,
     isAuth: false,
+    profile: null
 }
 
 
-export const authReducer = (state: AuthStateType = initialState, action: ActionType): AuthStateType => {
+export const authReducer = (state: AuthReducerType = initialState, action: ActionType): AuthReducerType => {
     switch (action.type) {
-        case "SET-USER-DATA": {
-            const stateCopy = {...state}
-            stateCopy.id = action.data.id
-            stateCopy.email = action.data.email
-            stateCopy.login = action.data.login
-            stateCopy.isAuth = true
-            return stateCopy
+        case 'SET-USER-DATA': {
+            return {...action.payload}
+        }
+        case 'SET-AUTH-PROFILE': {
+            return {...state, profile: action.payload}
         }
         default: {
             return state
         }
     }
 }
-export const setUserDataAC = (data: ResponseType) => {
-    return {
-        type: "SET-USER-DATA",
-        data,
-    } as const
-}
-export type ResponseType = {
-    id: number
+type Payload = {
+    id?: number
     email?: string
     login?: string
+    isAuth: boolean
+}
+export const setUserDataAC = (payload: Payload) => {
+    return {
+        type: 'SET-USER-DATA',
+        payload,
+    } as const
+}
+export const setAuthProfileAC = (payload: IProfile) => {
+    return {
+        type: 'SET-AUTH-PROFILE',
+        payload,
+    } as const
 }
 export const fetchLoginTC = () => (dispatch: AppThunkDispatchType) => {
-
     authAPI.getUserData()
-        .then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setUserDataAC(response.data.data))
-                dispatch(getProfileThunkCreator(response.data.data.id))
+        .then((response) => {
+                if (response.data.resultCode === ResultCodes.Success) {
+                    dispatch(setUserDataAC({...response.data.data, isAuth: true}))
+                    dispatch(getProfileThunkCreator(response.data.data.id))
+                }
             }
-        })
+        )
 
+}
+const getProfileThunkCreator = (id: number) => {
+    return (dispatch: Dispatch) => {
+        profileAPI.getProfile(id).then(response => {
+            dispatch(setAuthProfileAC(response.data))
+        }).catch(() => console.log('getProfile thunk'))
+    }
+}
+export const logIn = (email: string, password: string, rememberMe: boolean) => async (dispatch: AppThunkDispatchType) => {
+    let response = await authAPI.logIn(email, password, rememberMe)
+    if (response.data.resultCode === ResultCodesForCaptcha.Success) {
+        dispatch(fetchLoginTC())
+    } else {
+        console.error(response.data.messages)
+        alert('Incorrect Password or Login')
+    }
+
+
+}
+
+export const logOut = () => {
+    let logOut: AuthReducerType = {
+        isAuth: false,
+        profile: null,
+        id: undefined,
+        email: undefined,
+        login: undefined,
+    }
+    return (dispatch: AppThunkDispatchType) => {
+        authAPI.logOut()
+            .then(response => {
+                if (response.data.resultCode === 0) {
+                    dispatch(setUserDataAC(logOut))
+                }
+            })
+
+    }
 }
