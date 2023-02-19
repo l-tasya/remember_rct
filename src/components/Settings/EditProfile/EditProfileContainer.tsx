@@ -7,7 +7,7 @@ import {IProfile} from "../../../common/types/types";
 
 
 export const EditProfileContainer: React.FC = React.memo(() => {
-    const profile = useAppSelector(t => t.profile.profile)
+    const profile = useAppSelector(t => t.auth.profile)
     const dispatch = useAppDispatch()
     const saveProfile = (profile: IProfile) => {
         dispatch(changeProfileThunkCreator(profile))
