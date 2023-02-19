@@ -6,7 +6,7 @@ import {addThemeAC, setColorAC, ThemesType} from "../../../redux/reducers/settin
 import {ColorModeContext} from "../../../ToggleColor";
 
 
-export const ThemePickerContainer: React.FC = React.memo(() => {
+export const ThemePickerContainer: React.FC = () => {
     let themes = useSelector<AppStateType, ThemesType>(t => t.settings.themes)
     let dispatch = useDispatch()
     const addTheme = useCallback((value: string) => {
@@ -16,7 +16,7 @@ export const ThemePickerContainer: React.FC = React.memo(() => {
     const setColor = useCallback((id: string) => {
         let color = themes.find(t => t.id === id)?.first;
         dispatch(setColorAC(id))
-        themeMode.toggleColorMode(color || "default")
+        themeMode.toggleColorMode(color || 'default')
     }, [dispatch, themes, themeMode])
 
     return <ThemePicker
@@ -24,4 +24,4 @@ export const ThemePickerContainer: React.FC = React.memo(() => {
         setColor={setColor}
         themes={themes}
     />
-})
+}
