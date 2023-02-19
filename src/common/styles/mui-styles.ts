@@ -1,7 +1,7 @@
 import styled from "@mui/material/styles/styled";
 import CancelIcon from "@mui/icons-material/Cancel";
-import {ButtonHTMLAttributes, ClassAttributes, HTMLAttributes} from "react";
-import {Theme} from "@mui/material";
+import {ButtonHTMLAttributes, ClassAttributes, HTMLAttributes} from 'react';
+import {Theme} from '@mui/material/styles/createTheme';
 
 
 export const Scroll = styled("div")(({theme}) => ({
@@ -147,8 +147,9 @@ export const StyledTitle = styled("div")(({theme, value}: TitleProps) => {
         }
     }
     return ({
-        display: "inline-block",
-        color: valueReducer(value)
+        display: 'inline-block',
+        color: valueReducer(value),
+        transition: '0.3s',
     })
 })
 
