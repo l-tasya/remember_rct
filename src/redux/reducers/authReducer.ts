@@ -1,10 +1,17 @@
 import {authAPI, profileAPI} from '../../api/api';
 import {AppThunkDispatchType} from '../../common/hook/hooks';
-import {AuthReducerType, IProfile, ResultCodes, ResultCodesForCaptcha} from '../../common/types/types';
+import {AuthReducerType, IProfile, ResultCodes} from '../../common/types/types';
 import {Dispatch} from 'redux';
+import {RequestStatusType, setErrorAC, setLoadingStatusAC} from './appReducer';
+import {setProfileStatusAC} from './profileReducer';
+import {handleServerAppError, handleServerNetworkError} from '../../common/utils/error-utils';
 
-type ActionType = ReturnType<typeof setUserDataAC>
+type ActionsType = ReturnType<typeof setUserDataAC>
     | ReturnType<typeof setAuthProfileAC>
+    | ReturnType<typeof setProfileStatusAC>
+    | ReturnType<typeof setErrorAC>
+    | ReturnType<typeof setAuthEntityAC>
+    | ReturnType<typeof setLoadingStatusAC>
 
 const initialState: AuthReducerType = {
     id: undefined,
