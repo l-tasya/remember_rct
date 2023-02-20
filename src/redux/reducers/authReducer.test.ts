@@ -7,7 +7,8 @@ test('auth reducer should set user data', () => {
         email: undefined,
         login: undefined,
         isAuth: false,
-        profile: null
+        profile: null,
+        entity: 'idle'
     }
     let data = {
         id: 333,
