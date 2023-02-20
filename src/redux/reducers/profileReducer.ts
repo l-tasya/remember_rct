@@ -1,7 +1,10 @@
-import {Dispatch} from "redux";
-import {v1} from "uuid"
-import {profileAPI} from "../../api/api";
-import {IPost, IProfile, ProfileReducerType} from "../../common/types/types";
+import {Dispatch} from 'redux';
+import {v1} from 'uuid'
+import {profileAPI} from '../../api/api';
+import {IPost, IProfile, ProfileReducerType} from '../../common/types/types';
+import {handleServerAppError, handleServerNetworkError} from '../../common/utils/error-utils';
+import {RequestStatusType, setAlertMessageAC, setLoadingStatusAC} from './appReducer';
+import {setAuthProfileAC} from './authReducer';
 
 type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof removePostAC>
