@@ -1,13 +1,13 @@
 import axios, {AxiosResponse} from 'axios';
-import {IProfile, IUser, ResponseType, ResultCodesForCaptcha} from '../common/types/types';
+import {IProfile, IUser, ResponseType} from '../common/types/types';
 
-const baseURL = "https://social-network.samuraijs.com/api/1.0/";
+const baseURL = 'https://social-network.samuraijs.com/api/1.0/';
 
 const instance = axios.create({
     baseURL: baseURL,
     withCredentials: true,
     headers: {
-        "API-KEY": "9aecfb73-6cd3-4101-8b06-9748a118440e"
+        'API-KEY': '9aecfb73-6cd3-4101-8b06-9748a118440e'
     }
 });
 
@@ -26,7 +26,7 @@ export const usersAPI = {
 
 type AuthResponse = ResponseType<{ id: number, email: string, login: string }>
 type RequestProperties = { email: string, password: string, rememberMe: boolean }
-type LoginResponse = ResponseType<{ userId: number }, ResultCodesForCaptcha>
+type LoginResponse = ResponseType<{ userId: number }>
 
 
 export const authAPI = {
