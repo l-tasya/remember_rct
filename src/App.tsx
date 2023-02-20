@@ -18,13 +18,20 @@ const Wrapper = styled.div`
     "header header"
     "navbar content"; 
     `
-const title = 'TASYA NETWORK'
+const title = 'TASYA NETWORK';
+export const stylesForLoading = {
+    position: 'absolute',
+    width: '100%',
+    top: 0,
+    left: 0,
+}
 const App: React.FC = () => {
     const dispatch = useAppDispatch()
+
     useEffect(() => {
         dispatch(fetchLoginTC())
 
-    }, []);
+    });
     return (
         <Wrapper>
             <Header title={title}/>
