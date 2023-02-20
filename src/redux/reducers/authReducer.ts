@@ -56,6 +56,12 @@ export const setAuthProfileAC = (payload: IProfile) => {
         payload,
     } as const
 }
+export const setAuthEntityAC = (newValue: RequestStatusType) => {
+    return {
+        type: 'SET/AUTH-ENTITY',
+        newValue,
+    } as const
+}
 export const fetchLoginTC = () => (dispatch: AppThunkDispatchType) => {
     authAPI.getUserData()
         .then((response) => {
