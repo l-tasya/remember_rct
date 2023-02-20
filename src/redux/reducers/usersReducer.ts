@@ -1,6 +1,9 @@
-import {Dispatch} from "redux";
-import {usersAPI} from "../../api/api";
-import {IUser} from "../../common/types/types";
+import {Dispatch} from 'redux';
+import {usersAPI} from '../../api/api';
+import {IUser} from '../../common/types/types';
+import {RequestStatusType, setLoadingStatusAC} from './appReducer';
+import {ErrorCustomType, handleServerAppError, handleServerNetworkError} from '../../common/utils/error-utils';
+import {AxiosError} from 'axios';
 
 export type UserType = {
     name: string
@@ -19,6 +22,8 @@ type ActionsType = ReturnType<typeof setUsersAC>
     | ReturnType<typeof changePageSizeAC>
     | ReturnType<typeof changeUserFollowAC>
     | ReturnType<typeof changeFollowingProgressAC>
+    | ReturnType<typeof setLoadingStatusAC>
+    | ReturnType<typeof setUserEntityAC>
 export type UsersStateType = {
     users: IUser[]
     pageSize: number
@@ -26,97 +31,17 @@ export type UsersStateType = {
     totalUsers: number
     isFetching: boolean
     followingInProgress: Array<number | undefined>
+    entityStatus: RequestStatusType
 }
 
 const initialState: UsersStateType = {
-    users: [
-        // {
-        //     id: 10001,
-        //     name: 'Maya Ishita',
-        //     status: 'Hi i am Alexandra',
-        //     followed: false,
-        //     photo: {
-        //         large: 'https://img.freepik.com/premium-vector/smiling-girl-avatar_102172-32.jpg?w=740'
-        //     }
-        //
-        // },
-        // {
-        //     id: 10002,
-        //     name: 'Sridevi Kamakshi',
-        //     followed: false,
-        //     photo: {
-        //         large: 'https://img.freepik.com/premium-vector/asian-girl-face-web-child-avatar-cute-kid-user-picture_622026-83.jpg?w=740'
-        //     }
-        // },
-        // {
-        //     id: 10003,
-        //     name: 'Marcus Lucile',
-        //     status: 'Hi i am Alexandra',
-        //     followed: false,
-        //     photo: {
-        //         large: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZSUyMHByb2ZpbGV8ZW58MHx8MHx8&w=1000&q=80'
-        //     }
-        // },
-        // {
-        //     id: 10004,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        // },
-        // {
-        //     id: 10005,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        // },
-        // {
-        //     id: 10006,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        //
-        // },
-        // {
-        //     id: 10007,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        //
-        // },
-        // {
-        //     id: 10008,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        //
-        // },
-        // {
-        //     id: 10009,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        //
-        // },
-        // {
-        //     id: 10010,
-        //     name: 'Unknown User',
-        //     status: 'i am unknown',
-        //     followed: false,
-        //     photo: {}
-        //
-        // },
-    ],
+    users: [],
     pageSize: 12,
     currentPage: 1,
     totalUsers: 0,
     isFetching: false,
-    followingInProgress: []
+    followingInProgress: [],
+    entityStatus: 'idle',
 }
 
 export const usersReducer = (state: UsersStateType = initialState, action: ActionsType): UsersStateType => {
@@ -157,21 +82,30 @@ export const usersReducer = (state: UsersStateType = initialState, action: Actio
             action.isFetching ? stateCopy.followingInProgress = [...stateCopy.followingInProgress, newID] : stateCopy.followingInProgress = [...stateCopy.followingInProgress.filter(t => t !== action.userID)]
             return stateCopy
         }
+        case 'SET-USER-ENTITY': {
+            return {...state, entityStatus: action.newValue}
+        }
         default: {
             return state
         }
     }
 }
+export const setUserEntityAC = (newValue: RequestStatusType) => {
+    return {
+        type: 'SET-USER-ENTITY',
+        newValue,
+    } as const
+}
 export const setUsersAC = (users: IUser[]) => {
     return {
-        type: "SET-USERS",
+        type: 'SET-USERS',
         users,
 
     } as const
 }
 export const changeTotalUsersAC = (newValue: number) => {
     return {
-        type: "CHANGE-TOTAL-USERS",
+        type: 'CHANGE-TOTAL-USERS',
         newValue,
     } as const
 }
@@ -202,59 +136,77 @@ export const changeUserFollowAC = (userID: number, newValue: boolean) => {
 }
 export const changeFollowingProgressAC = (userID: number, isFetching: boolean) => {
     return {
-        type: "CHANGE-FOLLOWING-PROGRESS",
+        type: 'CHANGE-FOLLOWING-PROGRESS',
         isFetching,
         userID
     } as const
 }
 export const getUsersTC = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(changeIsFetchingAC(true))
-
+        dispatch(setLoadingStatusAC('loading'))
         usersAPI.getUsers(currentPage, pageSize)
             .then(response => {
-                dispatch(setUsersAC(response.data.items))
-                let timeOutID = setTimeout(() => {
-                    dispatch(changeIsFetchingAC(false))
-                }, 1000)
-                dispatch(changeTotalUsersAC(response.data.totalCount))
-                return () => {
-                    clearTimeout(timeOutID)
+                if (response.data) {
+                    dispatch(setUsersAC(response.data.items))
+                    setTimeout(() => {
+                        dispatch(changeIsFetchingAC(false))
+                        dispatch(setLoadingStatusAC('succeeded'))
+                    }, 1000)
+                    dispatch(changeTotalUsersAC(response.data.totalCount))
+                } else {
+                    handleServerAppError(response.data, dispatch)
                 }
             })
-            .catch(() => {
+            .catch((e) => {
+                handleServerNetworkError(dispatch, e)
             })
     }
 }
 export const followTC = (id: number) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(changeFollowingProgressAC(id, true))
+        dispatch(setLoadingStatusAC('loading'))
         usersAPI.postFollow(id)
             .then(response => {
                 console.log(response.data.resultCode)
                 if (response.data.resultCode === 0) {
                     dispatch(changeUserFollowAC(id, true))
+                    dispatch(setLoadingStatusAC('succeeded'))
                     dispatch(changeFollowingProgressAC(id, false))
 
+                } else {
+                    handleServerAppError(response.data, dispatch)
+                    setTimeout(() => dispatch(changeFollowingProgressAC(id, false)), 3200)
                 }
             })
-            .catch(error => {
-                    console.warn(error.request.statusText)
-                }
-            )
+            .catch((e: AxiosError<ErrorCustomType>) => {
+                console.log(e.response)
+                handleServerNetworkError(dispatch, e.response ? {message: e.response.data.message} : e)
+                dispatch(changeFollowingProgressAC(id, false))
+            })
     }
 }
 export const unFollowTC = (id: number) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<ActionsType>) => {
         dispatch(changeFollowingProgressAC(id, true))
+        dispatch(setLoadingStatusAC('loading'))
         usersAPI.deleteFollow(id)
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(changeUserFollowAC(id, false))
+                    dispatch(setLoadingStatusAC('succeeded'))
+                } else {
+                    handleServerAppError(response.data, dispatch)
+                    setTimeout(() => dispatch(changeFollowingProgressAC(id, false)), 3200)
+
                 }
                 dispatch(changeFollowingProgressAC(id, false))
+
             })
-            .catch(error => console.warn(error.request.statusText)
-            )
+            .catch(error => {
+                handleServerNetworkError(dispatch, error)
+                dispatch(changeFollowingProgressAC(id, false))
+            })
     }
 }

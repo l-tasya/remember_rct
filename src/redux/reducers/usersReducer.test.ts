@@ -2,22 +2,25 @@ import {
     changeCurrentPageAC,
     changeIsFetchingAC,
     changeTotalUsersAC,
-    changeUserFollowAC,
+    changeUserFollowAC, setUserEntityAC,
     setUsersAC,
     usersReducer,
     UsersStateType,
     UserType
-} from "./usersReducer"
+} from './usersReducer'
+import {RequestStatusType} from './appReducer';
 
+const startState: UsersStateType = {
+    users: [],
+    pageSize: 12,
+    totalUsers: 50,
+    currentPage: 2,
+    isFetching: false,
+    followingInProgress: [],
+    entityStatus: 'idle'
+}
 test('users reducers should set users', () => {
-    const startState: UsersStateType = {
-        users: [],
-        pageSize: 12,
-        totalUsers: 50,
-        currentPage: 2,
-        isFetching: false,
-        followingInProgress: []
-    }
+
     let newUsers: UserType[] = [
         {
             id: 9399,
@@ -36,57 +39,28 @@ test('users reducers should set users', () => {
     expect(endState.users[0].name).toBe(newUsers[0].name)
 })
 test('users reducer should change totalUsers', () => {
-    const startState: UsersStateType = {
-        users: [],
-        pageSize: 12,
-        totalUsers: 50,
-        currentPage: 2,
-        isFetching: false,
-        followingInProgress: []
-    }
     let value = 34;
     const endState: UsersStateType = usersReducer(startState, changeTotalUsersAC(value))
     expect(endState.totalUsers).toEqual(value)
 })
 test('users reducer should change isFetching', () => {
-    const startState: UsersStateType = {
-        users: [],
-        pageSize: 12,
-        totalUsers: 50,
-        currentPage: 2,
-        isFetching: false,
-        followingInProgress: []
-    }
     let value = true;
     const endState: UsersStateType = usersReducer(startState, changeIsFetchingAC(value))
     expect(endState.isFetching).toEqual(value)
 })
 test('users reducer should change currentPage', () => {
-    const startState: UsersStateType = {
-        users: [],
-        pageSize: 12,
-        totalUsers: 50,
-        currentPage: 2,
-        isFetching: false,
-        followingInProgress: []
-    }
     let value = 3;
     const endState: UsersStateType = usersReducer(startState, changeCurrentPageAC(value))
     expect(endState.currentPage).toEqual(value)
 })
 test('user reducer should change user follow value ', () => {
-    const startState: UsersStateType = {
-        users: [
-            {id: 3, followed: false, status: '', name: 'name', photo: {}}
-        ],
-        pageSize: 12,
-        totalUsers: 50,
-        currentPage: 2,
-        isFetching: false,
-        followingInProgress: []
-    }
     let newValue = true
     let id = startState.users[0].id
     const endState: UsersStateType = usersReducer(startState, changeUserFollowAC(id, newValue))
     expect(endState.users.find(t => t.id === id)?.followed).toBe(newValue)
+})
+test('user reducer should changer entityStatus', () => {
+    let newValue: RequestStatusType = 'loading'
+    const endState = usersReducer(startState, setUserEntityAC(newValue))
+    expect(endState.entityStatus).toEqual(newValue)
 })

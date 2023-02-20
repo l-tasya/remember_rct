@@ -17,12 +17,13 @@ export const UserMenu: React.FC = React.memo(() => {
     let auth = useAppSelector(t => t.auth)
     let profile = useAppSelector(t => t.auth.profile)
     let avatar: string | undefined = profile?.photos.small ? profile?.photos.small : '';
+    //TODO: logOut navigate
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const logOutHandler = () => {
         dispatch(logOut())
-        navigate('/remember_rct/login')
     }
+    const entity = useAppSelector(t => t.auth.entity)
     return auth.isAuth ? <MenuBadge svg={<PersonIcon/>}>
             <NavLink to={`remember_rct/${auth.id}/posts`}><MenuItem>
                 <Avatar src={avatar}
@@ -47,7 +48,7 @@ export const UserMenu: React.FC = React.memo(() => {
                     Settings
                 </NavLink>
             </MenuItem>
-            <MenuItem onClick={logOutHandler}>
+            <MenuItem onClick={logOutHandler} disabled={entity === 'loading'}>
                 <ListItemIcon>
                     <Logout fontSize="small"/>
                 </ListItemIcon>
