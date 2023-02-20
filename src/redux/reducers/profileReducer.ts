@@ -24,61 +24,62 @@ const initialState: ProfileReducerType = {
         userId: 1,
         lookingForAJob: false,
         contacts: {
-            mainLink: "",
+            mainLink: '',
         },
-        lookingForAJobDescription: "",
-        aboutMe: ""
+        lookingForAJobDescription: '',
+        aboutMe: ''
     },
-    status: "blank",
+    status: 'blank',
+    entityStatus: 'idle',
     posts: [
         {
             id: v1(),
             isLiked: false,
-            message: "States want to correct their votes, which they now know were based on irregularities and fraud, plus corrupt process never received legislative approval.  All Mike Pence has to do is send them back to the States, AND WE WIN. Do it Mike, this is a time for extreme courage!",
-            time: "Nov 12 at 07:00",
+            message: 'States want to correct their votes, which they now know were based on irregularities and fraud, plus corrupt process never received legislative approval.  All Mike Pence has to do is send them back to the States, AND WE WIN. Do it Mike, this is a time for extreme courage!',
+            time: 'Nov 12 at 07:00',
             likeCount: 3
         },
         {
             id: v1(),
             isLiked: false,
-            message: "If Vice President Mike Pence comes through for us, we will win the Presidency. Many States want to decertify the mistake they made in certifying incorrect & even fraudulent numbers in a process  NOT approved by their State Legislatures (which it must be). Mike can send it back!",
-            time: "Sep at 09:47",
+            message: 'If Vice President Mike Pence comes through for us, we will win the Presidency. Many States want to decertify the mistake they made in certifying incorrect & even fraudulent numbers in a process  NOT approved by their State Legislatures (which it must be). Mike can send it back!',
+            time: 'Sep at 09:47',
             likeCount: 3
         },
         {
             id: v1(),
             isLiked: true,
-            message: "We're seeing a stronger labor market where jobs are booming and more Americans are working than ever in history. That's what happens when you build an economy from the bottom up and the middle out—it gives everyone a chance to get ahead.",
-            time: "Jan 8 at 16:44",
+            message: 'We\'re seeing a stronger labor market where jobs are booming and more Americans are working than ever in history. That\'s what happens when you build an economy from the bottom up and the middle out—it gives everyone a chance to get ahead.',
+            time: 'Jan 8 at 16:44',
             likeCount: 3
         },
         {
             id: v1(),
             isLiked: false,
-            message: "Democrats voted to cut the deficit to fight inflation by having the wealthy and big corporations pay their fair share. Every single Republican opposed requiring big corporations to pay a minimum tax of 15%, instead of some getting away with paying $0 in federal income taxes.",
-            time: "Jan 7 at 04:20",
+            message: 'Democrats voted to cut the deficit to fight inflation by having the wealthy and big corporations pay their fair share. Every single Republican opposed requiring big corporations to pay a minimum tax of 15%, instead of some getting away with paying $0 in federal income taxes.',
+            time: 'Jan 7 at 04:20',
             likeCount: 3
         },
         {
             id: v1(),
             isLiked: false,
-            message: "Democrats sided with the American people with the Inflation Reduction Act, and the Republicans sided with special interests. \n" +
-                "That's the choice we face: Whether we protect the already powerful or have the courage to build a future where everybody has an even shot.",
-            time: "Jan 7 at 03:28",
+            message: 'Democrats sided with the American people with the Inflation Reduction Act, and the Republicans sided with special interests. \n' +
+                'That\'s the choice we face: Whether we protect the already powerful or have the courage to build a future where everybody has an even shot.',
+            time: 'Jan 7 at 03:28',
             likeCount: 444
         },
         {
             id: v1(),
             isLiked: false,
-            message: "last",
-            time: "Jan U j U",
+            message: 'last',
+            time: 'Jan U j U',
             likeCount: 3333
         }
     ]
 }
 export const profileReducer = (state: ProfileReducerType = initialState, action: ActionsType): ProfileReducerType => {
     switch (action.type) {
-        case "ADD-POST": {
+        case 'ADD-POST': {
             const stateCopy = {...state}
             const newItem: IPost = {
                 id: v1(),
@@ -90,12 +91,12 @@ export const profileReducer = (state: ProfileReducerType = initialState, action:
             stateCopy.posts = [newItem, ...stateCopy.posts]
             return stateCopy
         }
-        case "REMOVE-POST": {
+        case 'REMOVE-POST': {
             const stateCopy = {...state}
             stateCopy.posts = stateCopy.posts.filter(t => t.id !== action.postID)
             return stateCopy
         }
-        case "LIKE": {
+        case 'LIKE': {
             const stateCopy = {...state}
             let posts = stateCopy.posts
             stateCopy.posts = posts.map(t => t.id === action.postID ? {
@@ -105,13 +106,16 @@ export const profileReducer = (state: ProfileReducerType = initialState, action:
             } : t)
             return {...stateCopy}
         }
-        case "SET-PROFILE": {
+        case 'SET-PROFILE': {
             const stateCopy = {...state}
             stateCopy.profile = action.profile
 
             return stateCopy
         }
-        case "SET-STATUS": {
+        case 'SET-PROFILE-ENTITY': {
+            return {...state, entityStatus: action.newValue}
+        }
+        case 'SET-STATUS': {
             return {
                 ...state,
                 status: action.status
@@ -133,25 +137,31 @@ export const addPostAC = (newValue: string) => {
 }
 export const removePostAC = (postID: string) => {
     return {
-        type: "REMOVE-POST",
+        type: 'REMOVE-POST',
         postID,
     } as const
 }
 export const likeClickAC = (postID: string) => {
     return {
-        type: "LIKE",
+        type: 'LIKE',
         postID
     } as const
 }
 export const setProfileAC = (profile: IProfile) => {
     return {
-        type: "SET-PROFILE",
+        type: 'SET-PROFILE',
         profile
     } as const
 }
-export const setStatusAC = (status: string) => {
+export const setProfileEntityAC = (newValue: RequestStatusType) => {
     return {
-        type: "SET-STATUS",
+        type: 'SET-PROFILE-ENTITY',
+        newValue,
+    } as const
+}
+export const setProfileStatusAC = (status: string) => {
+    return {
+        type: 'SET-STATUS',
         status
     } as const
 }
