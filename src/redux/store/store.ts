@@ -5,7 +5,8 @@ import {settingsReducer} from "../reducers/settingsReducer";
 import {messagesReducer} from "../reducers/messagesReducer";
 import {usersReducer} from "../reducers/usersReducer";
 import {authReducer} from "../reducers/authReducer";
-import thunk from "redux-thunk";
+import thunk from 'redux-thunk';
+import {appReducer} from '../reducers/appReducer';
 
 
 export type AppStateType = ReturnType<typeof reducers>
@@ -18,6 +19,7 @@ const reducers = combineReducers({
     dialogs: dialogsReducer,
     messages: messagesReducer,
     users: usersReducer,
+    app: appReducer
 })
 //TODO: add localStorage util
 export const store = legacy_createStore(reducers, applyMiddleware(thunk))
