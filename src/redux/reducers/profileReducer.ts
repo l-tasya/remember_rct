@@ -7,7 +7,11 @@ type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof removePostAC>
     | ReturnType<typeof likeClickAC>
     | ReturnType<typeof setProfileAC>
-    | ReturnType<typeof setStatusAC>
+    | ReturnType<typeof setProfileStatusAC>
+    | ReturnType<typeof setLoadingStatusAC>
+    | ReturnType<typeof setAlertMessageAC>
+    | ReturnType<typeof setAuthProfileAC>
+    | ReturnType<typeof setProfileEntityAC>
 
 
 const initialState: ProfileReducerType = {
@@ -151,37 +155,58 @@ export const setStatusAC = (status: string) => {
         status
     } as const
 }
-export const getProfileThunkCreator = (id: number) => {
-
-    return (dispatch: Dispatch) => {
-            profileAPI.getProfile(id).then(response => {
-                dispatch(setProfileAC(response.data))
-            }).catch(() => console.log("getProfile thunk"))
-    }
+export const getProfileThunkCreator = (id: number) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setLoadingStatusAC('loading'))
+    profileAPI.getProfile(id)
+        .then((response) => {
+            dispatch(setProfileAC(response.data))
+            dispatch(setLoadingStatusAC('succeeded'))
+        })
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e)
+        })
 }
-export const changeProfileThunkCreator = (profile: IProfile) => {
-    return () => {
-        profileAPI.changeProfile(profile).then((res) => {
+export const changeProfileThunkCreator = (profile: IProfile) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setLoadingStatusAC('loading'))
+    dispatch(setProfileEntityAC('loading'))
+    profileAPI.changeProfile(profile)
+        .then((res) => {
             if (res.data.resultCode === 0) {
-                alert("done")
+                dispatch(setAuthProfileAC(profile))
+                dispatch(setLoadingStatusAC('succeeded'))
+                dispatch(setProfileEntityAC('succeeded'))
+                setTimeout(() => dispatch(setAlertMessageAC('Profile changed Successfully!')), 300)
+
+            } else {
+                handleServerAppError(res.data, dispatch)
+                setTimeout(() => dispatch(setProfileEntityAC('failed')), 3200)
             }
         })
-    }
-}
-export const getStatusThunkCreator = (id: number) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getStatus(id)
-            .then(response => {
-                dispatch(setStatusAC(response.data))
-            }).catch(() => console.log("getProfile thunk"))
-    }
-}
-export const updateStatusThunkCreator = (status: string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.updateStatus(status).then(response => {
-            if (response.data.resultCode === 0) {
-                dispatch(setStatusAC(status))
-            }
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e)
+            dispatch(setProfileEntityAC('failed'))
         })
-    }
+}
+export const getStatusThunkCreator = (id: number) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setLoadingStatusAC('loading'))
+    profileAPI.getStatus(id)
+        .then(response => {
+            dispatch(setProfileStatusAC(response.data))
+            dispatch(setLoadingStatusAC('succeeded'))
+        })
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e)
+        })
+}
+export const updateStatusThunkCreator = (status: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setLoadingStatusAC('loading'))
+    profileAPI.updateStatus(status).then(response => {
+        if (response.data.resultCode === 0) {
+            dispatch(setProfileStatusAC(status))
+            dispatch(setLoadingStatusAC('succeeded'))
+        }
+    })
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e)
+        })
 }
