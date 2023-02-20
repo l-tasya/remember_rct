@@ -64,32 +64,46 @@ export const setAuthEntityAC = (newValue: RequestStatusType) => {
     } as const
 }
 export const fetchLoginTC = () => (dispatch: AppThunkDispatchType) => {
+    dispatch(setLoadingStatusAC('loading'))
     authAPI.getUserData()
         .then((response) => {
                 if (response.data.resultCode === ResultCodes.Success) {
                     dispatch(setUserDataAC({...response.data.data, isAuth: true}))
                     dispatch(getProfileThunkCreator(response.data.data.id))
+
                 }
+                dispatch(setLoadingStatusAC('succeeded'))
             }
-        )
+        ).catch((error) => {
+        handleServerNetworkError(dispatch, error)
+    })
 
 }
 const getProfileThunkCreator = (id: number) => {
     return (dispatch: Dispatch) => {
         profileAPI.getProfile(id).then(response => {
             dispatch(setAuthProfileAC(response.data))
-        }).catch(() => console.log('getProfile thunk'))
+        }).catch((error) => {
+            handleServerNetworkError(dispatch, error)
+        })
     }
 }
-export const logIn = (email: string, password: string, rememberMe: boolean) => async (dispatch: AppThunkDispatchType) => {
-    let response = await authAPI.logIn(email, password, rememberMe)
-    if (response.data.resultCode === ResultCodesForCaptcha.Success) {
-        dispatch(fetchLoginTC())
-    } else {
-        console.error(response.data.messages)
-        alert('Incorrect Password or Login')
-    }
+export const logIn = (email: string, password: string, rememberMe: boolean) => (dispatch: AppThunkDispatchType) => {
+    dispatch(setLoadingStatusAC('loading'))
+    dispatch(setAuthEntityAC('loading'))
+    authAPI.logIn(email, password, rememberMe).then((response) => {
+        if (response.data.resultCode === ResultCodes.Success) {
+            dispatch(setLoadingStatusAC('succeeded'))
+            dispatch(setAuthEntityAC('succeeded'))
+            dispatch(fetchLoginTC())
 
+        } else {
+            handleServerAppError(response.data, dispatch)
+            setTimeout(() => dispatch(setAuthEntityAC('failed')), 3200)
+        }
+    }).catch((e) => {
+        handleServerNetworkError(dispatch, e)
+    })
 
 }
 
@@ -100,13 +114,25 @@ export const logOut = () => {
         id: undefined,
         email: undefined,
         login: undefined,
+        entity: 'idle'
     }
-    return (dispatch: AppThunkDispatchType) => {
+    return (dispatch: Dispatch<ActionsType>) => {
+        dispatch(setLoadingStatusAC('loading'))
+        dispatch(setAuthEntityAC('loading'))
         authAPI.logOut()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(setUserDataAC(logOut))
+                    dispatch(setLoadingStatusAC('succeeded'))
+                    dispatch(setAuthEntityAC('succeeded'))
+                } else {
+                    handleServerAppError(response.data, dispatch)
+                    setTimeout(() => dispatch(setAuthEntityAC('failed')), 3200)
                 }
+
+            })
+            .catch((e) => {
+                handleServerNetworkError(dispatch, e)
             })
 
     }
