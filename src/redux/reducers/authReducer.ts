@@ -18,7 +18,8 @@ const initialState: AuthReducerType = {
     email: undefined,
     login: undefined,
     isAuth: false,
-    profile: null
+    profile: null,
+    entity: 'idle'
 }
 
 
