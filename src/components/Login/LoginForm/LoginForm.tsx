@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import Checkbox from '@mui/material/Checkbox';
 import styled from 'styled-components';
 import Button from '@mui/material/Button/Button';
+import {useAppSelector} from '../../../common/hook/hooks';
 
 export const Wrapper = styled.form`
 
@@ -42,13 +43,12 @@ export const LoginForm: React.FC<IProps> = ({login}) => {
         onSubmit: (values) => {
             setTimeout(() => {
                 login(values.email, values.password, values.rememberMe)
-                formik.setSubmitting(false)
             }, 400);
 
 
         }
     });
-
+    const entity = useAppSelector(t => t.auth.entity)
     return (
         <Wrapper onSubmit={formik.handleSubmit}>
             <TextField
@@ -81,7 +81,7 @@ export const LoginForm: React.FC<IProps> = ({login}) => {
                 checked={formik.values.rememberMe}
                 onChange={formik.handleChange}
             /></div>
-            <Button color="primary" variant="contained" fullWidth type="submit" disabled={formik.isSubmitting}>
+            <Button color="primary" variant="contained" fullWidth type="submit" disabled={entity === 'loading'}>
                 Submit
             </Button>
         </Wrapper>
