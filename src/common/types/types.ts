@@ -1,3 +1,5 @@
+import {RequestStatusType} from '../../redux/reducers/appReducer';
+
 export type IProfile = {
     userId: number
     lookingForAJob: boolean
@@ -44,6 +46,7 @@ export type IPost = {
 export type ProfileReducerType = {
     profile: IProfile,
     status: string,
+    entityStatus: RequestStatusType
     posts: IPost[],
 
 }
@@ -53,24 +56,21 @@ export type AuthReducerType = {
     login?: string
     isAuth: boolean
     profile?: IProfile | null
+    entity: RequestStatusType
 }
 
 //enums
 
+
 export enum ResultCodes {
-    Success = 0,
-    Error = 1,
-
-}
-
-export enum ResultCodesForCaptcha {
     Success = 0,
     Error = 1,
     CaptchaIsRequired = 10
 }
 
-export type ResponseType<D = {}, R = ResultCodes> = {
+export type ResponseType<D = {}> = {
     messages: string[]
     data: D
-    resultCode: R
+    resultCode: ResultCodes
+    fieldsErrors: string[]
 }
