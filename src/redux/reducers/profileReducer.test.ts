@@ -136,3 +136,8 @@ test('reducer should set a new user of profilePage', ()=>{
     expect(endState.profile.userId).toEqual(newProfile.userId)
     expect(endState.profile.contacts.mainLink).toEqual(newProfile.contacts.mainLink)
 })
+test('reducer should change entityStatus', () => {
+    let newValue: RequestStatusType = 'loading'
+    const endState = profileReducer(startState, setProfileEntityAC(newValue))
+    expect(endState.entityStatus).toEqual(newValue)
+})
