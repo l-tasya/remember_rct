@@ -22,13 +22,16 @@ const initialState: AuthReducerType = {
 }
 
 
-export const authReducer = (state: AuthReducerType = initialState, action: ActionType): AuthReducerType => {
+export const authReducer = (state: AuthReducerType = initialState, action: ActionsType): AuthReducerType => {
     switch (action.type) {
         case 'SET-USER-DATA': {
-            return {...action.payload}
+            return {...state, ...action.payload}
         }
         case 'SET-AUTH-PROFILE': {
             return {...state, profile: action.payload}
+        }
+        case 'SET/AUTH-ENTITY': {
+            return {...state, entity: action.newValue}
         }
         default: {
             return state
