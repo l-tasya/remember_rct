@@ -14,7 +14,6 @@ export const ProfileInfoContainer: React.FC = () => {
     const profile = useAppSelector(t => t.profile.profile)
     let statusText = useAppSelector(s => s.profile.status)
 
-
     const dispatch = useAppDispatch();
     let [isProfile, setIsProfile] = useState<boolean>(false)
 
@@ -32,7 +31,6 @@ export const ProfileInfoContainer: React.FC = () => {
                 dispatch(getStatusThunkCreator(Number(param.userID)))
             }
         } else {
-
             setIsProfile(false)
             let id = Number(param.userID)
             dispatch(getProfileThunkCreator(id))
@@ -42,7 +40,7 @@ export const ProfileInfoContainer: React.FC = () => {
         return () => {
         }
 
-    }, [param, dispatch, auth.isAuth, auth.id])
+    }, [dispatch, auth.isAuth, auth.id, param.userID])
     const setStatusText = useCallback((status: string) => {
         dispatch(updateStatusThunkCreator(status))
     }, [dispatch])
