@@ -19,7 +19,7 @@ type ActionsType = ReturnType<typeof addPostAC>
 
 const initialState: ProfileReducerType = {
     profile: {
-        fullName: "blank",
+        fullName: 'blank',
         photos: {
             large: null,
             small: null,
