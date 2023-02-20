@@ -4,7 +4,8 @@ import {StyledIMGBadge, StyledTitle} from "../../../common/styles/mui-styles";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import Button from "@mui/material/Button/Button";
-import {IProfile} from "../../../common/types/types";
+import {IProfile} from '../../../common/types/types';
+import {useAppSelector} from '../../../common/hook/hooks';
 
 interface IProps {
     profile: IProfile
@@ -83,7 +84,7 @@ export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges})
         }
         saveChanges(item)
     }
-
+    const profileEntity = useAppSelector(t => t.profile.entityStatus)
 
     return <div>
         {/*<Title value={'default'}>Personal Data</Title>*/}
@@ -100,15 +101,18 @@ export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges})
         <Form>
             <Item>
                 <label>Name</label>
-                <input value={name} onChange={(e) => setName(e.currentTarget.value)} type="text"/>
+                <input disabled={profileEntity === 'loading'} value={name}
+                       onChange={(e) => setName(e.currentTarget.value)} type="text"/>
             </Item>
             <Item>
                 <label>Surname</label>
-                <input value={surname} onChange={(e) => setSurname(e.currentTarget.value)} type="text"/>
+                <input disabled={profileEntity === 'loading'} value={surname}
+                       onChange={(e) => setSurname(e.currentTarget.value)} type="text"/>
             </Item>
             <Item>
                 <label>About me</label>
-                <input value={about} onChange={(e) => setAbout(e.currentTarget.value)} type="text"/>
+                <input disabled={profileEntity === 'loading'} value={about}
+                       onChange={(e) => setAbout(e.currentTarget.value)} type="text"/>
             </Item>
         </Form>
         <Footer>
@@ -116,6 +120,7 @@ export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges})
                 variant={"contained"}
                 size={"small"}
                 onClick={saveChangesCallback}
+                disabled={profileEntity === 'loading'}
             >Save</Button>
         </Footer>
     </div>
