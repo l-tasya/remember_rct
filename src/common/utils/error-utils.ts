@@ -4,6 +4,7 @@ import {ResponseType} from '../types/types';
 
 export const handleServerNetworkError = (dispatch: ErrorUtilsDispatchType, error: { message: string }) => {
     setTimeout(() => {
+        debugger
         dispatch(setErrorAC(error.message))
         dispatch(setLoadingStatusAC('failed'))
     }, 2000)

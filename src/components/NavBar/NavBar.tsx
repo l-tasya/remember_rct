@@ -47,7 +47,6 @@ export const NavBar: React.FC = () => {
     } : {
         color: theme.palette.text.primary
     }
-
     return (
         <Container id={"nav"} padding={"none"} radius={"none"}>
             <NavLink style={style} to={"remember_rct/"}><Home size={30}/></NavLink>

@@ -31,8 +31,8 @@ type LoginResponse = ResponseType<{ userId: number }>
 
 export const authAPI = {
 
-    getUserData: () => {
-        return instance.get<AuthResponse>(baseURL + `auth/me`)
+    getUserData: async () => {
+        return await instance.get<AuthResponse>(baseURL + `auth/me`)
     },
 
     logIn: (email: string, password: string, rememberMe: boolean = false) => {

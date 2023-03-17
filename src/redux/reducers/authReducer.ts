@@ -5,6 +5,7 @@ import {Dispatch} from 'redux';
 import {RequestStatusType, setErrorAC, setLoadingStatusAC} from './appReducer';
 import {setProfileStatusAC} from './profileReducer';
 import {handleServerAppError, handleServerNetworkError} from '../../common/utils/error-utils';
+import {AxiosError} from 'axios';
 
 type ActionsType = ReturnType<typeof setUserDataAC>
     | ReturnType<typeof setAuthProfileAC>
@@ -63,31 +64,33 @@ export const setAuthEntityAC = (newValue: RequestStatusType) => {
         newValue,
     } as const
 }
-export const fetchLoginTC = () => (dispatch: AppThunkDispatchType) => {
+export const fetchLoginTC = () => async (dispatch: AppThunkDispatchType) => {
     dispatch(setLoadingStatusAC('loading'))
-    authAPI.getUserData()
-        .then((response) => {
-                if (response.data.resultCode === ResultCodes.Success) {
-                    dispatch(setUserDataAC({...response.data.data, isAuth: true}))
-                    dispatch(getProfileThunkCreator(response.data.data.id))
-
-                }
-                dispatch(setLoadingStatusAC('succeeded'))
-            }
-        ).catch((error) => {
-        handleServerNetworkError(dispatch, error)
-    })
-
-}
-const getProfileThunkCreator = (id: number) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getProfile(id).then(response => {
-            dispatch(setAuthProfileAC(response.data))
-        }).catch((error) => {
-            handleServerNetworkError(dispatch, error)
-        })
+    let response = await authAPI.getUserData()
+    try {
+        if (response.data.resultCode === ResultCodes.Success) {
+            dispatch(setUserDataAC({...response.data.data, isAuth: true}))
+            await profileAPI.getProfile(response.data.data.id).then(response => {
+                dispatch(setAuthProfileAC(response.data))
+            }).catch((error) => {
+                debugger
+                handleServerNetworkError(dispatch, error)
+            })
+            dispatch(setLoadingStatusAC('succeeded'))
+        } else {
+            handleServerAppError(response.data, dispatch)
+        }
+    } catch (e) {
+        if (e instanceof AxiosError) {
+            // ✅ TypeScript knows err is AxiosError
+            return handleServerNetworkError(dispatch, e)
+        } else {
+            console.error(e)
+        }
     }
+
 }
+
 export const logIn = (email: string, password: string, rememberMe: boolean) => (dispatch: AppThunkDispatchType) => {
     dispatch(setLoadingStatusAC('loading'))
     dispatch(setAuthEntityAC('loading'))

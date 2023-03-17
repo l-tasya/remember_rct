@@ -168,17 +168,7 @@ export const setProfileStatusAC = (status: string) => {
         status
     } as const
 }
-export const getProfileThunkCreator = (id: number) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setLoadingStatusAC('loading'))
-    profileAPI.getProfile(id)
-        .then((response) => {
-            dispatch(setProfileAC(response.data))
-            dispatch(setLoadingStatusAC('succeeded'))
-        })
-        .catch((e) => {
-            handleServerNetworkError(dispatch, e)
-        })
-}
+
 export const changeProfileThunkCreator = (profile: IProfile) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setLoadingStatusAC('loading'))
     dispatch(setProfileEntityAC('loading'))
@@ -200,7 +190,17 @@ export const changeProfileThunkCreator = (profile: IProfile) => (dispatch: Dispa
             dispatch(setProfileEntityAC('failed'))
         })
 }
+export const getProfileThunkCreator = (id: number) => async (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setLoadingStatusAC('loading'))
+    const response = await profileAPI.getProfile(id)
+    try {
+        dispatch(setProfileAC(response.data))
+        dispatch(setLoadingStatusAC('succeeded'))
+    } catch (e) {
+    }
+}
 export const getStatusThunkCreator = (id: number) => (dispatch: Dispatch<ActionsType>) => {
+    console.log('getStatus')
     dispatch(setLoadingStatusAC('loading'))
     profileAPI.getStatus(id)
         .then(response => {

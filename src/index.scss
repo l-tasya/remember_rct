@@ -29,3 +29,9 @@ button{
   border: none;
   background: white
 }
+@font-face {
+  font-family: "MyFont";
+  src: local("MyFont"),
+  url("common/fonts/DIGITALDREAM.woff2") format("truetype");
+  font-weight: bold;
+}

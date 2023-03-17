@@ -5,7 +5,7 @@ import {setErrorAC, setLoadingStatusAC} from '../../../redux/reducers/appReducer
 import MuiAlert, {AlertProps} from '@mui/material/Alert/Alert';
 import {Stack} from '@mui/material';
 
-const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
     props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });

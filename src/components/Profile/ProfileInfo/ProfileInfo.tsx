@@ -8,9 +8,9 @@ import {IProfile} from '../../../common/types/types';
 
 interface IProps {
     user: IProfile
-    isMyStatus: boolean
+    // isMyStatus: boolean
     status: string
-    setStatus: (status: string) => void
+    // setStatus: (status: string) => void
 }
 
 const Container = styled(StyledBlock)`
@@ -55,25 +55,25 @@ const InfoContainer = styled.div`
         grid-row-start: 4;
         grid-row-end: 6;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `
 const SubTitle = styled.div`
-  
 
-    `
+
+`
 const Title = styled.div`
-        font-size: 30px;
-        color: rgb(62,62,62);
-        text-transform: capitalize;
-        font-weight: 600;
-    `
-export const ProfileInfo: React.FC<IProps> = React.memo(({user, isMyStatus, status, setStatus}) => {
+  font-size: 30px;
+  color: rgb(62, 62, 62);
+  text-transform: capitalize;
+  font-weight: 600;
+`
+export const ProfileInfo: React.FC<IProps> = React.memo(({user, status}) => {
     let img = user.photos.large ? <img src={user.photos.large} alt={'error'}/> : <PersonIcon/>
     let theme = useTheme();
-
+    console.log('Profile Info')
     return (
         <Container>
             <BackGroundEl background={theme.palette.primary.light}/>
@@ -83,26 +83,16 @@ export const ProfileInfo: React.FC<IProps> = React.memo(({user, isMyStatus, stat
             <InfoContainer>
                 <Title>{user.fullName}</Title>
                 <SubTitle>
-                    {
-                        isMyStatus ?
-                            <EditableTitle title={status} c1={setStatus}/>
-                            :
-                            status ? status : '(empty)'
+                    {status}
+                    {/*{*/}
+                    {/*    isMyStatus ?*/}
+                    {/*        <EditableTitle title={status} c1={setStatus}/>*/}
+                    {/*        :*/}
+                    {/*        status ? status : '(empty)'*/}
 
-                    }
+                    {/*}*/}
                 </SubTitle>
             </InfoContainer>
-            {/*<Footer>*/}
-            {/*    <NavLink*/}
-            {/*        style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}*/}
-            {/*        to={"posts"}>Posts</NavLink>*/}
-            {/*    <NavLink*/}
-            {/*        style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}*/}
-            {/*        to={"friends"}>Friends</NavLink>*/}
-            {/*    <NavLink*/}
-            {/*        style={({isActive}) => isActive ? {borderBottom: `4px solid ${theme.palette.primary.main}`} : {}}*/}
-            {/*        to={"groups"}>Groups</NavLink>*/}
-            {/*</Footer>*/}
 
 
         </Container>)
