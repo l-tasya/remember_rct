@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid'
 import {profileAPI} from '../../api/api';
-import {IPost, IProfile, ProfileReducerType} from '../../common/types/types';
+import {IPost, IProfile} from '../../common/types/types';
 import {handleServerAppError, handleServerNetworkError} from '../../common/utils/error-utils';
 import {RequestStatusType, setAlertMessageAC, setLoadingStatusAC} from './appReducer';
 import {setAuthProfileAC} from './authReducer';
@@ -15,25 +15,14 @@ type ActionsType = ReturnType<typeof addPostAC>
     | ReturnType<typeof setAlertMessageAC>
     | ReturnType<typeof setAuthProfileAC>
     | ReturnType<typeof setProfileEntityAC>
+    | ReturnType<typeof setProfileLoadingAC>
 
 
-const initialState: ProfileReducerType = {
-    profile: {
-        fullName: 'blank',
-        photos: {
-            large: null,
-            small: null,
-        },
-        userId: 1,
-        lookingForAJob: false,
-        contacts: {
-            mainLink: '',
-        },
-        lookingForAJobDescription: '',
-        aboutMe: ''
-    },
-    status: 'blank',
-    entityStatus: 'idle',
+const initialState = {
+    profile: null as IProfile | null,
+    status: undefined as string | null | undefined,
+    entityStatus: 'idle' as RequestStatusType,
+    profileLoading: 'idle' as RequestStatusType,
     posts: [
         {
             id: v1(),
@@ -78,9 +67,10 @@ const initialState: ProfileReducerType = {
             time: 'Jan U j U',
             likeCount: 3333
         }
-    ]
+    ] as Array<IPost>
 }
-export const profileReducer = (state: ProfileReducerType = initialState, action: ActionsType): ProfileReducerType => {
+export type InitialState = typeof initialState
+export const profileReducer = (state: InitialState = initialState, action: ActionsType): InitialState => {
     switch (action.type) {
         case 'ADD-POST': {
             const stateCopy = {...state}
@@ -124,6 +114,9 @@ export const profileReducer = (state: ProfileReducerType = initialState, action:
                 status: action.status
             }
         }
+        case "SET-PROFILE-LOADING": {
+            return {...state, profileLoading: action.newValue}
+        }
         default: {
             return state
         }
@@ -162,6 +155,12 @@ export const setProfileEntityAC = (newValue: RequestStatusType) => {
         newValue,
     } as const
 }
+export const setProfileLoadingAC = (newValue: RequestStatusType) => {
+    return {
+        type: 'SET-PROFILE-LOADING',
+        newValue,
+    } as const
+}
 export const setProfileStatusAC = (status: string) => {
     return {
         type: 'SET-STATUS',
@@ -190,25 +189,38 @@ export const changeProfileThunkCreator = (profile: IProfile) => (dispatch: Dispa
             dispatch(setProfileEntityAC('failed'))
         })
 }
-export const getProfileThunkCreator = (id: number) => async (dispatch: Dispatch<ActionsType>) => {
+export const getProfileThunkCreator = (id: number) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setLoadingStatusAC('loading'))
-    const response = await profileAPI.getProfile(id)
-    try {
-        dispatch(setProfileAC(response.data))
-        dispatch(setLoadingStatusAC('succeeded'))
-    } catch (e) {
-    }
+    dispatch(setProfileLoadingAC('loading'))
+
+    Promise.allSettled([profileAPI.getProfile(id), profileAPI.getStatus(id)])
+        .then(([res1, res2]) => {
+            if (res1.status !== "rejected") {
+                dispatch(setProfileAC(res1.value.data))
+            }
+            if (res2.status !== "rejected") {
+                dispatch(setProfileStatusAC(res2.value.data))
+            }
+            dispatch(setLoadingStatusAC('succeeded'))
+            dispatch(setProfileLoadingAC('succeeded'))
+        })
+        .catch((e) => {
+            handleServerNetworkError(dispatch, e)
+            dispatch(setProfileLoadingAC('failed'))
+        })
 }
 export const getStatusThunkCreator = (id: number) => (dispatch: Dispatch<ActionsType>) => {
-    console.log('getStatus')
     dispatch(setLoadingStatusAC('loading'))
+    dispatch(setProfileLoadingAC('loading'))
     profileAPI.getStatus(id)
         .then(response => {
             dispatch(setProfileStatusAC(response.data))
             dispatch(setLoadingStatusAC('succeeded'))
+            dispatch(setProfileLoadingAC('succeeded'))
         })
         .catch((e) => {
             handleServerNetworkError(dispatch, e)
+            dispatch(setProfileLoadingAC('failed'))
         })
 }
 export const updateStatusThunkCreator = (status: string) => (dispatch: Dispatch<ActionsType>) => {

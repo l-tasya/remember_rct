@@ -21,7 +21,10 @@ export const UserMenu: React.FC = React.memo(() => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const logOutHandler = () => {
-        dispatch(logOut())
+        dispatch(logOut()).then(() => {
+            navigate('/remember_rct/login')
+        })
+
     }
     const entity = useAppSelector(t => t.auth.entity)
     return auth.isAuth ? <MenuBadge svg={<PersonIcon/>}>

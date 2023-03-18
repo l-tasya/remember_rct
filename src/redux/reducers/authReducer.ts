@@ -72,14 +72,10 @@ export const fetchLoginTC = () => async (dispatch: AppThunkDispatchType) => {
             dispatch(setUserDataAC({...response.data.data, isAuth: true}))
             await profileAPI.getProfile(response.data.data.id).then(response => {
                 dispatch(setAuthProfileAC(response.data))
-            }).catch((error) => {
-                debugger
-                handleServerNetworkError(dispatch, error)
             })
             dispatch(setLoadingStatusAC('succeeded'))
-        } else {
-            handleServerAppError(response.data, dispatch)
         }
+        dispatch(setLoadingStatusAC('succeeded'))
     } catch (e) {
         if (e instanceof AxiosError) {
             // ✅ TypeScript knows err is AxiosError
@@ -122,7 +118,7 @@ export const logOut = () => {
     return (dispatch: Dispatch<ActionsType>) => {
         dispatch(setLoadingStatusAC('loading'))
         dispatch(setAuthEntityAC('loading'))
-        authAPI.logOut()
+        return authAPI.logOut()
             .then(response => {
                 if (response.data.resultCode === 0) {
                     dispatch(setUserDataAC(logOut))
@@ -135,7 +131,7 @@ export const logOut = () => {
 
             })
             .catch((e) => {
-                handleServerNetworkError(dispatch, e)
+                return handleServerNetworkError(dispatch, e)
             })
 
     }

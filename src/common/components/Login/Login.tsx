@@ -42,6 +42,7 @@ type Initial = {
 const Container = styled(Paper)`
   width: 300px;
   padding: 8px;
+  margin: 8px;
 `
 const Title = styled.div`
   font-weight: 700;
@@ -67,7 +68,7 @@ const SubTitle = styled(Title)`
 `
 export const Login: React.FC = () => {
     const dispatch = useAppDispatch()
-    const isLoggedIn = useAppSelector(t => t.auth.isAuth)
+    const auth = useAppSelector(t => t.auth)
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -82,8 +83,8 @@ export const Login: React.FC = () => {
             })
         },
     })
-    if (isLoggedIn) {
-        return <Navigate to={'/todolist/'}/>
+    if (auth.isAuth) {
+        return <Navigate to={`/remember_rct/${auth.id}/`}/>
     }
     return <Container>
         <Title style={{fontSize: '20px'}}>Login</Title>

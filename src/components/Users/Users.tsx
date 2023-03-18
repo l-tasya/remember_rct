@@ -3,22 +3,23 @@ import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import {User} from "./User/User";
 import {IUser} from "../../common/types/types";
+import Paper from "@mui/material/Paper/Paper";
 //styles
 const UsersContainer = styled.div`
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-        gap: 16px;
-        grid-auto-rows: minmax(150px, 200px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  grid-auto-rows: minmax(150px, 1fr);
 `
 
 const Footer = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 const Wrapper = styled.div`
-display: grid;
-grid-template-rows: 1fr 50px;
+  display: grid;
+  grid-template-rows: 1fr 80px;
 `
 
 interface IProps {
@@ -31,7 +32,15 @@ interface IProps {
     userUnFollow: (id: number) => void
 }
 
-export const Users: React.FC<IProps> = React.memo(({users, isFetching, currentPage, pagesCount, changeCurrentPage, userFollow, userUnFollow}) => {
+export const Users: React.FC<IProps> = React.memo(({
+                                                       users,
+                                                       isFetching,
+                                                       currentPage,
+                                                       pagesCount,
+                                                       changeCurrentPage,
+                                                       userFollow,
+                                                       userUnFollow
+                                                   }) => {
 
     const handleChange = useCallback((event: React.ChangeEvent<unknown>, value: number) => {
         changeCurrentPage(value);
@@ -42,22 +51,25 @@ export const Users: React.FC<IProps> = React.memo(({users, isFetching, currentPa
             key={t.id}
             id={t.id}
             name={t.name}
-                status={t.status}
-                photo={t.photo}
-                followed={t.followed}
-                loading={isFetching}
-                follow={userFollow}
-                unFollow={userUnFollow}
-            />
-        })
+            status={t.status}
+            photo={t.photo}
+            followed={t.followed}
+            loading={isFetching}
+            follow={userFollow}
+            unFollow={userUnFollow}
+        />
+    })
 
-        return (
+    return (
             <Wrapper id={"container"}>
                 <UsersContainer>
                     {usersItems}
                 </UsersContainer>
                 <Footer>
-                    <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
+
+                    <Paper sx={{padding: '2px 8px;'}}>
+                        <Pagination page={currentPage} count={pagesCount} onChange={handleChange}/>
+                    </Paper>
                 </Footer>
             </Wrapper>
         )

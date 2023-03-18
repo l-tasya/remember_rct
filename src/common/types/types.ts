@@ -43,13 +43,6 @@ export type IPost = {
 }
 
 
-export type ProfileReducerType = {
-    profile: IProfile,
-    status: string,
-    entityStatus: RequestStatusType
-    posts: IPost[],
-
-}
 export type AuthReducerType = {
     id?: number
     email?: string
