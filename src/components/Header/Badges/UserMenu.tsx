@@ -8,8 +8,8 @@ import Settings from '@mui/icons-material/Settings';
 import {NavLink, useNavigate} from 'react-router-dom';
 import Button from '@mui/material/Button';
 import {useAppDispatch, useAppSelector} from '../../../common/hook/hooks';
-import {logOut} from '../../../redux/reducers/authReducer';
-import {MenuBadge} from '../../../common/components/Menu/Menu';
+import {logOut} from '../../../features/Auth/authReducer';
+import {MenuBadge} from '../../Menu/Menu';
 import {Logout, PersonAdd} from '@mui/icons-material';
 
 
@@ -17,7 +17,6 @@ export const UserMenu: React.FC = React.memo(() => {
     let auth = useAppSelector(t => t.auth)
     let profile = useAppSelector(t => t.auth.profile)
     let avatar: string | undefined = profile?.photos.small ? profile?.photos.small : '';
-    //TODO: logOut navigate
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const logOutHandler = () => {

@@ -33,7 +33,7 @@ export const PaddedContentContainer = styled(Scroll)(() => ({
     "#container": {
         gridColumnStart: 2,
     },
-    padding: "8px 0 8px 0;",
+    padding: "10px 0",
 
 }))
 //common

@@ -1,5 +1,3 @@
-import {RequestStatusType} from '../../redux/reducers/appReducer';
-
 export type IProfile = {
     userId: number
     lookingForAJob: boolean
@@ -42,15 +40,6 @@ export type IPost = {
     isLiked: boolean
 }
 
-
-export type AuthReducerType = {
-    id?: number
-    email?: string
-    login?: string
-    isAuth: boolean
-    profile?: IProfile | null
-    entity: RequestStatusType
-}
 
 //enums
 

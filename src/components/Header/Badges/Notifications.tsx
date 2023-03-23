@@ -1,10 +1,10 @@
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MenuItem from '@mui/material/MenuItem';
 import React from 'react';
-import {MenuBadge} from '../../../common/components/Menu/Menu';
+import {MenuBadge} from '../../Menu/Menu';
 import {useSelector} from 'react-redux';
-import {AppStateType} from '../../../redux/store/store';
-import {DialogType} from '../../../redux/reducers/dialogsReducer';
+import {AppStateType} from '../../../app/store';
+import {DialogType} from '../../../features/Messenger/Dialogs/dialogsReducer';
 import {NavLink} from 'react-router-dom';
 
 

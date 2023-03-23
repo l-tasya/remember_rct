@@ -1,9 +1,9 @@
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import React, {useCallback} from 'react';
-import App from './App';
-import {AppStateType} from "./redux/store/store";
+import App from './app/App';
+import {AppStateType} from "./app/store";
 import {useSelector} from "react-redux";
-import {ThemesType} from "./redux/reducers/settingsReducer";
+import {ThemesType} from "./features/Settings/settingsReducer";
 
 
 export const ColorModeContext = React.createContext({

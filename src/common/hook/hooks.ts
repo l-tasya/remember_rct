@@ -1,7 +1,7 @@
 import {ThunkDispatch} from "redux-thunk";
 import {AnyAction} from "redux";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../redux/store/store";
+import {AppStateType} from "../../app/store";
 
 export type AppThunkDispatchType = ThunkDispatch<AppStateType, any, AnyAction>
 //APP DISPATCH

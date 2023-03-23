@@ -35,18 +35,24 @@ export const authAPI = {
         return await instance.get<AuthResponse>(baseURL + `auth/me`)
     },
 
-    logIn: (email: string, password: string, rememberMe: boolean = false) => {
+    logIn: (email: string, password: string, rememberMe: boolean = false, captcha?: string) => {
         return instance.post<RequestProperties, AxiosResponse<LoginResponse>>(baseURL + `auth/login`, {
             email,
             password,
-            rememberMe
+            rememberMe,
+            captcha
         })
     },
 
     logOut: () => {
         return instance.delete<ResponseType>(baseURL + `auth/login`)
-    }
+    },
 
+}
+export const securityAPI = {
+    getCaptcha: () => {
+        return instance.get<{ url: string }>(baseURL + '/security/get-captcha-url')
+    }
 }
 
 
@@ -56,6 +62,16 @@ export const profileAPI = {
     },
     changeProfile: (profile: IProfile) => {
         return instance.put<IProfile, AxiosResponse<ResponseType>>(baseURL + `profile`, profile)
+    },
+    updatePhoto: (file: File) => {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        return instance.put<File, AxiosResponse<ResponseType<{ photos: { large: string, small: string } }>>>(baseURL + `profile/photo`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     },
     getStatus: (userID: number) => {
         return instance.get<string>(baseURL + `profile/status/${userID}`)
