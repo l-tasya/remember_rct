@@ -7,6 +7,10 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import TextField from "@mui/material/TextField/TextField";
 import Button from "@mui/material/Button/Button";
 import Avatar from "@mui/material/Avatar/Avatar";
+import styled from "styled-components";
+import {Attach} from "../../../../components/Attach/Attach";
+import Grid from "@mui/material/Grid/Grid";
+import Card from "@mui/material/Card/Card";
 
 interface IProps {
     profile: IProfile
@@ -14,12 +18,22 @@ interface IProps {
     savePhoto: (file: File) => void
 }
 
+type Contacts = {
+    github?: string
+    vk?: string
+    facebook?: string
+    instagram?: string
+    twitter?: string
+    website?: string
+    youtube?: string
+    mainLink: string | null
+}
 type Initial = {
     name: string,
     surname: string,
     about: string,
-    file: File
-
+    file?: File
+    contacts: Contacts
 }
 type FormikErrorType = {
     name?: string
@@ -40,6 +54,11 @@ const validate = (values: Initial) => {
 
     return errors;
 }
+const Links = styled(Card)`
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+`
 export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges, savePhoto}) => {
     let initialName = profile.fullName.split(" ")[0]
     let initialSurname = profile.fullName.split(" ")[1]
@@ -48,27 +67,30 @@ export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges, 
             name: initialName,
             surname: initialSurname,
             about: profile.aboutMe,
-            file: {}
+            file: {},
+            contacts: profile.contacts
+
+
         } as Initial,
         validate,
         onSubmit: (values) => {
-            saveChangesCallback(values.name, values.surname, values.about)
-            savePhoto(values.file)
+            saveChangesCallback(values.name, values.surname, values.about, values.contacts)
+            if (values.file?.name) {
+                debugger;
+                savePhoto(values.file)
+            }
         }
     })
     let [hover, setHover] = useState(false)
-    const saveChangesCallback = (name: string, surname: string, about: string) => {
+    const saveChangesCallback = (name: string, surname: string, about: string, contacts: Contacts) => {
         let item: IProfile = {
             fullName: `${name} ${surname}`,
             aboutMe: about,
             userId: profile.userId,
             lookingForAJobDescription: profile.lookingForAJobDescription,
-            contacts: profile.contacts,
+            contacts: contacts,
             lookingForAJob: profile.lookingForAJob,
-            photos: {
-                small: null,
-                large: null
-            }
+            photos: profile.photos
         }
         saveChanges(item)
     }
@@ -129,6 +151,15 @@ export const EditProfile: React.FC<IProps> = React.memo(({profile, saveChanges, 
                     helperText={formik.touched.about && formik.errors.about}
                     {...formik.getFieldProps('about')}
                 />
+                <Links>
+                    {
+                        Object.entries(formik.values.contacts).map(([key, val]) =>
+                            <Grid key={key} container alignItems={'center'}><Attach value={val}
+                                                                                    c1={(value) => formik.setFieldValue(`contacts.${key}`, value)}/>{key}: {val ? val : 'null'}
+                            </Grid>
+                        )
+                    }
+                </Links>
             </ContainerForm>
             <Footer>
                 <Button

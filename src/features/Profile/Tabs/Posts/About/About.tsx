@@ -6,6 +6,7 @@ import {NavLink} from "react-router-dom";
 import {IProfile} from "../../../../../common/types/types";
 import {useAppSelector} from "../../../../../common/hook/hooks";
 import EditIcon from "@mui/icons-material/Edit";
+import {Link} from "@mui/material";
 
 
 interface IProps {
@@ -24,11 +25,10 @@ export const About: React.FC<IProps> = React.memo(({profile}) => {
 
         <StyledTitle value={"main"} sx={{fontWeight: 700}}>About:</StyledTitle> {isAuthProfile &&
         <NavLink to={'/remember_rct/settings/personal-info'}><EditIcon sx={{fontSize: `14px`}}/></NavLink>}
-        {/*TODO: style*/}
 
         {
             Object.entries(profile.contacts).map(([key, val]) =>
-                <div key={key}>{key}: {val ? <a href={`https://${val}`}>link</a> : 'null'}</div>
+                <div key={key}>{key}: {val ? <Link href={`https://${val}`}>link</Link> : 'null'}</div>
             )
         }
     </Wrapper>
